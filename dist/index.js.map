@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 {"version":3,"file":"index.js","sourceRoot":"","sources":["../src/index.ts"],"names":[],"mappings":";AAAA,SAAS,IAAI;AAEb,CAAC"}
+=======
+{"version":3,"file":"index.js","sourceRoot":"","sources":["../src/index.ts"],"names":[],"mappings":";AAAA,MAAM,IAAI,GAAG,QAAQ,CAAA"}
+>>>>>>> 33dcab2001cd81dad8f8ba3ed2ac926c783b63bc
