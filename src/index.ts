@@ -95,11 +95,11 @@ taskForm.appendChild(taskDateIniContainer);
 
 // creating taskDateEndContainer
 const taskDateEndContainer = document.createElement("div");
-    taskDateEndContainer.classList.add("ms-1", "mb-3", "row");
+    taskDateEndContainer.classList.add("mb-3", "row");
     taskDateEndContainer.id = "taskDateEndContainer";
 // creating checkDateEndContainer
 const checkDateEndContainer = document.createElement("div");
-    checkDateEndContainer.classList.add("form-check", "col-form-label", "col-sm-3");
+    checkDateEndContainer.classList.add("col-form-label", "col-sm-3");
 // Creating checkDateEnd
 const checkDateEnd = document.createElement("input");
     checkDateEnd.type = "checkbox";
@@ -108,7 +108,7 @@ const checkDateEnd = document.createElement("input");
     checkDateEnd.id = "checkDateEnd";
 // creating checkDateEndLabel
 const checkDateEndLabel = document.createElement("label");
-    checkDateEndLabel.classList.add("form-check-label");
+    checkDateEndLabel.classList.add("form-check-label", "ms-1");
     checkDateEndLabel.htmlFor = "checkDateEnd";
     checkDateEndLabel.textContent = "End Date";
 // Creating taskDateEndInputContainer
@@ -130,10 +130,10 @@ taskForm.appendChild(taskDateEndContainer);
 
 // creating reminderContainer
 const reminderContainer = document.createElement("div");
-    reminderContainer.classList.add("ms-1", "mb-3", "row");
+    reminderContainer.classList.add("mb-3", "row");
 // creating checkReminderContainer
 const checkReminderContainer = document.createElement("div");
-    checkReminderContainer.classList.add("form-check", "col-form-label", "col-sm-3");
+    checkReminderContainer.classList.add("col-form-label", "col-sm-3");
 // creating checkReminder
 const checkReminder = document.createElement("input");
     checkReminder.type = "checkbox";
@@ -142,7 +142,7 @@ const checkReminder = document.createElement("input");
     checkReminder.id = "checkReminder";
 // creating checkReminderLabel
 const checkReminderLabel = document.createElement("label");
-    checkReminderLabel.classList.add("form-check-label");
+    checkReminderLabel.classList.add("form-check-label", "ms-1");
     checkReminderLabel.htmlFor = "checkReminder";
     checkReminderLabel.textContent = "Reminder";
 // creating selectContainer
