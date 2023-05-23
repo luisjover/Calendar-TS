@@ -1,4 +1,52 @@
-ol {
+.main{
+    display: grid;
+    grid-template-columns: repeat(19,1fr);
+    height: 800px;
+}
+.sidebar{
+    background-color: blue;
+    grid-column: 1/5;
+}
+.week-container{
+    display: grid;
+    grid-template-columns: repeat(15,1fr);
+    padding: 0;
+    background-color: aquamarine;
+    grid-column: 5/20;
+}
+.hours-section{
+    background-color: blueviolet;
+    grid-column: 1/2;
+    border-color: solid black 1px;
+}
+.day-section-1{
+    background-color: azure;
+    grid-column: 2/4;
+}
+.day-section-2{
+    background-color: azure;
+    grid-column: 4/6;
+}
+.day-section-3{
+    background-color: azure;
+    grid-column: 6/8;
+}
+.day-section-4{
+    background-color: azure;
+    grid-column: 8/10;
+}
+.day-section-5{
+    background-color: azure;
+    grid-column: 10/12;
+}
+.day-section-6{
+    background-color: azure;
+    grid-column: 12/14;
+}
+.day-section-7{
+    background-color: azure;
+    grid-column: 14/16;
+}ol {
     list-style: none;
     display: grid;
     grid-template-columns: repeat(7, 1fr);
