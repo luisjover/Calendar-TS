@@ -1,3 +1,4 @@
+
 openModalCreateTask();
 
 function openModalCreateTask () {
@@ -245,6 +246,7 @@ let modalInstance = new bootstrap.Modal(containerModalTask);
 
 modalInstance.show();
 }
+
 //Header
 const header=document.querySelector("#header") as HTMLElement;
 const title=document.createElement("h1");
