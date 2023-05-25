@@ -1,9 +1,7 @@
 "use strict";
 showmonthlyCalendar();
 function showmonthlyCalendar(refIncomingDate = new Date()) {
-    const mainMonthCalendar = document.querySelector("#main");
-    const lista = document.querySelector("#lista");
-    const asideCalendarMonth = document.createElement("aside");
+    const asideCalendarMonth = document.querySelector("#sidebar");
     const calendarMonthContainer = document.createElement("div");
     const headerCalendarContainer = document.createElement("div");
     headerCalendarContainer.classList.add("header-month");
@@ -25,8 +23,8 @@ function showmonthlyCalendar(refIncomingDate = new Date()) {
     const refWeekDay = refDate.getDay();
     const refMonth = refDate.getMonth();
     const refYear = refDate.getFullYear();
-    if (mainMonthCalendar) {
-        mainMonthCalendar.innerHTML = '';
+    if (asideCalendarMonth) {
+        asideCalendarMonth.innerHTML = '';
     }
     if (currentDate.getMonth() == 0) {
         btnPrevMonth.setAttribute("data-prev-month", `12-01-${currentDate.getFullYear() - 1}`);
@@ -47,7 +45,6 @@ function showmonthlyCalendar(refIncomingDate = new Date()) {
     }
     else {
         let addMlSeconds = (refWeekDay - 1) * 24 * 60 * 60000;
-        console.log(addMlSeconds);
         refIni = new Date(refDate.getTime() - addMlSeconds);
     }
     const days = ["M", "T", "W", "T", "F", "S", "S"];
@@ -76,11 +73,7 @@ function showmonthlyCalendar(refIncomingDate = new Date()) {
         date.id = `${i + 1}`;
         date.textContent = `${currentDate.getDate()}`;
         date.setAttribute("data-date", `${currentDate.getDate()}`);
-<<<<<<< HEAD
-        lista === null || lista === void 0 ? void 0 : lista.appendChild(date);
-=======
         listDays.appendChild(date);
->>>>>>> ab1d0f53465c9988c0a948fa4e2d8b1c51d222f9
     }
     headerCalendarContainer.appendChild(btnPrevMonth);
     headerCalendarContainer.appendChild(titleMonth);
@@ -89,8 +82,7 @@ function showmonthlyCalendar(refIncomingDate = new Date()) {
     calendarMonthContainer.appendChild(dayNamesWeek);
     weekDaysCalendarContainer.appendChild(listDays);
     calendarMonthContainer.appendChild(weekDaysCalendarContainer);
-    asideCalendarMonth.appendChild(calendarMonthContainer);
-    mainMonthCalendar === null || mainMonthCalendar === void 0 ? void 0 : mainMonthCalendar.appendChild(asideCalendarMonth);
+    asideCalendarMonth === null || asideCalendarMonth === void 0 ? void 0 : asideCalendarMonth.appendChild(calendarMonthContainer);
     btnPrevMonth.addEventListener("click", prevFunction);
     btnNextMonth.addEventListener("click", nextFunction);
 }

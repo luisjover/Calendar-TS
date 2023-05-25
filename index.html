@@ -1,173 +1,50 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
 
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calendar</title>
-    <link href="./assets/reset.css" rel="stylesheet"></link>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
-    
-    <link href="./assets/style.css" rel="stylesheet"></link>
-    <script type="module" src="./dist/bigCalendar.js" ></script>
+    <link href="./assets/reset.css" rel="stylesheet">
+    </link>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script>
+
+    <link href="./assets/style.css" rel="stylesheet">
+    </link>
+    <script type="module" src="./dist/bigCalendar.js"></script>
+    <script type="module" src="./dist/smallCalendar.js"></script>
 
 </head>
 <header id="header">
-       <!-- Button trigger modal -->
+    <!-- Button trigger modal -->
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#containerModalTask">
         Launch demo modal
-          </button> 
+    </button>
     <button class="week-btn" id="prev-week"></button>
-    <button class="week-btn"id="next-week"></button>
+    <button class="week-btn" id="next-week"></button>
 </header>
+
 <body>
 
-    
-    <main class="main"id="main">
-        <div class="main-header"id="main-header">
-            <!-- <div class="empty-space"></div>
-            <div class="day-section-1">MON<span class="day"></span></div>   
-            <div class="day-section-2">TUE<span class="day"></span></div>
-            <div class="day-section-3">WED<span class="day"></span></div>
-            <div class="day-section-4">THU<span class="day"></span></div>
-            <div class="day-section-5">FRI<span class="day"></span></div>
-            <div class="day-section-6">SAT<span class="day"></span></div>
-            <div class="day-section-7">SUN<span class="day"></span></div> -->
-        
-        </div>
-        <aside class="sidebar"id="sidebar">
 
-<<<<<<< HEAD
-            <div class="header-month">
-                <button class="previous" id="prev"><i class='bx bx-chevron-left'></i></button>
-                <h1>May</h1>
-=======
-  <main class="main"id="main">
-    
-    <!-- <aside> //creado -->
+    <main class="main" id="main">
+        <div class="main-header" id="main-header">
+            <div class="empty-space" id="empty-space"></div>
 
-      <!-- <div class="month"> // creado -->
-        <!-- Button trigger modal -->
-        <!-- <div class="header-month"> //creado -->
-                <!-- <button class="previous" id="prev"><i class='bx bx-chevron-left'></i></button>
-                <h1 id="titleCalendarMini"></h1>
->>>>>>> ab1d0f53465c9988c0a948fa4e2d8b1c51d222f9
-                <button class="next"id="nx"><i class='bx bx-chevron-right'></i></button>
-            </div>
-            <div> //creado
-                <p class="day-name">Mon</p>
-                <p class="day-name">Tues</p>
-                <p class="day-name">Wed</p>
-                <p class="day-name">Thur</p>
-                <p class="day-name">Fri</p>
-                <p class="day-name">Sat</p>
-                <p class="day-name">Sun</p>
-            </div>
-<<<<<<< HEAD
-            <div>
-                <ol>
-                    <div class="day-container"><li>1</li></div>
-                    <div class="day-container"><li>2</li></div>
-                    <div class="day-container"><li>3</li></div>
-                    <div class="day-container"><li>4</li></div>
-                    <div class="day-container"><li>5</li></div>
-                    <div class="day-container"><li>6</li></div>
-                    <div class="day-container"><li>7</li></div>
-                    <div class="day-container"><li>8</li></div>
-                    <div class="day-container"><li>9</li></div>
-                    <div class="day-container"><li>10</li></div>
-                    <div class="day-container"><li>11</li></div>
-                    <div class="day-container"><li>12</li></div>
-                    <div class="day-container"><li>13</li></div>
-                    <div class="day-container"><li>14</li></div>
-                    <div class="day-container"><li>15</li></div>
-                    <div class="day-container"><li>16</li></div>
-                    <div class="day-container"><li>17</li></div>
-                    <div class="day-container"><li>18</li></div>
-                    <div class="day-container"><li>19</li></div>
-                    <div class="day-container"><li>20</li></div>
-                    <div class="day-container"><li>21</li></div>
-                    <div class="day-container"><li>22</li></div>
-                    <div class="day-container"><li>23</li></div>
-                    <div class="day-container"><li>24</li></div>
-                    <div class="day-container"><li>25</li></div>
-                    <div class="day-container"><li>26</li></div>
-                    <div class="day-container"><li>27</li></div>
-                    <div class="day-container"><li>28</li></div>
-                    <div class="day-container"><li>29</li></div>
-                    <div class="day-container"><li>30</li></div>
-                    <div class="day-container"><li>31</li></div>
-                    <div class="day-container"><li>1</li></div>
-                    <div class="day-container"><li>2</li></div>
-                    <div class="day-container"><li>3</li></div>
-                    <div class="day-container"><li>4</li></div>
-                    <div class="day-container"><li>5</li></div>
-                    <div class="day-container"><li>6</li></div>
-                    <div class="day-container"><li>7</li></div>
-                    <div class="day-container"><li>8</li></div>
-                    <div class="day-container"><li>9</li></div>
-                    <div class="day-container"><li>10</li></div>
-                    <div class="day-container"><li>11</li></div>
-                </ol>
-            </div>
         </div>
-=======
-            <div> // creado
-                <ol id="lista"> //creado -->
-                    <!-- <div class="day-container" id="day1"><li>1</li></div>
-                    <div class="day-container" id="day2"><li>2</li></div>
-                    <div class="day-container" id="day3"><li>3</li></div>
-                    <div class="day-container" id="day4"><li>4</li></div>
-                    <div class="day-container" id="day5"><li>5</li></div>
-                    <div class="day-container" id="day6"><li>6</li></div>
-                    <div class="day-container" id="day7"><li>7</li></div>
-                    <div class="day-container" id="day8"><li>8</li></div>
-                    <div class="day-container" id="day9"><li>9</li></div>
-                    <div class="day-container" id="day10"><li>10</li></div>
-                    <div class="day-container" id="day11"><li>11</li></div>
-                    <div class="day-container" id="day12"><li>12</li></div>
-                    <div class="day-container" id="day13"><li>13</li></div>
-                    <div class="day-container" id="day14"><li>14</li></div>
-                    <div class="day-container" id="day15"><li>15</li></div>
-                    <div class="day-container" id="day16"><li>16</li></div>
-                    <div class="day-container" id="day17"><li>17</li></div>
-                    <div class="day-container" id="day18"><li>18</li></div>
-                    <div class="day-container" id="day19"><li>19</li></div>
-                    <div class="day-container" id="day20"><li>20</li></div>
-                    <div class="day-container" id="day21"><li>21</li></div>
-                    <div class="day-container" id="day22"><li>22</li></div>
-                    <div class="day-container" id="day23"><li>23</li></div>
-                    <div class="day-container" id="day24"><li>24</li></div>
-                    <div class="day-container" id="day25"><li>25</li></div>
-                    <div class="day-container" id="day26"><li>26</li></div>
-                    <div class="day-container" id="day27"><li>27</li></div>
-                    <div class="day-container" id="day28"><li>28</li></div>
-                    <div class="day-container" id="day29"><li>29</li></div>
-                    <div class="day-container" id="day30"><li>30</li></div>
-                    <div class="day-container" id="day31"><li>31</li></div>
-                    <div class="day-container" id="day32"><li>1</li></div>
-                    <div class="day-container" id="day33"><li>2</li></div>
-                    <div class="day-container" id="day34"><li>3</li></div>
-                    <div class="day-container" id="day35"><li>4</li></div>
-                    <div class="day-container" id="day36"><li>5</li></div>
-                    <div class="day-container" id="day37"><li>6</li></div>
-                    <div class="day-container" id="day38"><li>7</li></div>
-                    <div class="day-container" id="day39"><li>8</li></div>
-                    <div class="day-container" id="day40"><li>9</li></div>
-                    <div class="day-container" id="day41"><li>10</li></div>
-                    <div class="day-container" id="day42"><li>11</li></div> -->
-                <!-- </ol>
-            </div>
-        </div>
-    </aside> -->
->>>>>>> ab1d0f53465c9988c0a948fa4e2d8b1c51d222f9
+
+        <aside class="sidebar" id="sidebar">
 
         </aside>
-        <section class="week-container"id="week-container">
+        <section class="week-container" id="week-container">
             <div class="hours-section">
-                
+
                 <span class="hour">1 AM</span>
                 <span class="hour">2 AM</span>
                 <span class="hour">3 AM</span>
@@ -192,84 +69,79 @@
                 <span class="hour">10 PM</span>
                 <span class="hour">11 PM</span>
                 <span class="hour"></span>
-               
+
 
 
             </div>
 
             <div class="lines-container">
+                <div class="day-time-lines">
+                </div>
+                <div class="day-time-lines">
+                </div>
+                <div class="day-time-lines">
+                </div>
+                <div class="day-time-lines">
+                </div>
+                <div class="day-time-lines">
 
-                <div class="day-time-lines">
-                   
                 </div>
                 <div class="day-time-lines">
-                   
+
                 </div>
                 <div class="day-time-lines">
-                   
+
                 </div>
                 <div class="day-time-lines">
-                    
+
                 </div>
                 <div class="day-time-lines">
-                    
+
                 </div>
                 <div class="day-time-lines">
-                    
+
                 </div>
                 <div class="day-time-lines">
-                   
+
                 </div>
                 <div class="day-time-lines">
-                   
+
                 </div>
                 <div class="day-time-lines">
-                   
+
                 </div>
                 <div class="day-time-lines">
-                   
+
                 </div>
                 <div class="day-time-lines">
-                    
+
                 </div>
                 <div class="day-time-lines">
-                    
+
                 </div>
                 <div class="day-time-lines">
-                    
+
                 </div>
                 <div class="day-time-lines">
-                   
+
                 </div>
                 <div class="day-time-lines">
-                   
+
                 </div>
                 <div class="day-time-lines">
-                   
+
                 </div>
                 <div class="day-time-lines">
-                   
+
                 </div>
                 <div class="day-time-lines">
-                    
+
                 </div>
                 <div class="day-time-lines">
-                    
+
                 </div>
                 <div class="day-time-lines">
-                    
-                </div>
-                <div class="day-time-lines">
-                   
-                </div>
-                <div class="day-time-lines">
-                    
-                </div>
-                <div class="day-time-lines">
-                    
-                </div>
-                <div class="day-time-lines">
-                   
+
                 </div>
             </div>
 
@@ -281,27 +153,27 @@
 
 
 
-           
+
             <div class="day-task-section day-task-section-1">
-               
+
             </div>
             <div class="day-task-section day-task-section-2">
-               
+
             </div>
             <div class="day-task-section day-task-section-3">
-               
+
             </div>
             <div class="day-task-section day-task-section-4">
-                
+
             </div>
             <div class="day-task-section day-task-section-5">
-                
+
             </div>
             <div class="day-task-section day-task-section-6">
-                
+
             </div>
             <div class="day-task-section day-task-section-7">
-               
+
             </div>
             <!-- <div class="day-section-1">MONDAY</div>   
             <div class="day-section-2">TUESDAY</div>
@@ -310,76 +182,11 @@
             <div class="day-section-5">FRIDAY</div>
             <div class="day-section-6">SATURDAY</div>
             <div class="day-section-7">SUNDAY</div> -->
-             
+
         </section>
 
     </main>
 
-    <!-- <div class="month"> -->
-    <!-- Button trigger modal -->
-    <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#containerModalTask">
-  Launch demo modal
-    </button>
-    <div class="header-month">
-            <button class="previous" id="prev"><i class='bx bx-chevron-left'></i></button>
-            <h1>May</h1>
-            <button class="next"id="nx"><i class='bx bx-chevron-right'></i></button>
-        </div>
-        <div>
-            <p class="day-name">Mon</p>
-            <p class="day-name">Tues</p>
-            <p class="day-name">Wed</p>
-            <p class="day-name">Thur</p>
-            <p class="day-name">Fri</p>
-            <p class="day-name">Sat</p>
-            <p class="day-name">Sun</p>
-        </div>
-        <div>
-            <ol>
-                <div class="day-container"><li>1</li></div>
-                <div class="day-container"><li>2</li></div>
-                <div class="day-container"><li>3</li></div>
-                <div class="day-container"><li>4</li></div>
-                <div class="day-container"><li>5</li></div>
-                <div class="day-container"><li>6</li></div>
-                <div class="day-container"><li>7</li></div>
-                <div class="day-container"><li>8</li></div>
-                <div class="day-container"><li>9</li></div>
-                <div class="day-container"><li>10</li></div>
-                <div class="day-container"><li>11</li></div>
-                <div class="day-container"><li>12</li></div>
-                <div class="day-container"><li>13</li></div>
-                <div class="day-container"><li>14</li></div>
-                <div class="day-container"><li>15</li></div>
-                <div class="day-container"><li>16</li></div>
-                <div class="day-container"><li>17</li></div>
-                <div class="day-container"><li>18</li></div>
-                <div class="day-container"><li>19</li></div>
-                <div class="day-container"><li>20</li></div>
-                <div class="day-container"><li>21</li></div>
-                <div class="day-container"><li>22</li></div>
-                <div class="day-container"><li>23</li></div>
-                <div class="day-container"><li>24</li></div>
-                <div class="day-container"><li>25</li></div>
-                <div class="day-container"><li>26</li></div>
-                <div class="day-container"><li>27</li></div>
-                <div class="day-container"><li>28</li></div>
-                <div class="day-container"><li>29</li></div>
-                <div class="day-container"><li>30</li></div>
-                <div class="day-container"><li>31</li></div>
-                <div class="day-container"><li>1</li></div>
-                <div class="day-container"><li>2</li></div>
-                <div class="day-container"><li>3</li></div>
-                <div class="day-container"><li>4</li></div>
-                <div class="day-container"><li>5</li></div>
-                <div class="day-container"><li>6</li></div>
-                <div class="day-container"><li>7</li></div>
-                <div class="day-container"><li>8</li></div>
-                <div class="day-container"><li>9</li></div>
-                <div class="day-container"><li>10</li></div>
-                <div class="day-container"><li>11</li></div>
-            </ol>
-        </div>
-    </div> -->
 </body>
+
 </html>
