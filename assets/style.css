@@ -46,7 +46,12 @@
 .day-section-7{
     background-color: azure;
     grid-column: 14/16;
-}ol {
+}
+
+
+/* Monthly Calendar */
+
+ol {
     list-style: none;
     display: grid;
     grid-template-columns: repeat(7, 1fr);
@@ -76,4 +81,8 @@
     background: #eee;
     font-weight: bold;
     text-align: center
+}
+
+.currentMonth {
+    font-weight: bold;
 }

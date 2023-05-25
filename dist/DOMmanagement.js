@@ -183,7 +183,7 @@ function openModalCreateTask() {
     modalFooter.appendChild(btnClose);
     modalFooter.appendChild(btnCreate);
     modalContent.appendChild(modalFooter);
-    let modalInstance = new bootstrap.Modal(containerModalTask);
+    let modalInstance = new window.bootstrap.Modal(containerModalTask);
     modalInstance.show();
 }
 const header = document.querySelector("#header");
