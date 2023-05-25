@@ -1,3 +1,4 @@
+
 openModalCreateTask();
 
 function openModalCreateTask () {
@@ -241,14 +242,16 @@ modalFooter.appendChild(btnClose);
 modalFooter.appendChild(btnCreate);
 modalContent.appendChild(modalFooter);
 
-let modalInstance = new bootstrap.Modal(containerModalTask);
+let modalInstance : any = new (window as any).bootstrap.Modal(containerModalTask);
+
 
 modalInstance.show();
 }
-// //Header
-// const header=document.querySelector("#header") as HTMLElement;
-// const title=document.createElement("h1");
-// title.textContent="Calendar";
+
+//Header
+const header=document.querySelector("#header") as HTMLElement;
+const title=document.createElement("h1");
+title.textContent="Calendar";
 
 // const btnTask=document.createElement("button");
 // btnTask.setAttribute("class","btn-task")
