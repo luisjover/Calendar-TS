@@ -243,7 +243,10 @@ modalFooter.appendChild(btnCreate);
 modalContent.appendChild(modalFooter);
 
 let modalInstance : any = new (window as any).bootstrap.Modal(containerModalTask);
+<<<<<<< HEAD
 
+=======
+>>>>>>> ab1d0f53465c9988c0a948fa4e2d8b1c51d222f9
 
 modalInstance.show();
 }

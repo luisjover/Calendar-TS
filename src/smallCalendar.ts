@@ -1,50 +1,112 @@
 showmonthlyCalendar();
 
-function showmonthlyCalendar () {
+function showmonthlyCalendar (refIncomingDate: Date = new Date()) {
 
+    const mainMonthCalendar = document.querySelector("#main");
+    const lista = document.querySelector("#lista"); //ATENCIÓN
+
+    const asideCalendarMonth = document.createElement("aside"); //ATENCIÓN
     const calendarMonthContainer = document.createElement ("div");
     const headerCalendarContainer = document.createElement ("div");
+        headerCalendarContainer.classList.add ("header-month");
+    const btnPrevMonth = document.createElement ("button");
+        btnPrevMonth.classList.add ("btn-prev");
+        btnPrevMonth.textContent = "<";
+    const btnNextMonth = document.createElement ("button");
+        btnNextMonth.classList.add ("btn-next");
+        btnNextMonth.textContent = ">";
+    const titleMonth = document.createElement ("h2");
+    const dayNamesWeek = document.createElement ("div");
     const weekDaysCalendarContainer = document.createElement ("div");
+    const listDays = document.createElement ("ol");
 
-    const lista = document.querySelector("#lista");
 
-    const TodayDate = new Date();
+    let firstDayMonth = new Date(refIncomingDate.getTime()-((refIncomingDate.getDate()-1)* 24* 60 * 60000));
+    let refIni =  firstDayMonth;
+    let currentDate = refIni;
 
-    const refDate = new Date("June 1, 2023")
+    const refDate = refIni;
     const refDay = refDate.getDate();
     const refWeekDay = refDate.getDay();
     const refMonth = refDate.getMonth();
     const refYear = refDate.getFullYear();
 
-    let refIni
+    if(mainMonthCalendar) {
+    mainMonthCalendar.innerHTML = ''; // ATENCIÓN
+    }
+
+    if(currentDate.getMonth()== 0){
+        btnPrevMonth.setAttribute("data-prev-month", `12-01-${currentDate.getFullYear()-1}`);
+    }else{
+    btnPrevMonth.setAttribute("data-prev-month", `${currentDate.getMonth()}-01-${currentDate.getFullYear()}`);
+    }
+
+    if(currentDate.getMonth()== 11){
+        btnNextMonth.setAttribute("data-next-month", `01-01-${currentDate.getFullYear()+1}`);
+    }else{
+    btnNextMonth.setAttribute("data-next-month", `${currentDate.getMonth()+2}-01-${currentDate.getFullYear()}`);
+    }
+
+    titleMonth.textContent = `${currentDate?.getMonth()+1} ${currentDate?.getFullYear()}`;
 
     if (refWeekDay==0) {
         let addMlSeconds = 6 * 24* 60 * 60000;
         refIni = new Date(refDate.getTime() - addMlSeconds);
     }else {
-        let addMlSeconds = (refWeekDay-1) * 24* 60 * 60000; //rehacer para que pille el -x dependiendo del dia de la semana.
+        let addMlSeconds = (refWeekDay-1) * 24* 60 * 60000;
+        console.log(addMlSeconds);
         refIni = new Date(refDate.getTime() - addMlSeconds);
-        console.log(refIni);
     }
-    
+
+    const days = [ "M", "T", "W", "T", "F", "S", "S"];
+    for (let i of days) {
+        const weekNameDay = document.createElement ("div");
+        weekNameDay.classList.add("day-container", "weekNameDay");
+        weekNameDay.textContent = i;
+        listDays.appendChild(weekNameDay);
+    }
+
     for (let i=0; i<42; i++) {
-        let currentDate;
         if(i==0){
             currentDate = refIni
         }else {
-            let addMlSeconds = (i) * 24* 60 * 60000; //rehacer para que pille el -x dependiendo del dia de la semana.
+            let addMlSeconds = (i) * 24* 60 * 60000;
             currentDate = new Date(refIni.getTime() + addMlSeconds);
         }
 
-        console.log(refIni.getDate()+1);
-        
         const date = document.createElement ("div");
         date.classList.add("day-container");
+        if (currentDate.getMonth() == refMonth) {
+            date.classList.add("currentMonth");
+        } else {
+            date.classList.add("notCurrentMonth");
+        }
         date.id = `${i+1}`;
         date.textContent = `${currentDate.getDate()}`
         date.setAttribute("data-date",`${currentDate.getDate()}`)
-
-        lista?.appendChild(date);//Atention: falta crear el elemento DOM de lista.
+        listDays.appendChild(date); //Atention: falta crear el elemento DOM de lista.
     }
 
+    headerCalendarContainer.appendChild(btnPrevMonth);
+    headerCalendarContainer.appendChild(titleMonth);
+    headerCalendarContainer.appendChild(btnNextMonth);
+    calendarMonthContainer.appendChild(headerCalendarContainer);
+    calendarMonthContainer.appendChild(dayNamesWeek);
+    weekDaysCalendarContainer.appendChild(listDays);
+    calendarMonthContainer.appendChild(weekDaysCalendarContainer);
+    asideCalendarMonth.appendChild(calendarMonthContainer);
+    mainMonthCalendar?.appendChild(asideCalendarMonth);
+
+    btnPrevMonth.addEventListener("click",prevFunction)
+    btnNextMonth.addEventListener("click",nextFunction)
+}
+
+function prevFunction (this: HTMLElement) {
+    let newDate = new Date(`${this.getAttribute("data-prev-month")}`);
+    showmonthlyCalendar (newDate);
+}
+
+function nextFunction (this: HTMLElement) {
+    let newDate = new Date(`${this.getAttribute("data-next-month")}`);
+    showmonthlyCalendar (newDate);
 }

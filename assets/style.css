@@ -178,3 +178,7 @@ ol {
 .weekday{
     display: block;
 }
+
+.currentMonth {
+    font-weight: bold;
+}
