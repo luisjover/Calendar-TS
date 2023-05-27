@@ -1,9 +1,15 @@
+import { createTask } from "./modalFunction.js";
+setMain()
+function setMain() {
+    if (localStorage.getItem("events") === null || localStorage.getItem("events") === "undefined") {
+        localStorage.setItem("events", JSON.stringify([]))
+    }
+}
 
 openModalCreateTask();
 
 function openModalCreateTask() {
 
-    console.log("inicio de función correcto");
 
     // creating containerModalTask
     const containerModalTask = document.createElement("div");
@@ -144,7 +150,7 @@ function openModalCreateTask() {
     // creating checkReminderLabel
     const checkReminderLabel = document.createElement("label");
     checkReminderLabel.classList.add("form-check-label", "ms-1");
-    checkReminderLabel.htmlFor = "checkReminder";
+    checkReminderLabel.htmlFor = "reminderCheck";
     checkReminderLabel.textContent = "Reminder";
     // creating selectContainer
     const selectReminderContainer = document.createElement("div");
@@ -154,6 +160,7 @@ function openModalCreateTask() {
     const selectReminder = document.createElement("select");
     selectReminder.classList.add("form-select");
     selectReminder.setAttribute("aria-label", "Default select example");
+    selectReminder.id = "reminderSelect";
     // creating selectReminderOptions
     const selectReminderOptions = [
         { value: "", text: "Open this select menu" },
@@ -199,15 +206,16 @@ function openModalCreateTask() {
     const selectType = document.createElement("select");
     selectType.classList.add("form-select");
     selectType.setAttribute("aria-label", "Default select example");
+    selectType.id = "taskTypeSelect";
     selectType.required = true;
     // creating selectTypeOptions
     const selectTypeOptions = [
         { value: "", text: "Open this select menu" },
-        { value: "1", text: "Task" },
-        { value: "2", text: "Event" },
-        { value: "3", text: "Meeting" },
-        { value: "4", text: "Study" },
-        { value: "5", text: "Others" },
+        { value: "task", text: "Task" },
+        { value: "event", text: "Event" },
+        { value: "meeting", text: "Meeting" },
+        { value: "study", text: "Study" },
+        { value: "other", text: "Other" },
     ];
     selectTypeOptions.forEach(option => {
         const selectOption = document.createElement("option");
@@ -237,14 +245,15 @@ function openModalCreateTask() {
     btnCreate.classList.add("btn", "btn-primary");
     btnCreate.setAttribute("form", "createTaskForm");
     btnCreate.textContent = "Create";
+    btnCreate.addEventListener("click", createTask)
     // insertion footer
     modalFooter.appendChild(btnClose);
     modalFooter.appendChild(btnCreate);
     modalContent.appendChild(modalFooter);
 
-    let modalInstance: any = new (window as any).bootstrap.Modal(containerModalTask);
+    //let modalInstance: any = new (window as any).bootstrap.Modal(containerModalTask);
 
-    modalInstance.show();
+    //modalInstance.show();
 }
 
 //Header
