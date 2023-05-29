@@ -8,7 +8,7 @@ setWeekCalendar();
 
 
 
-function setWeekCalendar(date: Date = new Date()) {
+export function setWeekCalendar(date: Date = new Date()) {
 
     //BUTTONS
     const btnPrevWeek = document.querySelector("#prev-week") as HTMLButtonElement | null;
@@ -33,6 +33,17 @@ function setWeekCalendar(date: Date = new Date()) {
     btnPrevWeek.setAttribute("change-week-date", `${today.getTime() - (7 * 24 * 60 * 60000)}`);
     btnNextWeek.setAttribute("change-week-date", `${today.getTime() + 7 * 24 * 60 * 60000}`);
 
+    const header = document.querySelector("#test");
+    if (header) header.innerHTML =""
+    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November","December"];
+    const currentMonth = today?.getMonth();
+    const monthName = months[currentMonth];
+    const currentMonthYear = document.createElement("h2");
+    currentMonthYear.textContent = `${monthName} ${today?.getFullYear()}`;
+    currentMonthYear.classList.add("currentMonthYear");
+
+    header?.appendChild(currentMonthYear);
+
     let firstWeekDay: Date
 
     if (todayWeekDay === 0) {
@@ -51,7 +62,6 @@ function setWeekCalendar(date: Date = new Date()) {
         } else {
             let addMlSeconds = (i) * 24 * 60 * 60000;
             currentWeekDay = new Date(firstWeekDay.getTime() + addMlSeconds);
-
         }
 
         const dayContainer = document.createElement("div");
@@ -63,7 +73,12 @@ function setWeekCalendar(date: Date = new Date()) {
         dayNumber.classList.add("weekday")
         dayNumber.textContent = `${currentWeekDay.getDate()}`;
 
+        const refCurrentWeekDay = new Date();
+        const isCurrentDay = currentWeekDay.getDate() === refCurrentWeekDay.getDate() && currentWeekDay.getMonth() === refCurrentWeekDay.getMonth() && currentWeekDay.getFullYear() === refCurrentWeekDay.getFullYear();
 
+        if (isCurrentDay) {
+            dayNumber.classList.add("currentDay");
+        }
         weekHeader?.appendChild(dayContainer);
         dayContainer.appendChild(dayNumber);
     }
@@ -85,7 +100,7 @@ function setEvents(firstWeekDay: Date) {
     const weekDaysList = document.querySelectorAll(".day-task-section");
     let tasks;
     const storage = localStorage.getItem("events");
-    console.log(storage)
+
     if (storage !== null) {
         tasks = JSON.parse(storage);
     }
@@ -99,7 +114,6 @@ function setEvents(firstWeekDay: Date) {
         const currentDayDate = new Date(currentDayFullDate).getDate();
         const currentDayMonth = new Date(currentDayFullDate).getMonth();
         const currentDayYear = new Date(currentDayFullDate).getFullYear();
-        console.log(currentDayDate);
 
         tasks.forEach((task: Task) => {
             const taskFullDate = new Date(task.initialDate);

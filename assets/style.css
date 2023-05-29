@@ -71,10 +71,7 @@ header {
 }
 
 .sidebar{
-    background-color: blue;
     grid-column: 1/5;
-   
-  
 }
 
 .week-container {
@@ -143,8 +140,6 @@ header {
 .lines-container {
     position: absolute;
     grid-column: 2/16;
-    
-    
 }
 
 .day-time-lines {
@@ -190,7 +185,21 @@ ol {
 }
 
 .day-container {
+    width: 24px;
+    height: 24px;
     text-align: center;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.day-container:hover{
+    background-color: rgb(184, 184, 230);
+    opacity: 50%;
+}
+
+.currentDay {
+    background-color: rgb(72, 72, 242);
+    color: white;
 }
 
 .day-name {

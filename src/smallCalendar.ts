@@ -1,3 +1,5 @@
+import { setWeekCalendar } from "./bigCalendar.js";
+
 showmonthlyCalendar();
 
 function showmonthlyCalendar(refIncomingDate: Date = new Date()) {
@@ -44,7 +46,10 @@ function showmonthlyCalendar(refIncomingDate: Date = new Date()) {
         btnNextMonth.setAttribute("data-next-month", `${currentDate.getMonth() + 2}-01-${currentDate.getFullYear()}`);
     }
 
-    titleMonth.textContent = `${currentDate?.getMonth() + 1} ${currentDate?.getFullYear()}`;
+    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November","December"];
+    const currentMonth = currentDate?.getMonth();
+    const monthName = months[currentMonth];
+    titleMonth.textContent = `${monthName} ${currentDate?.getFullYear()}`;
 
     if (refWeekDay == 0) {
         let addMlSeconds = 6 * 24 * 60 * 60000;
@@ -79,10 +84,21 @@ function showmonthlyCalendar(refIncomingDate: Date = new Date()) {
             date.classList.add("notCurrentMonth");
         }
         date.id = `${i + 1}`;
-        date.textContent = `${currentDate.getDate()}`
-        date.setAttribute("data-date", `${currentDate.getDate()}`)
+        date.textContent = `${currentDate.getDate()}`;
+
+        const today = new Date();
+
+        if(currentDate.getDate() === today.getDate() && currentDate.getMonth() === today.getMonth() && currentDate.getFullYear() === today.getFullYear())  {
+            date.classList.add("currentDay");
+        }
+        date.setAttribute("data-date", `${currentDate.getDate()}`);
+        date.setAttribute("real-date", `${currentDate.getTime()}`);
         listDays.appendChild(date); //Atention: falta crear el elemento DOM de lista.
-    }
+
+        console.log(date);
+        date.addEventListener("click", showWeek)
+
+
 
     headerCalendarContainer.appendChild(btnPrevMonth);
     headerCalendarContainer.appendChild(titleMonth);
@@ -105,4 +121,11 @@ function prevFunction(this: HTMLElement) {
 function nextFunction(this: HTMLElement) {
     let newDate = new Date(`${this.getAttribute("data-next-month")}`);
     showmonthlyCalendar(newDate);
+}
+}
+function showWeek(this: HTMLElement) {
+    const selectedTime =  this.getAttribute("real-date");
+    if(selectedTime === null) return
+    let selectedDate = new Date(parseInt(selectedTime));
+    setWeekCalendar(selectedDate);
 }

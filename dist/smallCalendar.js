@@ -1,4 +1,4 @@
-"use strict";
+import { setWeekCalendar } from "./bigCalendar.js";
 showmonthlyCalendar();
 function showmonthlyCalendar(refIncomingDate = new Date()) {
     const asideCalendarMonth = document.querySelector("#sidebar");
@@ -38,7 +38,10 @@ function showmonthlyCalendar(refIncomingDate = new Date()) {
     else {
         btnNextMonth.setAttribute("data-next-month", `${currentDate.getMonth() + 2}-01-${currentDate.getFullYear()}`);
     }
-    titleMonth.textContent = `${(currentDate === null || currentDate === void 0 ? void 0 : currentDate.getMonth()) + 1} ${currentDate === null || currentDate === void 0 ? void 0 : currentDate.getFullYear()}`;
+    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    const currentMonth = currentDate === null || currentDate === void 0 ? void 0 : currentDate.getMonth();
+    const monthName = months[currentMonth];
+    titleMonth.textContent = `${monthName} ${currentDate === null || currentDate === void 0 ? void 0 : currentDate.getFullYear()}`;
     if (refWeekDay == 0) {
         let addMlSeconds = 6 * 24 * 60 * 60000;
         refIni = new Date(refDate.getTime() - addMlSeconds);
@@ -72,26 +75,40 @@ function showmonthlyCalendar(refIncomingDate = new Date()) {
         }
         date.id = `${i + 1}`;
         date.textContent = `${currentDate.getDate()}`;
+        const today = new Date();
+        if (currentDate.getDate() === today.getDate() && currentDate.getMonth() === today.getMonth() && currentDate.getFullYear() === today.getFullYear()) {
+            date.classList.add("currentDay");
+        }
         date.setAttribute("data-date", `${currentDate.getDate()}`);
+        date.setAttribute("real-date", `${currentDate.getTime()}`);
         listDays.appendChild(date);
+        console.log(date);
+        date.addEventListener("click", showWeek);
+        headerCalendarContainer.appendChild(btnPrevMonth);
+        headerCalendarContainer.appendChild(titleMonth);
+        headerCalendarContainer.appendChild(btnNextMonth);
+        calendarMonthContainer.appendChild(headerCalendarContainer);
+        calendarMonthContainer.appendChild(dayNamesWeek);
+        weekDaysCalendarContainer.appendChild(listDays);
+        calendarMonthContainer.appendChild(weekDaysCalendarContainer);
+        asideCalendarMonth === null || asideCalendarMonth === void 0 ? void 0 : asideCalendarMonth.appendChild(calendarMonthContainer);
+        btnPrevMonth.addEventListener("click", prevFunction);
+        btnNextMonth.addEventListener("click", nextFunction);
     }
-    headerCalendarContainer.appendChild(btnPrevMonth);
-    headerCalendarContainer.appendChild(titleMonth);
-    headerCalendarContainer.appendChild(btnNextMonth);
-    calendarMonthContainer.appendChild(headerCalendarContainer);
-    calendarMonthContainer.appendChild(dayNamesWeek);
-    weekDaysCalendarContainer.appendChild(listDays);
-    calendarMonthContainer.appendChild(weekDaysCalendarContainer);
-    asideCalendarMonth === null || asideCalendarMonth === void 0 ? void 0 : asideCalendarMonth.appendChild(calendarMonthContainer);
-    btnPrevMonth.addEventListener("click", prevFunction);
-    btnNextMonth.addEventListener("click", nextFunction);
+    function prevFunction() {
+        let newDate = new Date(`${this.getAttribute("data-prev-month")}`);
+        showmonthlyCalendar(newDate);
+    }
+    function nextFunction() {
+        let newDate = new Date(`${this.getAttribute("data-next-month")}`);
+        showmonthlyCalendar(newDate);
+    }
 }
-function prevFunction() {
-    let newDate = new Date(`${this.getAttribute("data-prev-month")}`);
-    showmonthlyCalendar(newDate);
-}
-function nextFunction() {
-    let newDate = new Date(`${this.getAttribute("data-next-month")}`);
-    showmonthlyCalendar(newDate);
+function showWeek() {
+    const selectedTime = this.getAttribute("real-date");
+    if (selectedTime === null)
+        return;
+    let selectedDate = new Date(parseInt(selectedTime));
+    setWeekCalendar(selectedDate);
 }
 //# sourceMappingURL=smallCalendar.js.map

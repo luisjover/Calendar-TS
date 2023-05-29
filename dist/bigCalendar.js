@@ -1,5 +1,5 @@
 setWeekCalendar();
-function setWeekCalendar(date = new Date()) {
+export function setWeekCalendar(date = new Date()) {
     const btnPrevWeek = document.querySelector("#prev-week");
     if (btnPrevWeek === null)
         return;
@@ -19,6 +19,16 @@ function setWeekCalendar(date = new Date()) {
     const todayRef = today.getDate();
     btnPrevWeek.setAttribute("change-week-date", `${today.getTime() - (7 * 24 * 60 * 60000)}`);
     btnNextWeek.setAttribute("change-week-date", `${today.getTime() + 7 * 24 * 60 * 60000}`);
+    const header = document.querySelector("#test");
+    if (header)
+        header.innerHTML = "";
+    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    const currentMonth = today === null || today === void 0 ? void 0 : today.getMonth();
+    const monthName = months[currentMonth];
+    const currentMonthYear = document.createElement("h2");
+    currentMonthYear.textContent = `${monthName} ${today === null || today === void 0 ? void 0 : today.getFullYear()}`;
+    currentMonthYear.classList.add("currentMonthYear");
+    header === null || header === void 0 ? void 0 : header.appendChild(currentMonthYear);
     let firstWeekDay;
     if (todayWeekDay === 0) {
         let timeToFirstDay = 6 * 24 * 60 * 60000;
@@ -44,6 +54,11 @@ function setWeekCalendar(date = new Date()) {
         const dayNumber = document.createElement("span");
         dayNumber.classList.add("weekday");
         dayNumber.textContent = `${currentWeekDay.getDate()}`;
+        const refCurrentWeekDay = new Date();
+        const isCurrentDay = currentWeekDay.getDate() === refCurrentWeekDay.getDate() && currentWeekDay.getMonth() === refCurrentWeekDay.getMonth() && currentWeekDay.getFullYear() === refCurrentWeekDay.getFullYear();
+        if (isCurrentDay) {
+            dayNumber.classList.add("currentDay");
+        }
         weekHeader === null || weekHeader === void 0 ? void 0 : weekHeader.appendChild(dayContainer);
         dayContainer.appendChild(dayNumber);
     }
@@ -60,7 +75,6 @@ function setEvents(firstWeekDay) {
     const weekDaysList = document.querySelectorAll(".day-task-section");
     let tasks;
     const storage = localStorage.getItem("events");
-    console.log(storage);
     if (storage !== null) {
         tasks = JSON.parse(storage);
     }
@@ -70,7 +84,6 @@ function setEvents(firstWeekDay) {
         const currentDayDate = new Date(currentDayFullDate).getDate();
         const currentDayMonth = new Date(currentDayFullDate).getMonth();
         const currentDayYear = new Date(currentDayFullDate).getFullYear();
-        console.log(currentDayDate);
         tasks.forEach((task) => {
             const taskFullDate = new Date(task.initialDate);
             const taskDate = taskFullDate.getDate();
@@ -96,5 +109,4 @@ function printTasks(task) {
     taskSection === null || taskSection === void 0 ? void 0 : taskSection.appendChild(newTaskContainer);
     console.log(weekDay);
 }
-export {};
 //# sourceMappingURL=bigCalendar.js.map
