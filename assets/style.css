@@ -216,3 +216,33 @@ ol {
 .currentMonth {
     font-weight: bold;
 }
+
+
+/* modal form */
+.form__groupe {
+    position: relative;
+}
+.form__icon--none {
+    display: none;
+}
+.form__text--show {
+    display: block;
+    position: absolute;
+    height: 25px;
+    bottom: 7px;
+    right: 10px;
+}
+.form__choose--show {
+    display: block;
+    position: absolute;
+    height: 25px;
+    top: 18%;
+    right: 50px;
+}
+.form__type--show {
+    display: block;
+    position: absolute;
+    height: 25px;
+    top: 18%;
+    right: 35px;
+}
