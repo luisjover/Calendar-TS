@@ -8,6 +8,8 @@ export function showmonthlyCalendar(refIncomingDate: Date = new Date()) {
     const calendarMonthContainer = document.createElement("div");
     const headerCalendarContainer = document.createElement("div");
     headerCalendarContainer.classList.add("header-month");
+    headerCalendarContainer.style.flex;
+    headerCalendarContainer.style.justifyContent = "space-between";
     const btnPrevMonth = document.createElement("button");
     btnPrevMonth.classList.add("btn-prev");
     btnPrevMonth.textContent = "<";
