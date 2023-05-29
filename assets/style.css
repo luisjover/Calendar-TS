@@ -103,7 +103,7 @@ header {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    height: 7rem;
+    height: 6rem;
 
 }
 
@@ -151,7 +151,7 @@ header {
     border-top: 1px solid grey;
     background-color: aquamarine;
     width: 100%;
-    height: 7rem;
+    height: 6rem;
 }
 
 
@@ -160,7 +160,7 @@ header {
     width: 80%;
     background-color: aqua;
     opacity: 0.8;
-    height: 5rem;
+    height: 6rem;
 }
 
 /* heheheheheheheheheheheheheheheheheheheheheheheheh */
