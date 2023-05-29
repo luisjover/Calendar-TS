@@ -43,6 +43,7 @@ export function setWeekCalendar(date = new Date()) {
     const monthName = months[currentMonth];
     const currentMonthYear = document.createElement("h2");
     currentMonthYear.textContent = `${monthName} ${today === null || today === void 0 ? void 0 : today.getFullYear()}`;
+    showmonthlyCalendar(today);
     yearMonthHeader === null || yearMonthHeader === void 0 ? void 0 : yearMonthHeader.appendChild(currentMonthYear);
     let firstWeekDay;
     if (todayWeekDay === 0) {

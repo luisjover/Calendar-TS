@@ -53,6 +53,8 @@ export function setWeekCalendar(date: Date = new Date()) {
     const currentMonthYear = document.createElement("h2");
     currentMonthYear.textContent = `${monthName} ${today?.getFullYear()}`;
     // currentMonthYear.classList.add("currentMonthYear");
+    showmonthlyCalendar (today);
+
 
     yearMonthHeader?.appendChild(currentMonthYear);
 
