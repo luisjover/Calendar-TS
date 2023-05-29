@@ -2,8 +2,6 @@
 import { Task } from "./types.js";
 import { showmonthlyCalendar } from "./smallCalendar.js";
 
-const btnToday = document.querySelector ("#btnToday");
-
 setWeekCalendar();
 
 export function setWeekCalendar(date: Date = new Date()) {
@@ -16,13 +14,29 @@ export function setWeekCalendar(date: Date = new Date()) {
     const btnNextWeek = document.querySelector("#next-week") as HTMLButtonElement | null;
     if (btnNextWeek === null) return;
     btnNextWeek.textContent = ">";
-    btnNextWeek.addEventListener("click", changeWeek)
+    btnNextWeek.addEventListener("click", changeWeek);
+    const emptySpace = document.createElement ("div");
+    emptySpace.classList.add ("empty-space");
+
+    const btnModal = document.createElement ("button");
+    btnModal.type = "button";
+    btnModal.classList.add ("btn", "btn-primary", "empty-space__btn");
+    btnModal.setAttribute ("data-bs-toggle", "modal");
+    btnModal.setAttribute ("data-bs-target", "#containerModalTask");
+    btnModal.textContent = "Create task";
+    const btnToday = document.createElement ("button");
+    btnToday.classList.add ("btn", "btn-primary", "empty-space__btn");
+    btnToday.id = "btnToday";
+    btnToday.textContent = "Today";
+    emptySpace.appendChild (btnModal);
+    emptySpace.appendChild (btnToday);
 
 
     //FUNCTION
     const weekHeader = document.querySelector("#main-header") as HTMLDivElement | null;
     if (weekHeader) weekHeader.innerHTML = ""
 
+    weekHeader?.appendChild (emptySpace);
 
     let weekDays: string[] = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
     const today = date;
@@ -31,16 +45,16 @@ export function setWeekCalendar(date: Date = new Date()) {
     btnPrevWeek.setAttribute("change-week-date", `${today.getTime() - (7 * 24 * 60 * 60000)}`);
     btnNextWeek.setAttribute("change-week-date", `${today.getTime() + 7 * 24 * 60 * 60000}`);
 
-    const header = document.querySelector("#test");
-    if (header) header.innerHTML =""
+    const yearMonthHeader = document.querySelector("#yearMonthHeader");
+    if (yearMonthHeader) yearMonthHeader.innerHTML =""
     const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November","December"];
     const currentMonth = today?.getMonth();
     const monthName = months[currentMonth];
     const currentMonthYear = document.createElement("h2");
     currentMonthYear.textContent = `${monthName} ${today?.getFullYear()}`;
-    currentMonthYear.classList.add("currentMonthYear");
+    // currentMonthYear.classList.add("currentMonthYear");
 
-    header?.appendChild(currentMonthYear);
+    yearMonthHeader?.appendChild(currentMonthYear);
 
     let firstWeekDay: Date
 
@@ -70,25 +84,28 @@ export function setWeekCalendar(date: Date = new Date()) {
         const dayNumber = document.createElement("span")
         dayNumber.classList.add("weekday")
         dayNumber.textContent = `${currentWeekDay.getDate()}`;
-
+        
         const refCurrentWeekDay = new Date();
         const isCurrentDay = currentWeekDay.getDate() === refCurrentWeekDay.getDate() && currentWeekDay.getMonth() === refCurrentWeekDay.getMonth() && currentWeekDay.getFullYear() === refCurrentWeekDay.getFullYear();
-
+        
         if (isCurrentDay) {
             dayNumber.classList.add("currentDay");
         }
         weekHeader?.appendChild(dayContainer);
         dayContainer.appendChild(dayNumber);
     }
-
+    
     setEvents(firstWeekDay);
+
+    btnToday?.addEventListener ("click", setTodayWeekMonthly);
+
 }
 
 
 function changeWeek(this: HTMLButtonElement) {
     let totalTime = this.getAttribute("change-week-date");
     if (totalTime === null) return;
-
+    
     let newDate = new Date(parseInt(totalTime));
     setWeekCalendar(newDate);
 }
@@ -164,5 +181,3 @@ function setTodayWeekMonthly () {
     setWeekCalendar();
     showmonthlyCalendar();
 }
-
-btnToday?.addEventListener ("click", setTodayWeekMonthly);

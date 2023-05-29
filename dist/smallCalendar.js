@@ -4,7 +4,7 @@ export function showmonthlyCalendar(refIncomingDate = new Date()) {
     const asideCalendarMonth = document.querySelector("#sidebar");
     const calendarMonthContainer = document.createElement("div");
     const headerCalendarContainer = document.createElement("div");
-    headerCalendarContainer.classList.add("header-month");
+    headerCalendarContainer.classList.add("header-month", "px-4");
     headerCalendarContainer.style.flex;
     headerCalendarContainer.style.justifyContent = "space-between";
     const btnPrevMonth = document.createElement("button");
