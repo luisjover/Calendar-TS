@@ -1,3 +1,4 @@
+import { showmonthlyCalendar } from "./smallCalendar.js";
 setWeekCalendar();
 export function setWeekCalendar(date = new Date()) {
     const btnPrevWeek = document.querySelector("#prev-week");
@@ -10,25 +11,40 @@ export function setWeekCalendar(date = new Date()) {
         return;
     btnNextWeek.textContent = ">";
     btnNextWeek.addEventListener("click", changeWeek);
+    const emptySpace = document.createElement("div");
+    emptySpace.classList.add("empty-space");
+    const btnModal = document.createElement("button");
+    btnModal.type = "button";
+    btnModal.classList.add("btn", "btn-primary", "empty-space__btn");
+    btnModal.setAttribute("data-bs-toggle", "modal");
+    btnModal.setAttribute("data-bs-target", "#containerModalTask");
+    btnModal.textContent = "Create task";
+    const btnToday = document.createElement("button");
+    btnToday.classList.add("btn", "btn-primary", "empty-space__btn");
+    btnToday.id = "btnToday";
+    btnToday.textContent = "Today";
+    emptySpace.appendChild(btnModal);
+    emptySpace.appendChild(btnToday);
     const weekHeader = document.querySelector("#main-header");
     if (weekHeader)
         weekHeader.innerHTML = "";
+    weekHeader === null || weekHeader === void 0 ? void 0 : weekHeader.appendChild(emptySpace);
     let weekDays = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
     const today = date;
     const todayWeekDay = today.getDay();
     const todayRef = today.getDate();
     btnPrevWeek.setAttribute("change-week-date", `${today.getTime() - (7 * 24 * 60 * 60000)}`);
     btnNextWeek.setAttribute("change-week-date", `${today.getTime() + 7 * 24 * 60 * 60000}`);
-    const header = document.querySelector("#test");
-    if (header)
-        header.innerHTML = "";
+    const yearMonthHeader = document.querySelector("#yearMonthHeader");
+    if (yearMonthHeader)
+        yearMonthHeader.innerHTML = "";
     const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     const currentMonth = today === null || today === void 0 ? void 0 : today.getMonth();
     const monthName = months[currentMonth];
     const currentMonthYear = document.createElement("h2");
     currentMonthYear.textContent = `${monthName} ${today === null || today === void 0 ? void 0 : today.getFullYear()}`;
-    currentMonthYear.classList.add("currentMonthYear");
-    header === null || header === void 0 ? void 0 : header.appendChild(currentMonthYear);
+    showmonthlyCalendar(today);
+    yearMonthHeader === null || yearMonthHeader === void 0 ? void 0 : yearMonthHeader.appendChild(currentMonthYear);
     let firstWeekDay;
     if (todayWeekDay === 0) {
         let timeToFirstDay = 6 * 24 * 60 * 60000;
@@ -63,6 +79,7 @@ export function setWeekCalendar(date = new Date()) {
         dayContainer.appendChild(dayNumber);
     }
     setEvents(firstWeekDay);
+    btnToday === null || btnToday === void 0 ? void 0 : btnToday.addEventListener("click", setTodayWeekMonthly);
 }
 function changeWeek() {
     let totalTime = this.getAttribute("change-week-date");
@@ -122,6 +139,8 @@ function printTasks(task) {
     newTaskContainer.style.height = `${durationTime * 6}rem`;
     taskSection === null || taskSection === void 0 ? void 0 : taskSection.appendChild(newTaskContainer);
 }
-function cleanWeek() {
+function setTodayWeekMonthly() {
+    setWeekCalendar();
+    showmonthlyCalendar();
 }
 //# sourceMappingURL=bigCalendar.js.map

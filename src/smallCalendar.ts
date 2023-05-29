@@ -2,12 +2,14 @@ import { setWeekCalendar } from "./bigCalendar.js";
 
 showmonthlyCalendar();
 
-function showmonthlyCalendar(refIncomingDate: Date = new Date()) {
+export function showmonthlyCalendar(refIncomingDate: Date = new Date()) {
 
     const asideCalendarMonth = document.querySelector("#sidebar");
     const calendarMonthContainer = document.createElement("div");
     const headerCalendarContainer = document.createElement("div");
-    headerCalendarContainer.classList.add("header-month");
+    headerCalendarContainer.classList.add("header-month", "px-4");
+    headerCalendarContainer.style.flex;
+    headerCalendarContainer.style.justifyContent = "space-between";
     const btnPrevMonth = document.createElement("button");
     btnPrevMonth.classList.add("btn-prev");
     btnPrevMonth.textContent = "<";

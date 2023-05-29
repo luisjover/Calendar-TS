@@ -22,12 +22,14 @@
 </head>
 <header id="header">
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#containerModalTask">
+    <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" 
+    data-bs-target="#containerModalTask">
         Launch demo modal
-    </button>
-    <button class="week-btn" id="prev-week"></button>
-    <button class="week-btn" id="next-week"></button>
-    <div id="test"></div>
+    </button> -->
+    <button class="week-btn week-btn__prev" id="prev-week"></button>
+    <div class="currentMonthYear" id="yearMonthHeader"></div>
+    <button class="week-btn week-btn__next" id="next-week"></button>
+    
 </header>
 
 <body>
@@ -35,7 +37,9 @@
 
     <main class="main" id="main">
         <div class="main-header" id="main-header">
-            <div class="empty-space" id="empty-space"></div>
+            <!-- <div class="empty-space" id="empty-space">
+                <button class="btn btn-primary" id="btnToday">Today</button>
+            </div> -->
 
         </div>
 
