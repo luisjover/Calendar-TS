@@ -1,4 +1,4 @@
-import { Transaction } from "../../../node_modules/lmdb/index";
+
 import { createTask } from "./modalFunction.js";
 setMain()
 function setMain() {
@@ -74,14 +74,14 @@ function openModalCreateTask() {
     taskTitleInput.id = "taskTitle";
     taskTitleInput.placeholder = "Insert a task or event title";
     taskTitleInput.required = true;
-    taskTitleInput.setAttribute ("data-conform","noOk");
+    taskTitleInput.setAttribute("data-conform", "noOk");
     // creating taskTitleIcon
     const taskTitleIconCorrect = document.createElement("img");
     taskTitleIconCorrect.src = "../assets/img/icons8-correct.svg"
-    taskTitleIconCorrect.classList.add ("form__icon--none");
+    taskTitleIconCorrect.classList.add("form__icon--none");
     const taskTitleIconWrong = document.createElement("img");
     taskTitleIconWrong.src = "../assets/img/icons8-wrong.svg"
-    taskTitleIconWrong.classList.add ("form__icon--none");
+    taskTitleIconWrong.classList.add("form__icon--none");
     // insertion title
     taskTitleInputIconContainer.appendChild(taskTitleInput);
     taskTitleInputIconContainer.appendChild(taskTitleIconCorrect);
@@ -106,7 +106,7 @@ function openModalCreateTask() {
     taskDateIniInput.classList.add("form-control");
     taskDateIniInput.id = "taskDateIniInput";
     taskDateIniInput.required = true;
-    taskDateIniInput.setAttribute ("data-conform","noOk");
+    taskDateIniInput.setAttribute("data-conform", "noOk");
     // creating taskDateIniLabel
     const taskDateIniLabel = document.createElement("label");
     taskDateIniLabel.classList.add("col-sm-3", "col-form-label");
@@ -115,10 +115,10 @@ function openModalCreateTask() {
     // creating taskTitleIcon
     const taskDateIniIconCorrect = document.createElement("img");
     taskDateIniIconCorrect.src = "../assets/img/icons8-correct.svg"
-    taskDateIniIconCorrect.classList.add ("form__icon--none");
+    taskDateIniIconCorrect.classList.add("form__icon--none");
     const taskDateIniIconWrong = document.createElement("img");
     taskDateIniIconWrong.src = "../assets/img/icons8-wrong.svg"
-    taskDateIniIconWrong.classList.add ("form__icon--none");
+    taskDateIniIconWrong.classList.add("form__icon--none");
     // insertion dataIni
     taskDateIniInputContainer.appendChild(taskDateIniInput);
     taskDateIniContainer.appendChild(taskDateIniLabel);
@@ -129,7 +129,7 @@ function openModalCreateTask() {
 
     // creating taskDateEndContainer
     const taskDateEndContainer = document.createElement("div");
-    taskDateEndContainer.classList.add("mb-3", "row", "form__groupe" );
+    taskDateEndContainer.classList.add("mb-3", "row", "form__groupe");
     taskDateEndContainer.id = "taskDateEndContainer";
     // creating checkDateEndContainer
     const checkDateEndContainer = document.createElement("div");
@@ -157,14 +157,14 @@ function openModalCreateTask() {
     taskDateEndInput.max = "";
     taskDateEndInput.disabled = true;
     taskDateEndInput.id = "taskDateEndInput";
-    taskDateEndInput.setAttribute ("data-conform","ok");
+    taskDateEndInput.setAttribute("data-conform", "ok");
     // creating taskTitleIcon
     const taskDateEndIconCorrect = document.createElement("img");
     taskDateEndIconCorrect.src = "../assets/img/icons8-correct.svg"
-    taskDateEndIconCorrect.classList.add ("form__icon--none");
+    taskDateEndIconCorrect.classList.add("form__icon--none");
     const taskDateEndIconWrong = document.createElement("img");
     taskDateEndIconWrong.src = "../assets/img/icons8-wrong.svg"
-    taskDateEndIconWrong.classList.add ("form__icon--none");
+    taskDateEndIconWrong.classList.add("form__icon--none");
     // insertion dateEnd
     checkDateEndContainer.appendChild(checkDateEnd);
     checkDateEndContainer.appendChild(checkDateEndLabel);
@@ -202,7 +202,7 @@ function openModalCreateTask() {
     selectReminder.setAttribute("aria-label", "Default select example");
     selectReminder.id = "reminderSelect";
     selectReminder.disabled = true;
-    selectReminder.setAttribute ("data-conform","ok");
+    selectReminder.setAttribute("data-conform", "ok");
     // creating selectReminderOptions
     let selectReminderOptions = [
         { value: "", text: "Open this select menu" },
@@ -221,10 +221,10 @@ function openModalCreateTask() {
     // creating taskTitleIcon
     const taskReminderIconCorrect = document.createElement("img");
     taskReminderIconCorrect.src = "../assets/img/icons8-correct.svg"
-    taskReminderIconCorrect.classList.add ("form__icon--none");
+    taskReminderIconCorrect.classList.add("form__icon--none");
     const taskReminderIconWrong = document.createElement("img");
     taskReminderIconWrong.src = "../assets/img/icons8-wrong.svg"
-    taskReminderIconWrong.classList.add ("form__icon--none");
+    taskReminderIconWrong.classList.add("form__icon--none");
     // insertion reminder
     checkReminderContainer.appendChild(checkReminder);
     checkReminderContainer.appendChild(checkReminderLabel);
@@ -246,14 +246,14 @@ function openModalCreateTask() {
     taskDescriptionArea.rows = 4;
     taskDescriptionArea.placeholder = "Type a brief description of the event or task...";
     taskDescriptionArea.disabled = true;
-    taskDescriptionArea.setAttribute ("data-conform","ok");
+    taskDescriptionArea.setAttribute("data-conform", "ok");
     // creating taskTitleIcon
     const taskDescriptionIconCorrect = document.createElement("img");
     taskDescriptionIconCorrect.src = "../assets/img/icons8-correct.svg"
-    taskDescriptionIconCorrect.classList.add ("form__icon--none");
+    taskDescriptionIconCorrect.classList.add("form__icon--none");
     const taskDescriptionIconWrong = document.createElement("img");
     taskDescriptionIconWrong.src = "../assets/img/icons8-wrong.svg"
-    taskDescriptionIconWrong.classList.add ("form__icon--none");
+    taskDescriptionIconWrong.classList.add("form__icon--none");
     // insertion taskDescription
     taskDescriptionContainer.appendChild(taskDescriptionArea);
     taskDescriptionContainer.appendChild(taskDescriptionIconCorrect);
@@ -271,7 +271,7 @@ function openModalCreateTask() {
     selectType.id = "taskTypeSelect";
     selectType.required = true;
     selectType.disabled = true;
-    selectType.setAttribute ("data-conform","noOk");
+    selectType.setAttribute("data-conform", "noOk");
     // creating selectTypeOptions
     const selectTypeOptions = [
         { value: "", text: "Open this select menu" },
@@ -289,10 +289,10 @@ function openModalCreateTask() {
     });
     const taskTypeIconCorrect = document.createElement("img");
     taskTypeIconCorrect.src = "../assets/img/icons8-correct.svg"
-    taskTypeIconCorrect.classList.add ("form__icon--none");
+    taskTypeIconCorrect.classList.add("form__icon--none");
     const taskTypeIconWrong = document.createElement("img");
     taskTypeIconWrong.src = "../assets/img/icons8-wrong.svg"
-    taskTypeIconWrong.classList.add ("form__icon--none");
+    taskTypeIconWrong.classList.add("form__icon--none");
     // insertion selectType
     selectTypeContainer.appendChild(selectType);
     selectTypeContainer.appendChild(taskTypeIconCorrect);
@@ -329,67 +329,67 @@ function openModalCreateTask() {
     //modalInstance.show();
 
     // control checkbox fields
-    checkDateEnd.addEventListener ("click", e => {
-        if (taskDateIniInput.dataset.conform != "ok" || taskTitleInput.dataset.conform != "ok"){
+    checkDateEnd.addEventListener("click", e => {
+        if (taskDateIniInput.dataset.conform != "ok" || taskTitleInput.dataset.conform != "ok") {
             const errorMessage = "The 'Inital Date' field is still empty, please fill it!!!.''"
             checkDateEnd.checked = false;
             return
         }
         if (checkDateEnd.checked == true) {
             taskDateEndInput.disabled = false;
-        }else {
+        } else {
             taskDateEndInput.disabled = true;
             taskDateEndInput.dataset.conform = "ok";
             taskDateEndInput.value = "";
-            taskDateEndIconWrong.classList.add ("form__icon--none");
-            taskDateEndIconCorrect.classList.add ("form__icon--none");
-            taskDateEndIconCorrect.classList.remove ("form__choose--show");
-            taskDateEndIconWrong.classList.remove ("form__choose--show");
+            taskDateEndIconWrong.classList.add("form__icon--none");
+            taskDateEndIconCorrect.classList.add("form__icon--none");
+            taskDateEndIconCorrect.classList.remove("form__choose--show");
+            taskDateEndIconWrong.classList.remove("form__choose--show");
         }
     });
-    checkReminder.addEventListener ("click", () => {
-        if (taskDateIniInput.dataset.conform != "ok" || taskTitleInput.dataset.conform != "ok"){
+    checkReminder.addEventListener("click", () => {
+        if (taskDateIniInput.dataset.conform != "ok" || taskTitleInput.dataset.conform != "ok") {
             checkReminder.checked = false;
             return
         }
         if (checkReminder.checked == true) {
             selectReminder.disabled = false;
-        }else {
+        } else {
             selectReminder.disabled = true;
             selectReminder.value = "";
-            taskReminderIconCorrect.classList.remove ("form__choose--show");
-            taskReminderIconWrong.classList.remove ("form__choose--show");
-            taskReminderIconCorrect.classList.add ("form__icon--none");
-            taskReminderIconWrong.classList.add ("form__icon--none");
+            taskReminderIconCorrect.classList.remove("form__choose--show");
+            taskReminderIconWrong.classList.remove("form__choose--show");
+            taskReminderIconCorrect.classList.add("form__icon--none");
+            taskReminderIconWrong.classList.add("form__icon--none");
         }
     });
 
     // control input fields
     taskTitleInput.addEventListener("input", () => {
-        if (taskTitleInput.value.length >= 6){
+        if (taskTitleInput.value.length >= 6) {
             taskTitleInput.dataset.conform = "ok";
-            taskTitleIconWrong.classList.remove ("form__text--show");
-            taskTitleIconWrong.classList.add ("form__icon--none");
-            taskTitleIconCorrect.classList.remove ("form__icon--none");
-            taskTitleIconCorrect.classList.add ("form__text--show");
+            taskTitleIconWrong.classList.remove("form__text--show");
+            taskTitleIconWrong.classList.add("form__icon--none");
+            taskTitleIconCorrect.classList.remove("form__icon--none");
+            taskTitleIconCorrect.classList.add("form__text--show");
         }
-        if (taskTitleInput.value.length < 6){
+        if (taskTitleInput.value.length < 6) {
             taskTitleInput.dataset.conform = "noOk";
-            taskTitleIconCorrect.classList.remove ("form__text--show");
-            taskTitleIconCorrect.classList.add ("form__icon--none");
-            taskTitleIconWrong.classList.remove ("form__icon--none");
-            taskTitleIconWrong.classList.add ("form__text--show");
+            taskTitleIconCorrect.classList.remove("form__text--show");
+            taskTitleIconCorrect.classList.add("form__icon--none");
+            taskTitleIconWrong.classList.remove("form__icon--none");
+            taskTitleIconWrong.classList.add("form__text--show");
             // const errorMessage = "The title field must have at least 6 characters."
         }
-        if (taskTitleInput.dataset.conform == "ok" && taskDateIniInput.dataset.conform == "ok" ) {
+        if (taskTitleInput.dataset.conform == "ok" && taskDateIniInput.dataset.conform == "ok") {
             taskDescriptionArea.disabled = false;
 
         }
     });
 
     taskDateIniInput.addEventListener("focusout", () => {
-        let controlDelay = new Date (taskDateIniInput.value).getTime() - new Date().getTime();
-        if (taskDateIniInput.dataset.conform == "ok"){
+        let controlDelay = new Date(taskDateIniInput.value).getTime() - new Date().getTime();
+        if (taskDateIniInput.dataset.conform == "ok") {
             taskDateEndInput.min = taskDateIniInput.value;
             taskDateEndInput.max = `${taskDateEndInput.min.slice(0, -5)}23:59`;
             selectReminder.innerHTML = "";
@@ -407,40 +407,40 @@ function openModalCreateTask() {
                 selectOption.textContent = option.text;
                 selectReminder.appendChild(selectOption);
             });
-            }
-        if (controlDelay <= 60 * 60000 && taskDateIniInput.dataset.conform == "ok"){
-        selectReminder.innerHTML = "";
-        selectReminderOptions = [
-            { value: "", text: "Selection not available" },
-        ];
-        selectReminderOptions.forEach(option => {
-            const selectOption = document.createElement("option");
-            selectOption.value = option.value;
-            selectOption.textContent = option.text;
-            selectReminder.appendChild(selectOption);
-        });
+        }
+        if (controlDelay <= 60 * 60000 && taskDateIniInput.dataset.conform == "ok") {
+            selectReminder.innerHTML = "";
+            selectReminderOptions = [
+                { value: "", text: "Selection not available" },
+            ];
+            selectReminderOptions.forEach(option => {
+                const selectOption = document.createElement("option");
+                selectOption.value = option.value;
+                selectOption.textContent = option.text;
+                selectReminder.appendChild(selectOption);
+            });
         }
     });
 
     taskDateIniInput.addEventListener("input", () => {
-        if (new Date (taskDateIniInput.value) < new Date()) {
+        if (new Date(taskDateIniInput.value) < new Date()) {
             taskDateIniInput.dataset.conform = "noOk";
-            taskDateIniIconCorrect.classList.remove ("form__choose--show");
-            taskDateIniIconCorrect.classList.add ("form__icon--none");
-            taskDateIniIconWrong.classList.remove ("form__icon--none");
-            taskDateIniIconWrong.classList.add ("form__choose--show");
+            taskDateIniIconCorrect.classList.remove("form__choose--show");
+            taskDateIniIconCorrect.classList.add("form__icon--none");
+            taskDateIniIconWrong.classList.remove("form__icon--none");
+            taskDateIniIconWrong.classList.add("form__choose--show");
             const errorMessage = "Inital date must be greater than current date."
         } else {
             taskDateIniInput.dataset.conform = "ok";
-            taskDateIniIconWrong.classList.remove ("form__choose--show");
-            taskDateIniIconWrong.classList.add ("form__icon--none");
-            taskDateIniIconCorrect.classList.remove ("form__icon--none");
-            taskDateIniIconCorrect.classList.add ("form__choose--show");
+            taskDateIniIconWrong.classList.remove("form__choose--show");
+            taskDateIniIconWrong.classList.add("form__icon--none");
+            taskDateIniIconCorrect.classList.remove("form__icon--none");
+            taskDateIniIconCorrect.classList.add("form__choose--show");
         }
-        if (taskTitleInput.dataset.conform == "ok" && taskDateIniInput.dataset.conform == "ok" ) {
+        if (taskTitleInput.dataset.conform == "ok" && taskDateIniInput.dataset.conform == "ok") {
             taskDescriptionArea.disabled = false;
             selectType.disabled = false;
-        }else {
+        } else {
             taskDescriptionArea.disabled = true;
             selectType.disabled = true;
         }
@@ -448,55 +448,55 @@ function openModalCreateTask() {
 
 
     taskDateEndInput.addEventListener("input", () => {
-        if (new Date (taskDateEndInput.value) < new Date (taskDateIniInput.value)) {
+        if (new Date(taskDateEndInput.value) < new Date(taskDateIniInput.value)) {
             taskDateEndInput.dataset.conform = "noOk";
-            taskDateEndIconCorrect.classList.remove ("form__choose--show");
-            taskDateEndIconCorrect.classList.add ("form__icon--none");
-            taskDateEndIconWrong.classList.remove ("form__icon--none");
-            taskDateEndIconWrong.classList.add ("form__choose--show");
+            taskDateEndIconCorrect.classList.remove("form__choose--show");
+            taskDateEndIconCorrect.classList.add("form__icon--none");
+            taskDateEndIconWrong.classList.remove("form__icon--none");
+            taskDateEndIconWrong.classList.add("form__choose--show");
             const errorMessage = "Inital date must be greater than current date."
         } else {
             taskDateEndInput.dataset.conform = "ok";
-            taskDateEndIconWrong.classList.remove ("form__choose--show");
-            taskDateEndIconWrong.classList.add ("form__icon--none");
-            taskDateEndIconCorrect.classList.remove ("form__icon--none");
-            taskDateEndIconCorrect.classList.add ("form__choose--show");
+            taskDateEndIconWrong.classList.remove("form__choose--show");
+            taskDateEndIconWrong.classList.add("form__icon--none");
+            taskDateEndIconCorrect.classList.remove("form__icon--none");
+            taskDateEndIconCorrect.classList.add("form__choose--show");
         }
     });
 
     selectReminder.addEventListener("input", () => {
         if (checkReminder.checked == true && selectReminder.value != "") {
             selectReminder.dataset.conform = "ok";
-            taskReminderIconCorrect.classList.add ("form__choose--show");
-            taskReminderIconCorrect.classList.remove ("form__icon--none");
-            taskReminderIconWrong.classList.add ("form__icon--none");
-            taskReminderIconWrong.classList.remove ("form__choose--show");
-        }else {
+            taskReminderIconCorrect.classList.add("form__choose--show");
+            taskReminderIconCorrect.classList.remove("form__icon--none");
+            taskReminderIconWrong.classList.add("form__icon--none");
+            taskReminderIconWrong.classList.remove("form__choose--show");
+        } else {
             selectReminder.dataset.conform = "ok";
-            taskReminderIconWrong.classList.add ("form__choose--show");
-            taskReminderIconWrong.classList.remove ("form__icon--none");
-            taskReminderIconCorrect.classList.add ("form__icon--none");
-            taskReminderIconCorrect.classList.remove ("form__choose--show");
+            taskReminderIconWrong.classList.add("form__choose--show");
+            taskReminderIconWrong.classList.remove("form__icon--none");
+            taskReminderIconCorrect.classList.add("form__icon--none");
+            taskReminderIconCorrect.classList.remove("form__choose--show");
         }
     });
 
     taskDescriptionArea.addEventListener("input", () => {
-        if (taskDescriptionArea.value.length >= 6){
+        if (taskDescriptionArea.value.length >= 6) {
             taskDescriptionArea.dataset.conform = "ok";
-            taskDescriptionIconWrong.classList.remove ("form__text--show");
-            taskDescriptionIconWrong.classList.add ("form__icon--none");
-            taskDescriptionIconCorrect.classList.remove ("form__icon--none");
-            taskDescriptionIconCorrect.classList.add ("form__text--show");
+            taskDescriptionIconWrong.classList.remove("form__text--show");
+            taskDescriptionIconWrong.classList.add("form__icon--none");
+            taskDescriptionIconCorrect.classList.remove("form__icon--none");
+            taskDescriptionIconCorrect.classList.add("form__text--show");
         }
-        if (taskTitleInput.value.length < 6){
+        if (taskTitleInput.value.length < 6) {
             taskDescriptionArea.dataset.conform = "noOk";
-            taskDescriptionIconCorrect.classList.remove ("form__text--show");
-            taskDescriptionIconCorrect.classList.add ("form__icon--none");
-            taskDescriptionIconWrong.classList.remove ("form__icon--none");
-            taskDescriptionIconWrong.classList.add ("form__text--show");
+            taskDescriptionIconCorrect.classList.remove("form__text--show");
+            taskDescriptionIconCorrect.classList.add("form__icon--none");
+            taskDescriptionIconWrong.classList.remove("form__icon--none");
+            taskDescriptionIconWrong.classList.add("form__text--show");
             // const errorMessage = "The title field must have at least 6 characters."
         }
-        if (taskTitleInput.dataset.conform == "ok" && taskDateIniInput.dataset.conform == "ok" ) {
+        if (taskTitleInput.dataset.conform == "ok" && taskDateIniInput.dataset.conform == "ok") {
             taskDescriptionArea.disabled = false;
         }
     });
@@ -504,36 +504,36 @@ function openModalCreateTask() {
     selectType.addEventListener("input", () => {
         if (selectType.value != "") {
             selectType.dataset.conform = "ok";
-            taskTypeIconCorrect.classList.add ("form__choose--show");
-            taskTypeIconCorrect.classList.remove ("form__icon--none");
-            taskTypeIconWrong.classList.add ("form__icon--none");
-            taskTypeIconWrong.classList.remove ("form__choose--show");
-        }else {
+            taskTypeIconCorrect.classList.add("form__choose--show");
+            taskTypeIconCorrect.classList.remove("form__icon--none");
+            taskTypeIconWrong.classList.add("form__icon--none");
+            taskTypeIconWrong.classList.remove("form__choose--show");
+        } else {
             selectType.dataset.conform = "noOk";
-            taskTypeIconWrong.classList.add ("form__icon--none");
-            taskTypeIconCorrect.classList.add ("form__icon--none");
-            taskTypeIconWrong.classList.remove ("form__choose--show");
-            taskTypeIconCorrect.classList.remove ("form__choose--show");
+            taskTypeIconWrong.classList.add("form__icon--none");
+            taskTypeIconCorrect.classList.add("form__icon--none");
+            taskTypeIconWrong.classList.remove("form__choose--show");
+            taskTypeIconCorrect.classList.remove("form__choose--show");
         }
     });
-    
+
     // contorl FORM submit
     taskForm.addEventListener("change", () => {
-        if (taskTitleInput.dataset.conform == "ok" && 
-            taskDateIniInput.dataset.conform == "ok" && 
-            taskDateEndInput.dataset.conform == "ok" && 
-            selectReminder.dataset.conform == "ok" && 
-            taskDescriptionArea.dataset.conform == "ok" && 
+        if (taskTitleInput.dataset.conform == "ok" &&
+            taskDateIniInput.dataset.conform == "ok" &&
+            taskDateEndInput.dataset.conform == "ok" &&
+            selectReminder.dataset.conform == "ok" &&
+            taskDescriptionArea.dataset.conform == "ok" &&
             selectType.dataset.conform == "ok") {
-                    btnCreate.disabled = false;
-                }else {
-                    btnCreate.disabled = true;
+            btnCreate.disabled = false;
+        } else {
+            btnCreate.disabled = true;
 
         }
     });
 
     // FORM cleaner
-    function formCleaner () {
+    function formCleaner() {
         taskTitleInput.value = "";
         taskDateIniInput.value = "";
         taskDateEndInput.value = "";
