@@ -73,6 +73,7 @@ function changeWeek() {
 }
 function setEvents(firstWeekDay) {
     const weekDaysList = document.querySelectorAll(".day-task-section");
+    weekDaysList.forEach(section => section.replaceChildren());
     let tasks;
     const storage = localStorage.getItem("events");
     if (storage !== null) {
@@ -100,13 +101,27 @@ function setEvents(firstWeekDay) {
     }
 }
 function printTasks(task) {
-    const fullDate = new Date(task.initialDate);
-    const weekDay = fullDate.getDay();
+    const initialDate = new Date(task.initialDate);
+    const weekDay = initialDate.getDay();
+    const initialHours = initialDate.getHours();
+    const initialAbsoluteMinutes = initialDate.getMinutes() / 60;
+    const decimalInitialTime = initialHours + initialAbsoluteMinutes;
+    const endDate = new Date(task.endDate);
+    const finallHours = endDate.getHours();
+    const finalAbsoluteMinutes = endDate.getMinutes() / 60;
+    const decimalFinalTime = finallHours + finalAbsoluteMinutes;
+    const durationTime = decimalFinalTime - decimalInitialTime;
+    console.log(decimalInitialTime);
+    console.log(decimalFinalTime);
+    console.log(durationTime);
     const taskSection = document.querySelector(`#day-task-section-${weekDay}`);
     const newTaskContainer = document.createElement("div");
     newTaskContainer.classList.add("task-container");
     newTaskContainer.innerText = task.title;
+    newTaskContainer.style.top = `${decimalInitialTime * 6}rem`;
+    newTaskContainer.style.height = `${durationTime * 6}rem`;
     taskSection === null || taskSection === void 0 ? void 0 : taskSection.appendChild(newTaskContainer);
-    console.log(weekDay);
+}
+function cleanWeek() {
 }
 //# sourceMappingURL=bigCalendar.js.map
