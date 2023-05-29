@@ -1,12 +1,10 @@
 
 import { Task } from "./types.js";
+import { showmonthlyCalendar } from "./smallCalendar.js";
 
-
+const btnToday = document.querySelector ("#btnToday");
 
 setWeekCalendar();
-
-
-
 
 export function setWeekCalendar(date: Date = new Date()) {
 
@@ -162,7 +160,9 @@ function printTasks(task: Task) {
 
 }
 
-
-function cleanWeek() {
-
+function setTodayWeekMonthly () {
+    setWeekCalendar();
+    showmonthlyCalendar();
 }
+
+btnToday?.addEventListener ("click", setTodayWeekMonthly);

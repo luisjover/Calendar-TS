@@ -1,3 +1,5 @@
+import { showmonthlyCalendar } from "./smallCalendar.js";
+const btnToday = document.querySelector("#btnToday");
 setWeekCalendar();
 export function setWeekCalendar(date = new Date()) {
     const btnPrevWeek = document.querySelector("#prev-week");
@@ -122,6 +124,9 @@ function printTasks(task) {
     newTaskContainer.style.height = `${durationTime * 6}rem`;
     taskSection === null || taskSection === void 0 ? void 0 : taskSection.appendChild(newTaskContainer);
 }
-function cleanWeek() {
+function setTodayWeekMonthly() {
+    setWeekCalendar();
+    showmonthlyCalendar();
 }
+btnToday === null || btnToday === void 0 ? void 0 : btnToday.addEventListener("click", setTodayWeekMonthly);
 //# sourceMappingURL=bigCalendar.js.map

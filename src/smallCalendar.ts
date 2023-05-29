@@ -2,7 +2,7 @@ import { setWeekCalendar } from "./bigCalendar.js";
 
 showmonthlyCalendar();
 
-function showmonthlyCalendar(refIncomingDate: Date = new Date()) {
+export function showmonthlyCalendar(refIncomingDate: Date = new Date()) {
 
     const asideCalendarMonth = document.querySelector("#sidebar");
     const calendarMonthContainer = document.createElement("div");
