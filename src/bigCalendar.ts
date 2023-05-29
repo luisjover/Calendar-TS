@@ -1,3 +1,8 @@
+
+import { Task } from "./types.js";
+
+
+
 setWeekCalendar();
 
 
@@ -62,6 +67,8 @@ function setWeekCalendar(date: Date = new Date()) {
         weekHeader?.appendChild(dayContainer);
         dayContainer.appendChild(dayNumber);
     }
+
+    setEvents(firstWeekDay);
 }
 
 
@@ -74,3 +81,52 @@ function changeWeek(this: HTMLButtonElement) {
 }
 
 
+function setEvents(firstWeekDay: Date) {
+    const weekDaysList = document.querySelectorAll(".day-task-section");
+    let tasks;
+    const storage = localStorage.getItem("events");
+    console.log(storage)
+    if (storage !== null) {
+        tasks = JSON.parse(storage);
+    }
+
+    let currentDayFullDate = firstWeekDay.getTime();
+
+
+
+    let i = 0;
+    while (i < 7) {
+        const currentDayDate = new Date(currentDayFullDate).getDate();
+        const currentDayMonth = new Date(currentDayFullDate).getMonth();
+        const currentDayYear = new Date(currentDayFullDate).getFullYear();
+        console.log(currentDayDate);
+
+        tasks.forEach((task: Task) => {
+            const taskFullDate = new Date(task.initialDate);
+            const taskDate = taskFullDate.getDate();
+            const taskMonth = taskFullDate.getMonth();
+            const taskYear = taskFullDate.getFullYear();
+
+            if (currentDayDate === taskDate &&
+                currentDayMonth === taskMonth &&
+                currentDayYear === taskYear) {
+                printTasks(task);
+            }
+        })
+        currentDayFullDate = (currentDayFullDate + 24 * 60 * 60000);
+        i++;
+    }
+
+}
+
+function printTasks(task: Task) {
+
+    const fullDate = new Date(task.initialDate);
+    const weekDay = fullDate.getDay();
+    const taskSection = document.querySelector(`#day-task-section-${weekDay}`);
+    const newTaskContainer = document.createElement("div");
+    newTaskContainer.classList.add("task-container");
+    newTaskContainer.innerText = task.title;
+    taskSection?.appendChild(newTaskContainer);
+    console.log(weekDay)
+}
