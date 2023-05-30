@@ -1,15 +1,15 @@
 
-import { createTask } from "./modalFunction.js";
-setMain()
-function setMain() {
-    if (localStorage.getItem("events") === null || localStorage.getItem("events") === "undefined") {
-        localStorage.setItem("events", JSON.stringify([]))
-    }
-}
+import { createTask } from "./mainFunctions.js";
+import { classModalCleaner, classRemoverIcon, formCleaner, modifyTask } from "./supportFunctions.js";
+import { ArrayModalComponents } from "./types";
 
-openModalCreateTask();
 
-function openModalCreateTask() {
+
+
+
+
+export function openModalCreateTask() {
+
 
     // creating containerModalTask
     const containerModalTask = document.createElement("div");
@@ -102,7 +102,7 @@ function openModalCreateTask() {
     let minIni = new Date().toISOString();
     minIni = minIni.slice(0, -8)
     taskDateIniInput.min = minIni;
-    taskDateIniInput.setAttribute ("step", "360");
+    taskDateIniInput.setAttribute("step", "360");
     taskDateIniInput.classList.add("form-control");
     taskDateIniInput.id = "taskDateIniInput";
     taskDateIniInput.required = true;
@@ -205,12 +205,12 @@ function openModalCreateTask() {
     selectReminder.setAttribute("data-conform", "ok");
     // creating selectReminderOptions
     let selectReminderOptions = [
-        { value: "", text: "Open this select menu" },
-        { value: "1", text: "5min before" },
-        { value: "2", text: "10min before" },
-        { value: "3", text: "15min before" },
-        { value: "4", text: "30min before" },
-        { value: "5", text: "1h before" },
+        { value: "0", text: "Open this select menu" },
+        { value: "5", text: "5 min before" },
+        { value: "10", text: "10 min before" },
+        { value: "15", text: "15 min before" },
+        { value: "30", text: "30 min before" },
+        { value: "60", text: "1h before" },
     ];
     selectReminderOptions.forEach(option => {
         const selectOption = document.createElement("option");
@@ -306,8 +306,16 @@ function openModalCreateTask() {
     // creating modalFooter
     const modalFooter = document.createElement("div");
     modalFooter.classList.add("modal-footer");
-    // creating btnClose
+    // creating btnClose & btnModify(SAVE)
+    const btnSave = document.createElement("button");
     const btnClose = document.createElement("button");
+    btnSave.type = "button";
+    btnSave.id = "form-save-btn";
+    btnSave.classList.add("btn", "btn-success");
+    btnSave.setAttribute("form", "createTaskForm");
+    btnSave.textContent = "Save Changes";
+    btnSave.addEventListener("click", modifyTask);
+    btnSave.style.display = "none";
     btnClose.type = "button";
     btnClose.classList.add("btn", "btn-secondary");
     btnClose.setAttribute("data-bs-dismiss", "modal");
@@ -315,12 +323,14 @@ function openModalCreateTask() {
     // creating btnCreate
     const btnCreate = document.createElement("button");
     btnCreate.type = "button";
+    btnCreate.id = "form-create-btn";
     btnCreate.classList.add("btn", "btn-primary");
     btnCreate.setAttribute("form", "createTaskForm");
     btnCreate.textContent = "Create";
     btnCreate.addEventListener("click", createTask);
     btnCreate.disabled = true;
     // insertion footer
+    modalFooter.appendChild(btnSave);
     modalFooter.appendChild(btnClose);
     modalFooter.appendChild(btnCreate);
     modalContent.appendChild(modalFooter);
@@ -328,7 +338,6 @@ function openModalCreateTask() {
     // control checkbox fields
     checkDateEnd.addEventListener("click", e => {
         if (taskDateIniInput.dataset.conform != "ok" || taskTitleInput.dataset.conform != "ok") {
-            const errorMessage = "The 'Inital Date' field is still empty, please fill it!!!.''"
             checkDateEnd.checked = false;
             return
         }
@@ -338,10 +347,9 @@ function openModalCreateTask() {
             taskDateEndInput.disabled = true;
             taskDateEndInput.dataset.conform = "ok";
             taskDateEndInput.value = "";
+            classRemoverIcon(taskDateEndIconCorrect, taskDateEndIconWrong)
             taskDateEndIconWrong.classList.add("form__icon--none");
             taskDateEndIconCorrect.classList.add("form__icon--none");
-            taskDateEndIconCorrect.classList.remove("form__choose--show");
-            taskDateEndIconWrong.classList.remove("form__choose--show");
         }
     });
 
@@ -355,8 +363,7 @@ function openModalCreateTask() {
         } else {
             selectReminder.disabled = true;
             selectReminder.value = "";
-            selectReminderIconCorrect.classList.remove("form__choose--show");
-            selectReminderIconWrong.classList.remove("form__choose--show");
+            classRemoverIcon(selectReminderIconCorrect, selectReminderIconWrong)
             selectReminderIconCorrect.classList.add("form__icon--none");
             selectReminderIconWrong.classList.add("form__icon--none");
         }
@@ -366,13 +373,13 @@ function openModalCreateTask() {
     taskTitleInput.addEventListener("input", () => {
         if (taskTitleInput.value.length >= 6) {
             taskTitleInput.dataset.conform = "ok";
-            classRemoverIcon (taskTitleIconCorrect,taskTitleIconWrong)
+            classRemoverIcon(taskTitleIconCorrect, taskTitleIconWrong)
             taskTitleIconCorrect.classList.add("form__text--show");
             taskTitleIconWrong.classList.add("form__icon--none");
         }
         if (taskTitleInput.value.length < 6) {
             taskTitleInput.dataset.conform = "noOk";
-            classRemoverIcon (taskTitleIconCorrect,taskTitleIconWrong)
+            classRemoverIcon(taskTitleIconCorrect, taskTitleIconWrong)
             taskTitleIconWrong.classList.add("form__text--show");
             taskTitleIconCorrect.classList.add("form__icon--none");
         }
@@ -388,12 +395,12 @@ function openModalCreateTask() {
             taskDateEndInput.max = `${taskDateEndInput.min.slice(0, -5)}23:59`;
             selectReminder.innerHTML = "";
             selectReminderOptions = [
-                { value: "", text: "Open this select menu" },
-                { value: "1", text: "5min before" },
-                { value: "2", text: "10min before" },
-                { value: "3", text: "15min before" },
-                { value: "4", text: "30min before" },
-                { value: "5", text: "1h before" },
+                { value: "0", text: "Open this select menu" },
+                { value: "5", text: "5 min before" },
+                { value: "10", text: "10 min before" },
+                { value: "15", text: "15 min before" },
+                { value: "30", text: "30 min before" },
+                { value: "60", text: "1h before" },
             ];
             selectReminderOptions.forEach(option => {
                 const selectOption = document.createElement("option");
@@ -415,17 +422,23 @@ function openModalCreateTask() {
                 selectReminder.appendChild(selectOption);
             });
         }
+        if (taskDateEndInput.value != "" && taskDateIniInput.value >= taskDateEndInput.value) {
+            taskDateEndInput.dataset.conform = "noOk";
+            classRemoverIcon(taskDateEndIconCorrect, taskDateEndIconWrong);
+            taskDateEndIconWrong.classList.add("form__choose--show");
+            taskDateEndIconCorrect.classList.add("form__icon--none");
+        }
     });
 
     taskDateIniInput.addEventListener("input", () => {
         if (new Date(taskDateIniInput.value) < new Date()) {
             taskDateIniInput.dataset.conform = "noOk";
-            classRemoverIcon (taskDateIniIconCorrect, taskDateIniIconWrong);
+            classRemoverIcon(taskDateIniIconCorrect, taskDateIniIconWrong);
             taskDateIniIconWrong.classList.add("form__choose--show");
             taskDateIniIconCorrect.classList.add("form__icon--none");
         } else {
             taskDateIniInput.dataset.conform = "ok";
-            classRemoverIcon (taskDateIniIconCorrect, taskDateIniIconWrong);
+            classRemoverIcon(taskDateIniIconCorrect, taskDateIniIconWrong);
             taskDateIniIconCorrect.classList.add("form__choose--show");
             taskDateIniIconWrong.classList.add("form__icon--none");
 
@@ -442,12 +455,12 @@ function openModalCreateTask() {
     taskDateEndInput.addEventListener("input", () => {
         if (new Date(taskDateEndInput.value) < new Date(taskDateIniInput.value)) { //Se podría eliminar. Está pillado con min en el input del formulario.
             taskDateEndInput.dataset.conform = "noOk";
-            classRemoverIcon (taskDateEndIconCorrect, taskDateEndIconWrong);
+            classRemoverIcon(taskDateEndIconCorrect, taskDateEndIconWrong);
             taskDateEndIconWrong.classList.add("form__choose--show");
             taskDateEndIconCorrect.classList.add("form__icon--none");
         } else {
             taskDateEndInput.dataset.conform = "ok";
-            classRemoverIcon (taskDateEndIconCorrect, taskDateEndIconWrong);
+            classRemoverIcon(taskDateEndIconCorrect, taskDateEndIconWrong);
             taskDateEndIconCorrect.classList.add("form__choose--show");
             taskDateEndIconWrong.classList.add("form__icon--none");
         }
@@ -456,12 +469,12 @@ function openModalCreateTask() {
     selectReminder.addEventListener("input", () => {
         if (checkReminder.checked == true && selectReminder.value != "") {
             selectReminder.dataset.conform = "ok";
-            classRemoverIcon (selectReminderIconCorrect, selectReminderIconWrong);
+            classRemoverIcon(selectReminderIconCorrect, selectReminderIconWrong);
             selectReminderIconCorrect.classList.add("form__choose--show");
             selectReminderIconWrong.classList.add("form__icon--none");
         } else {
             selectReminder.dataset.conform = "ok";
-            classRemoverIcon (selectReminderIconCorrect, selectReminderIconWrong);
+            classRemoverIcon(selectReminderIconCorrect, selectReminderIconWrong);
             selectReminderIconCorrect.classList.add("form__icon--none");
             selectReminderIconWrong.classList.add("form__icon--none");
         }
@@ -470,13 +483,13 @@ function openModalCreateTask() {
     taskDescriptionArea.addEventListener("input", () => {
         if (taskDescriptionArea.value.length >= 6) {
             taskDescriptionArea.dataset.conform = "ok";
-            classRemoverIcon (taskDescriptionAreaIconCorrect, taskDescriptionAreaIconWrong);
+            classRemoverIcon(taskDescriptionAreaIconCorrect, taskDescriptionAreaIconWrong);
             taskDescriptionAreaIconCorrect.classList.add("form__text--show");
             taskDescriptionAreaIconWrong.classList.add("form__icon--none");
         }
         if (taskTitleInput.value.length < 6) {
             taskDescriptionArea.dataset.conform = "noOk";
-            classRemoverIcon (taskDescriptionAreaIconCorrect, taskDescriptionAreaIconWrong);
+            classRemoverIcon(taskDescriptionAreaIconCorrect, taskDescriptionAreaIconWrong);
             taskDescriptionAreaIconCorrect.classList.add("form__icon--none");
             taskDescriptionAreaIconWrong.classList.add("form__text--show");
         }
@@ -488,24 +501,25 @@ function openModalCreateTask() {
     selectType.addEventListener("input", () => {
         if (selectType.value != "") {
             selectType.dataset.conform = "ok";
-            classRemoverIcon (selectTypeIconCorrect, selectTypeIconWrong);
+            classRemoverIcon(selectTypeIconCorrect, selectTypeIconWrong);
             selectTypeIconCorrect.classList.add("form__choose--show");
             selectTypeIconWrong.classList.add("form__icon--none");
         } else {
             selectType.dataset.conform = "noOk";
-            classRemoverIcon (selectTypeIconCorrect, selectTypeIconWrong);
+            classRemoverIcon(selectTypeIconCorrect, selectTypeIconWrong);
             selectTypeIconWrong.classList.add("form__icon--none");
             selectTypeIconCorrect.classList.add("form__icon--none");
         }
     });
-    
-    btnCloseX.addEventListener ("click", () => {
-        classModalCleaner();
-        formCleaner();
+    const arrayModalComponents: ArrayModalComponents = [taskTitleInput, taskDateIniInput, taskDateEndInput, selectReminder, taskDescriptionArea, selectType];
+    const arrayModalIcons = [taskTitleIconCorrect, taskTitleIconWrong, taskDateIniIconCorrect, taskDateIniIconWrong, taskDateEndIconCorrect, taskDateEndIconWrong, selectReminderIconCorrect, selectReminderIconWrong, taskDescriptionAreaIconCorrect, taskDescriptionAreaIconWrong, selectTypeIconCorrect, selectTypeIconWrong];
+    btnCloseX.addEventListener("click", () => {
+        classModalCleaner(arrayModalIcons);
+        formCleaner(arrayModalComponents);
     });
-    btnClose.addEventListener ("click", () => {
-        classModalCleaner();
-        formCleaner();
+    btnClose.addEventListener("click", () => {
+        classModalCleaner(arrayModalIcons);
+        formCleaner(arrayModalComponents);
     });
 
     // contorl FORM submit
@@ -522,38 +536,6 @@ function openModalCreateTask() {
         }
     });
 
-    function classRemoverIcon (iCorrect: HTMLElement, iWrong: HTMLElement) {
-        iWrong.classList.remove("form__text--show");
-        iWrong.classList.remove("form__choose--show");
-        iWrong.classList.remove("form__type--show");
-        iWrong.classList.remove("form__icon--none");
-        iCorrect.classList.remove("form__text--show");
-        iCorrect.classList.remove("form__choose--show");
-        iCorrect.classList.remove("form__type--show");
-        iCorrect.classList.remove("form__icon--none");
-    }
-
-    const arrayModalComponents = [taskTitleInput, taskDateIniInput, taskDateEndInput, selectReminder, taskDescriptionArea, selectType];
-    const arrayModalIcons = [taskTitleIconCorrect, taskTitleIconWrong, taskDateIniIconCorrect, taskDateIniIconWrong, taskDateEndIconCorrect, taskDateEndIconWrong, selectReminderIconCorrect, selectReminderIconWrong, taskDescriptionAreaIconCorrect, taskDescriptionAreaIconWrong, selectTypeIconCorrect, selectTypeIconWrong];
-
-    function classModalCleaner () {
-        arrayModalIcons.forEach (input => {
-            input.classList.remove ("form__text--show");
-            input.classList.remove ("form__choose--show");
-            input.classList.remove ("form__type--show");
-            input.classList.add ("form__icon--none");
-        });
-    }
-
-    // FORM cleaner
-    function formCleaner() {
-        arrayModalComponents.forEach (input => {
-            input.value = "";
-            input.dataset.conform = "noOk"
-        })
-        checkDateEnd.checked = false;
-        checkReminder.checked = false;
-    }
 }
 
 

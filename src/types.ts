@@ -1,12 +1,12 @@
 
 
 export class Task {
-    constructor(newTaskId: number, newTitle: string, initialDate: string, endDate: string = "string para esto", reminderInMinutes: number, taskDescription: string, taskType: string) {
+    constructor(newTaskId: number, newTitle: string, initialDate: string, endDate: string = "string para esto", reminderTime: number, taskDescription: string, taskType: string) {
         this.id = newTaskId;
         this.title = newTitle;
         this.initialDate = initialDate;
         this.endDate = endDate;
-        this.reminderInMinutes = reminderInMinutes;
+        this.reminderTime = reminderTime;
         this.taskDescription = taskDescription;
         this.taskType = taskType;
     }
@@ -15,10 +15,18 @@ export class Task {
     title: string;
     initialDate: string;
     endDate: string;
-    reminderInMinutes: number;
+    reminderTime: number;
     taskDescription: string;
     taskType: string;
 
 }
 
-//export enum TaskType { "task", "event", "meeting", "study", "other" };
+
+export type ArrayModalComponents = [
+    taskTitleInput: HTMLInputElement,
+    taskDateIniInput: HTMLInputElement,
+    taskDateEndInput: HTMLInputElement,
+    selectReminder: HTMLSelectElement,
+    taskDescriptionArea: HTMLTextAreaElement,
+    selectType: HTMLSelectElement
+]

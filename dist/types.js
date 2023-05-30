@@ -1,10 +1,10 @@
 export class Task {
-    constructor(newTaskId, newTitle, initialDate, endDate = "string para esto", reminderInMinutes, taskDescription, taskType) {
+    constructor(newTaskId, newTitle, initialDate, endDate = "string para esto", reminderTime, taskDescription, taskType) {
         this.id = newTaskId;
         this.title = newTitle;
         this.initialDate = initialDate;
         this.endDate = endDate;
-        this.reminderInMinutes = reminderInMinutes;
+        this.reminderTime = reminderTime;
         this.taskDescription = taskDescription;
         this.taskType = taskType;
     }
