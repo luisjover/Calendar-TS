@@ -102,7 +102,7 @@ function openModalCreateTask() {
     let minIni = new Date().toISOString();
     minIni = minIni.slice(0, -8)
     taskDateIniInput.min = minIni;
-    taskDateIniInput.step = "300";
+    taskDateIniInput.setAttribute ("step", "360");
     taskDateIniInput.classList.add("form-control");
     taskDateIniInput.id = "taskDateIniInput";
     taskDateIniInput.required = true;
@@ -219,20 +219,20 @@ function openModalCreateTask() {
         selectReminder.appendChild(selectOption);//Verification
     });
     // creating taskTitleIcon
-    const taskReminderIconCorrect = document.createElement("img");
-    taskReminderIconCorrect.src = "../assets/img/icons8-correct.svg"
-    taskReminderIconCorrect.classList.add("form__icon--none");
-    const taskReminderIconWrong = document.createElement("img");
-    taskReminderIconWrong.src = "../assets/img/icons8-wrong.svg"
-    taskReminderIconWrong.classList.add("form__icon--none");
+    const selectReminderIconCorrect = document.createElement("img");
+    selectReminderIconCorrect.src = "../assets/img/icons8-correct.svg"
+    selectReminderIconCorrect.classList.add("form__icon--none");
+    const selectReminderIconWrong = document.createElement("img");
+    selectReminderIconWrong.src = "../assets/img/icons8-wrong.svg"
+    selectReminderIconWrong.classList.add("form__icon--none");
     // insertion reminder
     checkReminderContainer.appendChild(checkReminder);
     checkReminderContainer.appendChild(checkReminderLabel);
     selectReminderContainer.appendChild(selectReminder);
     reminderContainer.appendChild(checkReminderContainer);
     reminderContainer.appendChild(selectReminderContainer);
-    selectReminderContainer.appendChild(taskReminderIconCorrect);
-    selectReminderContainer.appendChild(taskReminderIconWrong);
+    selectReminderContainer.appendChild(selectReminderIconCorrect);
+    selectReminderContainer.appendChild(selectReminderIconWrong);
     taskForm.appendChild(reminderContainer);
 
     // creating taskDescriptionContainer
@@ -248,16 +248,16 @@ function openModalCreateTask() {
     taskDescriptionArea.disabled = true;
     taskDescriptionArea.setAttribute("data-conform", "ok");
     // creating taskTitleIcon
-    const taskDescriptionIconCorrect = document.createElement("img");
-    taskDescriptionIconCorrect.src = "../assets/img/icons8-correct.svg"
-    taskDescriptionIconCorrect.classList.add("form__icon--none");
-    const taskDescriptionIconWrong = document.createElement("img");
-    taskDescriptionIconWrong.src = "../assets/img/icons8-wrong.svg"
-    taskDescriptionIconWrong.classList.add("form__icon--none");
+    const taskDescriptionAreaIconCorrect = document.createElement("img");
+    taskDescriptionAreaIconCorrect.src = "../assets/img/icons8-correct.svg"
+    taskDescriptionAreaIconCorrect.classList.add("form__icon--none");
+    const taskDescriptionAreaIconWrong = document.createElement("img");
+    taskDescriptionAreaIconWrong.src = "../assets/img/icons8-wrong.svg"
+    taskDescriptionAreaIconWrong.classList.add("form__icon--none");
     // insertion taskDescription
     taskDescriptionContainer.appendChild(taskDescriptionArea);
-    taskDescriptionContainer.appendChild(taskDescriptionIconCorrect);
-    taskDescriptionContainer.appendChild(taskDescriptionIconWrong);
+    taskDescriptionContainer.appendChild(taskDescriptionAreaIconCorrect);
+    taskDescriptionContainer.appendChild(taskDescriptionAreaIconWrong);
     taskForm.appendChild(taskDescriptionContainer);
 
     // creating taskTypeContainer
@@ -287,18 +287,19 @@ function openModalCreateTask() {
         selectOption.textContent = option.text;
         selectType.appendChild(selectOption);//Verification
     });
-    const taskTypeIconCorrect = document.createElement("img");
-    taskTypeIconCorrect.src = "../assets/img/icons8-correct.svg"
-    taskTypeIconCorrect.classList.add("form__icon--none");
-    const taskTypeIconWrong = document.createElement("img");
-    taskTypeIconWrong.src = "../assets/img/icons8-wrong.svg"
-    taskTypeIconWrong.classList.add("form__icon--none");
+    const selectTypeIconCorrect = document.createElement("img");
+    selectTypeIconCorrect.src = "../assets/img/icons8-correct.svg"
+    selectTypeIconCorrect.classList.add("form__icon--none");
+    const selectTypeIconWrong = document.createElement("img");
+    selectTypeIconWrong.src = "../assets/img/icons8-wrong.svg"
+    selectTypeIconWrong.classList.add("form__icon--none");
     // insertion selectType
     selectTypeContainer.appendChild(selectType);
-    selectTypeContainer.appendChild(taskTypeIconCorrect);
-    selectTypeContainer.appendChild(taskTypeIconWrong);
+    selectTypeContainer.appendChild(selectTypeIconCorrect);
+    selectTypeContainer.appendChild(selectTypeIconWrong);
     taskForm.appendChild(selectTypeContainer);
 
+    // general body insertion
     modalBody.appendChild(taskForm);
     modalContent.appendChild(modalBody);
 
@@ -324,10 +325,6 @@ function openModalCreateTask() {
     modalFooter.appendChild(btnCreate);
     modalContent.appendChild(modalFooter);
 
-    //let modalInstance: any = new (window as any).bootstrap.Modal(containerModalTask);
-
-    //modalInstance.show();
-
     // control checkbox fields
     checkDateEnd.addEventListener("click", e => {
         if (taskDateIniInput.dataset.conform != "ok" || taskTitleInput.dataset.conform != "ok") {
@@ -347,6 +344,7 @@ function openModalCreateTask() {
             taskDateEndIconWrong.classList.remove("form__choose--show");
         }
     });
+
     checkReminder.addEventListener("click", () => {
         if (taskDateIniInput.dataset.conform != "ok" || taskTitleInput.dataset.conform != "ok") {
             checkReminder.checked = false;
@@ -357,10 +355,10 @@ function openModalCreateTask() {
         } else {
             selectReminder.disabled = true;
             selectReminder.value = "";
-            taskReminderIconCorrect.classList.remove("form__choose--show");
-            taskReminderIconWrong.classList.remove("form__choose--show");
-            taskReminderIconCorrect.classList.add("form__icon--none");
-            taskReminderIconWrong.classList.add("form__icon--none");
+            selectReminderIconCorrect.classList.remove("form__choose--show");
+            selectReminderIconWrong.classList.remove("form__choose--show");
+            selectReminderIconCorrect.classList.add("form__icon--none");
+            selectReminderIconWrong.classList.add("form__icon--none");
         }
     });
 
@@ -368,22 +366,18 @@ function openModalCreateTask() {
     taskTitleInput.addEventListener("input", () => {
         if (taskTitleInput.value.length >= 6) {
             taskTitleInput.dataset.conform = "ok";
-            taskTitleIconWrong.classList.remove("form__text--show");
-            taskTitleIconWrong.classList.add("form__icon--none");
-            taskTitleIconCorrect.classList.remove("form__icon--none");
+            classRemoverIcon (taskTitleIconCorrect,taskTitleIconWrong)
             taskTitleIconCorrect.classList.add("form__text--show");
+            taskTitleIconWrong.classList.add("form__icon--none");
         }
         if (taskTitleInput.value.length < 6) {
             taskTitleInput.dataset.conform = "noOk";
-            taskTitleIconCorrect.classList.remove("form__text--show");
-            taskTitleIconCorrect.classList.add("form__icon--none");
-            taskTitleIconWrong.classList.remove("form__icon--none");
+            classRemoverIcon (taskTitleIconCorrect,taskTitleIconWrong)
             taskTitleIconWrong.classList.add("form__text--show");
-            // const errorMessage = "The title field must have at least 6 characters."
+            taskTitleIconCorrect.classList.add("form__icon--none");
         }
         if (taskTitleInput.dataset.conform == "ok" && taskDateIniInput.dataset.conform == "ok") {
             taskDescriptionArea.disabled = false;
-
         }
     });
 
@@ -407,6 +401,7 @@ function openModalCreateTask() {
                 selectOption.textContent = option.text;
                 selectReminder.appendChild(selectOption);
             });
+            //Posible setTimeOut para ver si se ha esperado a que el tiempo sea menor a una hora.
         }
         if (controlDelay <= 60 * 60000 && taskDateIniInput.dataset.conform == "ok") {
             selectReminder.innerHTML = "";
@@ -425,17 +420,15 @@ function openModalCreateTask() {
     taskDateIniInput.addEventListener("input", () => {
         if (new Date(taskDateIniInput.value) < new Date()) {
             taskDateIniInput.dataset.conform = "noOk";
-            taskDateIniIconCorrect.classList.remove("form__choose--show");
-            taskDateIniIconCorrect.classList.add("form__icon--none");
-            taskDateIniIconWrong.classList.remove("form__icon--none");
+            classRemoverIcon (taskDateIniIconCorrect, taskDateIniIconWrong);
             taskDateIniIconWrong.classList.add("form__choose--show");
-            const errorMessage = "Inital date must be greater than current date."
+            taskDateIniIconCorrect.classList.add("form__icon--none");
         } else {
             taskDateIniInput.dataset.conform = "ok";
-            taskDateIniIconWrong.classList.remove("form__choose--show");
-            taskDateIniIconWrong.classList.add("form__icon--none");
-            taskDateIniIconCorrect.classList.remove("form__icon--none");
+            classRemoverIcon (taskDateIniIconCorrect, taskDateIniIconWrong);
             taskDateIniIconCorrect.classList.add("form__choose--show");
+            taskDateIniIconWrong.classList.add("form__icon--none");
+
         }
         if (taskTitleInput.dataset.conform == "ok" && taskDateIniInput.dataset.conform == "ok") {
             taskDescriptionArea.disabled = false;
@@ -446,55 +439,46 @@ function openModalCreateTask() {
         }
     });
 
-
     taskDateEndInput.addEventListener("input", () => {
-        if (new Date(taskDateEndInput.value) < new Date(taskDateIniInput.value)) {
+        if (new Date(taskDateEndInput.value) < new Date(taskDateIniInput.value)) { //Se podría eliminar. Está pillado con min en el input del formulario.
             taskDateEndInput.dataset.conform = "noOk";
-            taskDateEndIconCorrect.classList.remove("form__choose--show");
-            taskDateEndIconCorrect.classList.add("form__icon--none");
-            taskDateEndIconWrong.classList.remove("form__icon--none");
+            classRemoverIcon (taskDateEndIconCorrect, taskDateEndIconWrong);
             taskDateEndIconWrong.classList.add("form__choose--show");
-            const errorMessage = "Inital date must be greater than current date."
+            taskDateEndIconCorrect.classList.add("form__icon--none");
         } else {
             taskDateEndInput.dataset.conform = "ok";
-            taskDateEndIconWrong.classList.remove("form__choose--show");
-            taskDateEndIconWrong.classList.add("form__icon--none");
-            taskDateEndIconCorrect.classList.remove("form__icon--none");
+            classRemoverIcon (taskDateEndIconCorrect, taskDateEndIconWrong);
             taskDateEndIconCorrect.classList.add("form__choose--show");
+            taskDateEndIconWrong.classList.add("form__icon--none");
         }
     });
 
     selectReminder.addEventListener("input", () => {
         if (checkReminder.checked == true && selectReminder.value != "") {
             selectReminder.dataset.conform = "ok";
-            taskReminderIconCorrect.classList.add("form__choose--show");
-            taskReminderIconCorrect.classList.remove("form__icon--none");
-            taskReminderIconWrong.classList.add("form__icon--none");
-            taskReminderIconWrong.classList.remove("form__choose--show");
+            classRemoverIcon (selectReminderIconCorrect, selectReminderIconWrong);
+            selectReminderIconCorrect.classList.add("form__choose--show");
+            selectReminderIconWrong.classList.add("form__icon--none");
         } else {
             selectReminder.dataset.conform = "ok";
-            taskReminderIconWrong.classList.add("form__choose--show");
-            taskReminderIconWrong.classList.remove("form__icon--none");
-            taskReminderIconCorrect.classList.add("form__icon--none");
-            taskReminderIconCorrect.classList.remove("form__choose--show");
+            classRemoverIcon (selectReminderIconCorrect, selectReminderIconWrong);
+            selectReminderIconCorrect.classList.add("form__icon--none");
+            selectReminderIconWrong.classList.add("form__icon--none");
         }
     });
 
     taskDescriptionArea.addEventListener("input", () => {
         if (taskDescriptionArea.value.length >= 6) {
             taskDescriptionArea.dataset.conform = "ok";
-            taskDescriptionIconWrong.classList.remove("form__text--show");
-            taskDescriptionIconWrong.classList.add("form__icon--none");
-            taskDescriptionIconCorrect.classList.remove("form__icon--none");
-            taskDescriptionIconCorrect.classList.add("form__text--show");
+            classRemoverIcon (taskDescriptionAreaIconCorrect, taskDescriptionAreaIconWrong);
+            taskDescriptionAreaIconCorrect.classList.add("form__text--show");
+            taskDescriptionAreaIconWrong.classList.add("form__icon--none");
         }
         if (taskTitleInput.value.length < 6) {
             taskDescriptionArea.dataset.conform = "noOk";
-            taskDescriptionIconCorrect.classList.remove("form__text--show");
-            taskDescriptionIconCorrect.classList.add("form__icon--none");
-            taskDescriptionIconWrong.classList.remove("form__icon--none");
-            taskDescriptionIconWrong.classList.add("form__text--show");
-            // const errorMessage = "The title field must have at least 6 characters."
+            classRemoverIcon (taskDescriptionAreaIconCorrect, taskDescriptionAreaIconWrong);
+            taskDescriptionAreaIconCorrect.classList.add("form__icon--none");
+            taskDescriptionAreaIconWrong.classList.add("form__text--show");
         }
         if (taskTitleInput.dataset.conform == "ok" && taskDateIniInput.dataset.conform == "ok") {
             taskDescriptionArea.disabled = false;
@@ -504,17 +488,24 @@ function openModalCreateTask() {
     selectType.addEventListener("input", () => {
         if (selectType.value != "") {
             selectType.dataset.conform = "ok";
-            taskTypeIconCorrect.classList.add("form__choose--show");
-            taskTypeIconCorrect.classList.remove("form__icon--none");
-            taskTypeIconWrong.classList.add("form__icon--none");
-            taskTypeIconWrong.classList.remove("form__choose--show");
+            classRemoverIcon (selectTypeIconCorrect, selectTypeIconWrong);
+            selectTypeIconCorrect.classList.add("form__choose--show");
+            selectTypeIconWrong.classList.add("form__icon--none");
         } else {
             selectType.dataset.conform = "noOk";
-            taskTypeIconWrong.classList.add("form__icon--none");
-            taskTypeIconCorrect.classList.add("form__icon--none");
-            taskTypeIconWrong.classList.remove("form__choose--show");
-            taskTypeIconCorrect.classList.remove("form__choose--show");
+            classRemoverIcon (selectTypeIconCorrect, selectTypeIconWrong);
+            selectTypeIconWrong.classList.add("form__icon--none");
+            selectTypeIconCorrect.classList.add("form__icon--none");
         }
+    });
+    
+    btnCloseX.addEventListener ("click", () => {
+        classModalCleaner();
+        formCleaner();
+    });
+    btnClose.addEventListener ("click", () => {
+        classModalCleaner();
+        formCleaner();
     });
 
     // contorl FORM submit
@@ -528,25 +519,42 @@ function openModalCreateTask() {
             btnCreate.disabled = false;
         } else {
             btnCreate.disabled = true;
-
         }
     });
 
-    // FORM cleaner
-    function formCleaner() {
-        taskTitleInput.value = "";
-        taskDateIniInput.value = "";
-        taskDateEndInput.value = "";
-        selectReminder.value = "";
-        taskDescriptionArea.value = "";
-        selectType.value = "";
+    function classRemoverIcon (iCorrect: HTMLElement, iWrong: HTMLElement) {
+        iWrong.classList.remove("form__text--show");
+        iWrong.classList.remove("form__choose--show");
+        iWrong.classList.remove("form__type--show");
+        iWrong.classList.remove("form__icon--none");
+        iCorrect.classList.remove("form__text--show");
+        iCorrect.classList.remove("form__choose--show");
+        iCorrect.classList.remove("form__type--show");
+        iCorrect.classList.remove("form__icon--none");
     }
 
+    const arrayModalComponents = [taskTitleInput, taskDateIniInput, taskDateEndInput, selectReminder, taskDescriptionArea, selectType];
+    const arrayModalIcons = [taskTitleIconCorrect, taskTitleIconWrong, taskDateIniIconCorrect, taskDateIniIconWrong, taskDateEndIconCorrect, taskDateEndIconWrong, selectReminderIconCorrect, selectReminderIconWrong, taskDescriptionAreaIconCorrect, taskDescriptionAreaIconWrong, selectTypeIconCorrect, selectTypeIconWrong];
+
+    function classModalCleaner () {
+        arrayModalIcons.forEach (input => {
+            input.classList.remove ("form__text--show");
+            input.classList.remove ("form__choose--show");
+            input.classList.remove ("form__type--show");
+            input.classList.add ("form__icon--none");
+        });
+    }
+
+    // FORM cleaner
+    function formCleaner() {
+        arrayModalComponents.forEach (input => {
+            input.value = "";
+            input.dataset.conform = "noOk"
+        })
+        checkDateEnd.checked = false;
+        checkReminder.checked = false;
+    }
 }
-
-
-
-
 
 
 //Header
