@@ -289,7 +289,6 @@ function printTasks(task: Task) {
     newTaskContainer.classList.add("task-container");
     newTaskContainer.setAttribute("role", "button");
     newTaskContainer.setAttribute("taskId", task.id.toString());
-    console.log(newTaskContainer.getAttribute("taskId"));
     newTaskContainer.innerText = task.title;
     newTaskContainer.style.top = `${decimalInitialTime * 6}rem`;
     newTaskContainer.style.height = `${durationTime * 6}rem`;

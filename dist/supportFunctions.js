@@ -73,6 +73,8 @@ export function checkTimeAlert() {
     const today = new Date();
     const todayTime = today.getTime();
     const filteredEvents = tasks.filter(filterTasksForReminder);
+    if (filteredEvents.length === 0)
+        return;
     const orderedEvents = filteredEvents.sort((x, y) => new Date(x.reminderTime).getTime() - new Date(y.reminderTime).getTime());
     const sameTimeEvents = orderedEvents.filter(event => event.reminderTime === orderedEvents[0].reminderTime);
     const time = sameTimeEvents[0].reminderTime - todayTime;
@@ -139,19 +141,49 @@ export function formCleaner(arrayModalComponents) {
     checkReminder.checked = false;
 }
 export function editTask() {
-    console.log("estoy aquí");
     const containerModalTask = document.querySelector("#containerModalTask");
+    const title = document.querySelector("#taskTitle");
+    const initialDate = document.querySelector("#taskDateIniInput");
+    const finalDate = document.querySelector("#taskDateEndInput");
+    const reminderTime = document.querySelector("#reminderSelect");
+    const description = document.querySelector("#taskDescriptionArea");
+    const typeSelect = document.querySelector("#taskTypeSelect");
+    if (title === null ||
+        initialDate === null ||
+        finalDate === null ||
+        reminderTime === null ||
+        description === null ||
+        typeSelect === null) {
+        return;
+    }
     const taskId = this.getAttribute("taskId");
     if (taskId === null)
         return;
-    const parsedTaskId = parseInt(taskId);
+    const modalInstance = new window.bootstrap.Modal(containerModalTask);
+    modalInstance.show();
     const storage = localStorage.getItem("events");
     if (storage === null)
         return;
     const taskList = JSON.parse(storage);
-    let modalInstance = new window.bootstrap.Modal(containerModalTask);
-    console.log("estoy aquí");
-    modalInstance.show();
+    taskList.forEach(task => {
+        if (task.id === parseInt(taskId)) {
+            title.value = task.title;
+            initialDate.value = task.initialDate;
+            if (task.endDate === null)
+                finalDate.value = "";
+            else
+                finalDate.value = task.endDate;
+            if (task.reminderTime === null)
+                reminderTime.value = "";
+            else
+                reminderTime.value = `${task.reminderTime}`;
+            if (task.taskDescription === null)
+                description.value = "";
+            else
+                description.value = task.taskDescription;
+            typeSelect.value = task.taskType;
+        }
+    });
     const createBtn = document.querySelector("#form-create-btn");
     const saveBtn = document.querySelector("#form-save-btn");
     if (createBtn === null || saveBtn === null)
@@ -159,9 +191,43 @@ export function editTask() {
     createBtn.style.display = "none";
     saveBtn.style.display = "inline-block";
     saveBtn.setAttribute("taskId", taskId);
-    checkTimeAlert();
 }
 export function modifyTask() {
-    console.log(this);
+    const title = document.querySelector("#taskTitle");
+    const initialDate = document.querySelector("#taskDateIniInput");
+    const finalDate = document.querySelector("#taskDateEndInput");
+    const reminderTime = document.querySelector("#reminderSelect");
+    const description = document.querySelector("#taskDescriptionArea");
+    const typeSelect = document.querySelector("#taskTypeSelect");
+    if (title === null ||
+        initialDate === null ||
+        finalDate === null ||
+        reminderTime === null ||
+        description === null ||
+        typeSelect === null) {
+        return;
+    }
+    const currentTaskStringId = this.getAttribute("taskId");
+    if (currentTaskStringId === null)
+        return;
+    const currentTaskId = parseInt(currentTaskStringId);
+    const storage = localStorage.getItem("events");
+    if (storage === null)
+        return;
+    const taskList = JSON.parse(storage);
+    taskList.forEach(task => {
+        if (task.id === currentTaskId) {
+            task.title = title.value;
+            task.initialDate = initialDate.value;
+            task.endDate = finalDate.value;
+            task.reminderTime = parseInt(reminderTime.value);
+            task.taskDescription = description.value;
+            task.taskType = typeSelect.value;
+        }
+    });
+    localStorage.setItem("events", JSON.stringify(taskList));
+    checkTimeAlert();
+    searchProxTasks();
+    setWeekCalendar(new Date(initialDate.value));
 }
 //# sourceMappingURL=supportFunctions.js.map

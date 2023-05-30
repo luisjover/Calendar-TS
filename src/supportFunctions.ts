@@ -63,9 +63,10 @@ export function searchProxTasks() {
     const nearEvents = events.sort((x: Task, y: Task) => new Date(x.initialDate).getTime() - new Date(y.initialDate).getTime());
 
     const taskGeneralAsideContainer = document.createElement("div");
+    taskGeneralAsideContainer.replaceChildren();
     taskGeneralAsideContainer.classList.add("taskAsideContainer");
     let counter;
-    if (nearEvents.length > 5) counter = 5;
+    if (nearEvents.length > 8) counter = 8;
     else counter = nearEvents.length
 
 
@@ -107,6 +108,7 @@ export function checkTimeAlert() {
     const todayTime = today.getTime();
 
     const filteredEvents = tasks.filter(filterTasksForReminder);
+    if (filteredEvents.length === 0) return;
 
 
     const orderedEvents = filteredEvents.sort((x, y) => new Date(x.reminderTime).getTime() - new Date(y.reminderTime).getTime());
@@ -200,19 +202,48 @@ export function formCleaner(arrayModalComponents: ArrayModalComponents) {
 }
 
 export function editTask(this: HTMLElement) {
-    console.log("estoy aquí");
-    const containerModalTask = document.querySelector("#containerModalTask");
-    const taskId = this.getAttribute("taskId");
 
+    const containerModalTask = document.querySelector("#containerModalTask");
+    const title = document.querySelector("#taskTitle") as HTMLInputElement | null;
+    const initialDate = document.querySelector("#taskDateIniInput") as HTMLInputElement | null;
+    const finalDate = document.querySelector("#taskDateEndInput") as HTMLInputElement | null;
+    const reminderTime = document.querySelector("#reminderSelect") as HTMLSelectElement | null;
+    const description = document.querySelector("#taskDescriptionArea") as HTMLTextAreaElement | null;
+    const typeSelect = document.querySelector("#taskTypeSelect") as HTMLSelectElement | null;
+
+    if (title === null ||
+        initialDate === null ||
+        finalDate === null ||
+        reminderTime === null ||
+        description === null ||
+        typeSelect === null) {
+        return;
+    }
+
+    const taskId = this.getAttribute("taskId");
     if (taskId === null) return;
-    const parsedTaskId = parseInt(taskId);
+
+    const modalInstance: any = new (window as any).bootstrap.Modal(containerModalTask);
+    modalInstance.show();
+
     const storage = localStorage.getItem("events");
     if (storage === null) return;
     const taskList: Task[] = JSON.parse(storage);
 
-    let modalInstance: any = new (window as any).bootstrap.Modal(containerModalTask);
-    console.log("estoy aquí");
-    modalInstance.show();
+    taskList.forEach(task => {
+        if (task.id === parseInt(taskId)) {
+            title.value = task.title;
+            initialDate.value = task.initialDate;
+            if (task.endDate === null) finalDate.value = "";
+            else finalDate.value = task.endDate;
+            if (task.reminderTime === null) reminderTime.value = "";
+            else reminderTime.value = `${task.reminderTime}`;
+            if (task.taskDescription === null) description.value = "";
+            else description.value = task.taskDescription;
+            typeSelect.value = task.taskType;
+        }
+    });
+
     const createBtn = document.querySelector("#form-create-btn") as HTMLButtonElement | null;
     const saveBtn = document.querySelector("#form-save-btn") as HTMLButtonElement | null;
     if (createBtn === null || saveBtn === null) return;
@@ -220,20 +251,53 @@ export function editTask(this: HTMLElement) {
     saveBtn.style.display = "inline-block";
     saveBtn.setAttribute("taskId", taskId);
 
-    checkTimeAlert()
+
 }
 
 export function modifyTask(this: HTMLElement) {
-    // taskList.map(task => {
-    //     if (task.id === parsedTaskId) {
-    //         let modalInstance: any = new (window as any).bootstrap.Modal(containerModalTask);
-    //         modalInstance.show();
-    //         const createBtn = document.querySelector("#form-create-btn") as HTMLButtonElement | null;
-    //         const saveBtn = document.querySelector("#form-save-btn") as HTMLButtonElement | null;
-    //         if (createBtn === null || saveBtn === null) return;
-    //         createBtn.style.display = "none";
-    //         saveBtn.style.display = "inline-block";
 
-    console.log(this);
+    const title = document.querySelector("#taskTitle") as HTMLInputElement | null;
+    const initialDate = document.querySelector("#taskDateIniInput") as HTMLInputElement | null;
+    const finalDate = document.querySelector("#taskDateEndInput") as HTMLInputElement | null;
+    const reminderTime = document.querySelector("#reminderSelect") as HTMLSelectElement | null;
+    const description = document.querySelector("#taskDescriptionArea") as HTMLTextAreaElement | null;
+    const typeSelect = document.querySelector("#taskTypeSelect") as HTMLSelectElement | null;
+
+    if (title === null ||
+        initialDate === null ||
+        finalDate === null ||
+        reminderTime === null ||
+        description === null ||
+        typeSelect === null) {
+        return;
+    }
+
+    const currentTaskStringId = this.getAttribute("taskId");
+    if (currentTaskStringId === null) return;
+    const currentTaskId = parseInt(currentTaskStringId);
+    const storage = localStorage.getItem("events");
+    if (storage === null) return;
+    const taskList: Task[] = JSON.parse(storage);
+
+
+    taskList.forEach(task => {
+        if (task.id === currentTaskId) {
+
+            task.title = title.value;
+            task.initialDate = initialDate.value;
+            task.endDate = finalDate.value;
+            task.reminderTime = parseInt(reminderTime.value);
+            task.taskDescription = description.value;
+            task.taskType = typeSelect.value;
+
+        }
+    })
+
+    localStorage.setItem("events", JSON.stringify(taskList));
+
+    checkTimeAlert();
+    searchProxTasks();
+    setWeekCalendar(new Date(initialDate.value));
+    //METER LOS CLEAR DEL FORMULARIO;
 }
 

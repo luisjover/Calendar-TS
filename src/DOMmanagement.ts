@@ -385,6 +385,7 @@ export function openModalCreateTask() {
         }
         if (taskTitleInput.dataset.conform == "ok" && taskDateIniInput.dataset.conform == "ok") {
             taskDescriptionArea.disabled = false;
+            selectType.disabled = false;
         }
     });
 

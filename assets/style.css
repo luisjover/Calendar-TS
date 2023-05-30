@@ -187,6 +187,7 @@ header {
     background-color: aqua;
     opacity: 0.8;
     height: 6rem;
+    overflow: hidden;
 }
 
 .reminders-container {
@@ -196,6 +197,7 @@ header {
     right: 40px;
     bottom: 40px;
     background-color: red;
+
 
 }
 
