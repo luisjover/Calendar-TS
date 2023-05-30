@@ -1,4 +1,5 @@
 import { Task } from "./types.js";
+import { checkTimeAlert } from "./reminder.js";
 
 export function createTask() {
     let events;
@@ -42,6 +43,8 @@ export function createTask() {
     events?.push(objeto)
 
     localStorage.setItem("events", JSON.stringify(events));
+
+    checkTimeAlert()
 
 
 }
