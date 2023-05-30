@@ -42,10 +42,11 @@ export function searchProxTasks() {
     events = JSON.parse(storage);
     const nearEvents = events.sort((x, y) => new Date(x.initialDate).getTime() - new Date(y.initialDate).getTime());
     const taskGeneralAsideContainer = document.createElement("div");
+    taskGeneralAsideContainer.replaceChildren();
     taskGeneralAsideContainer.classList.add("taskAsideContainer");
     let counter;
-    if (nearEvents.length > 5)
-        counter = 5;
+    if (nearEvents.length > 8)
+        counter = 8;
     else
         counter = nearEvents.length;
     for (let i = 0; i < counter; i++) {

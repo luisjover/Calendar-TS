@@ -1,5 +1,6 @@
 import { Task } from "./types.js";
 import { changeWeek, setTodayWeekMonthly, prevFunction, nextFunction, showWeek, checkTimeAlert, cleanElement, editTask } from "./supportFunctions.js";
+import { timeLine } from "./timeLine.js";
 
 export function showmonthlyCalendar(refIncomingDate: Date = new Date()) {
 
@@ -201,6 +202,7 @@ export function setWeekCalendar(date: Date = new Date()) {
         }
 
         const dayContainer = document.createElement("div");
+        const taskContainer = document.querySelector(`#day-task-section-${i + 1}`);
         dayContainer.classList.add(`day-section-${i + 1}`);
         dayContainer.id = `day-section-${i + 1}`
         dayContainer.textContent = weekDays[i];
@@ -214,13 +216,18 @@ export function setWeekCalendar(date: Date = new Date()) {
 
         if (isCurrentDay) {
             dayNumber.classList.add("currentDay");
+            taskContainer?.setAttribute("currentDay", "true")
+        } else {
+            dayNumber.classList.remove("currentDay");
+            taskContainer?.removeAttribute("currentDay");
         }
+
         weekHeader?.appendChild(dayContainer);
         dayContainer.appendChild(dayNumber);
     }
 
     setEvents(firstWeekDay);
-
+    timeLine();
     btnToday?.addEventListener("click", setTodayWeekMonthly);
 
 }
