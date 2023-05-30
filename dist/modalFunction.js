@@ -44,4 +44,31 @@ export function createTask() {
     events === null || events === void 0 ? void 0 : events.push(objeto);
     localStorage.setItem("events", JSON.stringify(events));
 }
+searchProxTasks();
+function searchProxTasks() {
+    const sidebar = document.querySelector("#sidebar");
+    let events;
+    const storage = localStorage.getItem("events");
+    if (storage !== null) {
+        events = JSON.parse(storage);
+    }
+    const nearEvents = events.sort((x, y) => new Date(x.initialDate).getTime() - new Date(y.initialDate).getTime());
+    const taskGeneralAsideContainer = document.createElement("div");
+    taskGeneralAsideContainer.classList.add("taskAsideContainer");
+    for (let i = 0; i < 6; i++) {
+        const taskAsideContainer = document.createElement("div");
+        taskAsideContainer.classList.add("card");
+        const taskAsideTitle = document.createElement("h3");
+        taskAsideTitle.textContent = nearEvents[i].title;
+        const taskAsideDesc = document.createElement("p");
+        taskAsideDesc.textContent = `Description: ${nearEvents[i].taskDescription}`;
+        const taskAsideDate = document.createElement("p");
+        taskAsideDate.textContent = `Date: ${nearEvents[i].initialDate}`;
+        taskAsideContainer.appendChild(taskAsideTitle);
+        taskAsideContainer.appendChild(taskAsideDesc);
+        taskAsideContainer.appendChild(taskAsideDate);
+        taskGeneralAsideContainer.appendChild(taskAsideContainer);
+    }
+    sidebar === null || sidebar === void 0 ? void 0 : sidebar.appendChild(taskGeneralAsideContainer);
+}
 //# sourceMappingURL=modalFunction.js.map

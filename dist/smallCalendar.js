@@ -3,8 +3,9 @@ showmonthlyCalendar();
 export function showmonthlyCalendar(refIncomingDate = new Date()) {
     const asideCalendarMonth = document.querySelector("#sidebar");
     const calendarMonthContainer = document.createElement("div");
+    calendarMonthContainer.classList.add("calendarMonthContainer");
     const headerCalendarContainer = document.createElement("div");
-    headerCalendarContainer.classList.add("header-month", "px-4");
+    headerCalendarContainer.classList.add("header-month", "px-5");
     headerCalendarContainer.style.flex;
     headerCalendarContainer.style.justifyContent = "space-between";
     const btnPrevMonth = document.createElement("button");
@@ -93,10 +94,10 @@ export function showmonthlyCalendar(refIncomingDate = new Date()) {
         calendarMonthContainer.appendChild(dayNamesWeek);
         weekDaysCalendarContainer.appendChild(listDays);
         calendarMonthContainer.appendChild(weekDaysCalendarContainer);
-        asideCalendarMonth === null || asideCalendarMonth === void 0 ? void 0 : asideCalendarMonth.appendChild(calendarMonthContainer);
         btnPrevMonth.addEventListener("click", prevFunction);
         btnNextMonth.addEventListener("click", nextFunction);
     }
+    asideCalendarMonth === null || asideCalendarMonth === void 0 ? void 0 : asideCalendarMonth.appendChild(calendarMonthContainer);
     function prevFunction() {
         let newDate = new Date(`${this.getAttribute("data-prev-month")}`);
         showmonthlyCalendar(newDate);

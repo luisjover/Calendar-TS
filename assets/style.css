@@ -93,6 +93,14 @@ header {
 
 .sidebar{
     grid-column: 1/5;
+    height: 80vh;
+}
+.calendarMonthContainer{
+    height: 30vh;
+}
+.taskAsideContainer {
+    height: 50vh;
+    overflow-y: scroll;
 }
 
 .week-container {
@@ -102,7 +110,6 @@ header {
     position: relative;
     overflow-y: scroll;
     height: 80vh;
-
 }
 
 .hours-section {
