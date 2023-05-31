@@ -1,6 +1,6 @@
 
 import { createTask } from "./mainFunctions.js";
-import { classModalCleaner, classRemoverIcon, formCleaner, modifyTask } from "./supportFunctions.js";
+import { classModalCleaner, classRemoverIcon, formCleaner, modifyTask, calculDate, initialStateInputsToCreate, resetModalButtons, searchProxTasks } from "./supportFunctions.js";
 import { ArrayModalComponents } from "./types";
 
 
@@ -10,200 +10,206 @@ import { ArrayModalComponents } from "./types";
 
 export function openModalCreateTask() {
 
-
-    // creating containerModalTask
     const containerModalTask = document.createElement("div");
+    const modalDialog = document.createElement("div");
+    const modalContent = document.createElement("div");
+    //------------------------------------------------------------------------
+    const modalHeader = document.createElement("div");
+    const modalTitle = document.createElement("h1");
+    const btnCloseX = document.createElement("button");
+    //------------------------------------------------------------------------
+    const modalBody = document.createElement("div");
+    const taskForm = document.createElement("form");
+    //------------------------------------------------------------------------
+    const taskTitleContainer = document.createElement("div");
+    const taskTitleInputIconContainer = document.createElement("div");
+    const taskTitleInput = document.createElement("input");
+    const taskTitleIconCorrect = document.createElement("img");
+    const taskTitleIconWrong = document.createElement("img");
+    //------------------------------------------------------------------------
+    const taskDateIniContainer = document.createElement("div");
+    const taskDateIniInputContainer = document.createElement("div");
+    const taskDateIniInput = document.createElement("input");
+    const taskDateIniLabel = document.createElement("label");
+    const taskDateIniIconCorrect = document.createElement("img");
+    const taskDateIniIconWrong = document.createElement("img");
+    //------------------------------------------------------------------------
+    const taskDateEndContainer = document.createElement("div");
+    const checkDateEndContainer = document.createElement("div");
+    const checkDateEnd = document.createElement("input");
+    const checkDateEndLabel = document.createElement("label");
+    const taskDateEndInputContainer = document.createElement("div");
+    const taskDateEndInput = document.createElement("input");
+    const taskDateEndIconCorrect = document.createElement("img");
+    const taskDateEndIconWrong = document.createElement("img");
+    //------------------------------------------------------------------------
+    const reminderContainer = document.createElement("div");
+    const checkReminderContainer = document.createElement("div");
+    const checkReminder = document.createElement("input");
+    const checkReminderLabel = document.createElement("label");
+    const selectReminderContainer = document.createElement("div");
+    const selectReminder = document.createElement("select");
+    const selectReminderIconCorrect = document.createElement("img");
+    const selectReminderIconWrong = document.createElement("img");
+    //------------------------------------------------------------------------
+    const taskDescriptionContainer = document.createElement("div");
+    const taskDescriptionArea = document.createElement("textarea");
+    const taskDescriptionAreaIconCorrect = document.createElement("img");
+    const taskDescriptionAreaIconWrong = document.createElement("img");
+    //------------------------------------------------------------------------
+    const selectTypeContainer = document.createElement("div");
+    const selectType = document.createElement("select");
+    const selectTypeIconCorrect = document.createElement("img");
+    const selectTypeIconWrong = document.createElement("img");
+    //------------------------------------------------------------------------
+    const modalFooter = document.createElement("div");
+    const btnSave = document.createElement("button");
+    const btnClose = document.createElement("button");
+    const btnCreate = document.createElement("button");
+    //------------------------------------------------------------------------
+
+    // containerModalTask
     containerModalTask.classList.add("modal", "fade");
     containerModalTask.id = "containerModalTask";
     containerModalTask.setAttribute("tabindex", "-1");
     containerModalTask.setAttribute("aria-labelledby", "exampleModalLabel");
     containerModalTask.setAttribute("aria-hidden", "true");
-    // creating modalDialog
-    const modalDialog = document.createElement("div");
+    // modalDialog
     modalDialog.classList.add("modal-dialog");
     modalDialog.id = "modalDialog";
-    // creating modalContent
-    const modalContent = document.createElement("div");
+    // modalContent
     modalContent.classList.add("modal-content");
     modalContent.id = "modalContent";
-    // insertion modal basics
-    containerModalTask.appendChild(modalDialog);
-    modalDialog.appendChild(modalContent);
 
-    // creating modalHeader
-    const modalHeader = document.createElement("div");
+
+
+    // modalHeader
     modalHeader.classList.add("modal-header");
     modalHeader.id = "modalHeader";
-    // creating formTitle
-    const modalTitle = document.createElement("h1");
+    // formTitle
     modalTitle.classList.add("modal-title");
     modalTitle.id = "modalTitle";//verification.igual no se utiliza
     modalTitle.textContent = "Define event";//verification.Igual mejor otro contenido
-    // creating btnClose
-    const btnCloseX = document.createElement("button");
+    // btnClose
     btnCloseX.type = "button";
     btnCloseX.classList.add("btn-close");
     btnCloseX.setAttribute("data-bs-dismiss", "modal");
     btnCloseX.setAttribute("aria-label", "Close");
-    // insertion header
-    modalHeader.appendChild(modalTitle);
-    modalHeader.appendChild(btnCloseX);
-    modalContent.appendChild(modalHeader);
-    document.body.appendChild(containerModalTask);
 
-    // creating modalBody
-    const modalBody = document.createElement("div");
+    // modalBody
     modalBody.classList.add("modal-body");
     modalDialog.id = "modalBody";
-    // creating taskForm
-    const taskForm = document.createElement("form");
+    // taskForm
     taskForm.name = "createTaskForm";
     taskForm.id = "taskForm";
 
-    // creating taskTitleContainer
-    const taskTitleContainer = document.createElement("div");
+    // taskTitleContainer
     taskTitleContainer.classList.add("mb-3", "form__groupe");
     taskTitleContainer.id = "taskTitleContainer"; // Limpiar
-    // creating taskTitleInputIconContainer
-    const taskTitleInputIconContainer = document.createElement("div");
+    // taskTitleInputIconContainer
     taskTitleContainer.classList.add("mb-3", "form__groupe--input");
-    // creating taskTitleInput
-    const taskTitleInput = document.createElement("input");
+    // taskTitleInput
     taskTitleInput.type = "text";
     taskTitleInput.classList.add("form-control");
     taskTitleInput.id = "taskTitle";
     taskTitleInput.placeholder = "Insert a task or event title";
     taskTitleInput.required = true;
     taskTitleInput.setAttribute("data-conform", "noOk");
-    // creating taskTitleIcon
-    const taskTitleIconCorrect = document.createElement("img");
+    taskTitleInput.setAttribute("data-must", "yes");
+    // taskTitleIcon
+    taskTitleIconCorrect.id = "taskTitleIconCorrect";
     taskTitleIconCorrect.src = "../assets/img/icons8-correct.svg"
     taskTitleIconCorrect.classList.add("form__icon--none");
-    const taskTitleIconWrong = document.createElement("img");
+    taskTitleIconWrong.id = "taskTitleIconWrong";
     taskTitleIconWrong.src = "../assets/img/icons8-wrong.svg"
     taskTitleIconWrong.classList.add("form__icon--none");
-    // insertion title
-    taskTitleInputIconContainer.appendChild(taskTitleInput);
-    taskTitleInputIconContainer.appendChild(taskTitleIconCorrect);
-    taskTitleInputIconContainer.appendChild(taskTitleIconWrong);
-    taskTitleContainer.appendChild(taskTitleInputIconContainer);
-    taskForm.appendChild(taskTitleContainer);
 
-    // creating taskDateIniContainer
-    const taskDateIniContainer = document.createElement("div");
+    // taskDateIniContainer
     taskDateIniContainer.classList.add("mb-3", "row", "form__groupe");
     taskDateIniContainer.id = "taskDateIniContainer";
-    // creating taskDateIniInputContainer
-    const taskDateIniInputContainer = document.createElement("div");
+    // taskDateIniInputContainer
     taskDateIniInputContainer.classList.add("col-sm-9", "col-xs-12");
-    // creating taskDateIniInput
-    const taskDateIniInput = document.createElement("input");
+    // taskDateIniInput
     taskDateIniInput.type = "datetime-local";
-    let minIni = new Date().toISOString();
-    minIni = minIni.slice(0, -8)
-    taskDateIniInput.min = minIni;
+    let minIni = new Date();
+    let minIso = calculDate(minIni)
+    taskDateIniInput.min = minIso.slice (0, -8);
     taskDateIniInput.setAttribute("step", "360");
     taskDateIniInput.classList.add("form-control");
     taskDateIniInput.id = "taskDateIniInput";
     taskDateIniInput.required = true;
     taskDateIniInput.setAttribute("data-conform", "noOk");
-    // creating taskDateIniLabel
-    const taskDateIniLabel = document.createElement("label");
+    taskDateIniInput.setAttribute("data-must", "yes");
+    // taskDateIniLabel
     taskDateIniLabel.classList.add("col-sm-3", "col-form-label");
     taskDateIniLabel.htmlFor = "taskDateIniInput";
     taskDateIniLabel.textContent = "Initial Date";
-    // creating taskTitleIcon
-    const taskDateIniIconCorrect = document.createElement("img");
+    // taskTitleIcon
+    taskDateIniIconCorrect.id = "taskDateIniIconCorrect";
     taskDateIniIconCorrect.src = "../assets/img/icons8-correct.svg"
     taskDateIniIconCorrect.classList.add("form__icon--none");
-    const taskDateIniIconWrong = document.createElement("img");
+    taskDateIniIconWrong.id = "taskDateIniIconWrong";
     taskDateIniIconWrong.src = "../assets/img/icons8-wrong.svg"
     taskDateIniIconWrong.classList.add("form__icon--none");
-    // insertion dataIni
-    taskDateIniInputContainer.appendChild(taskDateIniInput);
-    taskDateIniContainer.appendChild(taskDateIniLabel);
-    taskDateIniContainer.appendChild(taskDateIniInputContainer);
-    taskDateIniInputContainer.appendChild(taskDateIniIconCorrect);
-    taskDateIniInputContainer.appendChild(taskDateIniIconWrong);
-    taskForm.appendChild(taskDateIniContainer);
 
-    // creating taskDateEndContainer
-    const taskDateEndContainer = document.createElement("div");
+    // taskDateEndContainer
     taskDateEndContainer.classList.add("mb-3", "row", "form__groupe");
     taskDateEndContainer.id = "taskDateEndContainer";
-    // creating checkDateEndContainer
-    const checkDateEndContainer = document.createElement("div");
+    // checkDateEndContainer
     checkDateEndContainer.classList.add("col-form-label", "col-sm-3");
-    // Creating checkDateEnd
-    const checkDateEnd = document.createElement("input");
+    // checkDateEnd
     checkDateEnd.type = "checkbox";
     checkDateEnd.classList.add("form-check-input");
     checkDateEnd.value = "";
     checkDateEnd.id = "checkDateEnd";
-    // creating checkDateEndLabel
-    const checkDateEndLabel = document.createElement("label");
+    // checkDateEndLabel
     checkDateEndLabel.classList.add("form-check-label", "ms-1");
     checkDateEndLabel.htmlFor = "checkDateEnd";
     checkDateEndLabel.textContent = "End Date";
-    // Creating taskDateEndInputContainer
-    const taskDateEndInputContainer = document.createElement("div");
+    // taskDateEndInputContainer
     taskDateEndInputContainer.classList.add("col-sm-9", "col-xs-12");
     taskDateEndInputContainer.id = "taskDateEndInputContainer";
-    // Creating taskDateEndInput
-    const taskDateEndInput = document.createElement("input");
+    // taskDateEndInput
     taskDateEndInput.type = "datetime-local";
     taskDateEndInput.classList.add("form-control");
     taskDateEndInput.min = "";
     taskDateEndInput.max = "";
-    taskDateEndInput.disabled = true;
+
     taskDateEndInput.id = "taskDateEndInput";
     taskDateEndInput.setAttribute("data-conform", "ok");
-    // creating taskTitleIcon
-    const taskDateEndIconCorrect = document.createElement("img");
+    taskDateEndInput.setAttribute("data-must", "no");
+    // taskDateEndIcon
+    taskDateEndIconCorrect.id = "taskDateEndIconCorrect"
     taskDateEndIconCorrect.src = "../assets/img/icons8-correct.svg"
     taskDateEndIconCorrect.classList.add("form__icon--none");
-    const taskDateEndIconWrong = document.createElement("img");
+    taskDateEndIconWrong.id = "taskDateEndIconWrong";
     taskDateEndIconWrong.src = "../assets/img/icons8-wrong.svg"
     taskDateEndIconWrong.classList.add("form__icon--none");
-    // insertion dateEnd
-    checkDateEndContainer.appendChild(checkDateEnd);
-    checkDateEndContainer.appendChild(checkDateEndLabel);
-    taskDateEndInputContainer.appendChild(taskDateEndInput);
-    taskDateEndContainer.appendChild(checkDateEndContainer);
-    taskDateEndContainer.appendChild(taskDateEndInputContainer);
-    taskDateEndInputContainer.appendChild(taskDateEndIconCorrect);
-    taskDateEndInputContainer.appendChild(taskDateEndIconWrong);
-    taskForm.appendChild(taskDateEndContainer);
 
-    // creating reminderContainer
-    const reminderContainer = document.createElement("div");
+    // reminderContainer
     reminderContainer.classList.add("mb-3", "row", "form__groupe");
-    // creating checkReminderContainer
-    const checkReminderContainer = document.createElement("div");
+    // checkReminderContainer
     checkReminderContainer.classList.add("col-form-label", "col-sm-3");
-    // creating checkReminder
-    const checkReminder = document.createElement("input");
+    // checkReminder
     checkReminder.type = "checkbox";
     checkReminder.classList.add("form-check-input");
     checkReminder.value = "";
     checkReminder.id = "checkReminder";
-    // creating checkReminderLabel
-    const checkReminderLabel = document.createElement("label");
+    // checkReminderLabel
     checkReminderLabel.classList.add("form-check-label", "ms-1");
     checkReminderLabel.htmlFor = "reminderCheck";
     checkReminderLabel.textContent = "Reminder";
-    // creating selectContainer
-    const selectReminderContainer = document.createElement("div");
+    // selectContainer
     selectReminderContainer.classList.add("col-sm-9", "col-xs-12");
     selectReminderContainer.id = "selectReminderContainer";
-    // creating selectReminder
-    const selectReminder = document.createElement("select");
+    // selectReminder
     selectReminder.classList.add("form-select");
     selectReminder.setAttribute("aria-label", "Default select example");
     selectReminder.id = "reminderSelect";
-    selectReminder.disabled = true;
+
     selectReminder.setAttribute("data-conform", "ok");
-    // creating selectReminderOptions
+    selectReminder.setAttribute("data-must", "no");
+    // selectReminderOptions
     let selectReminderOptions = [
         { value: "0", text: "Open this select menu" },
         { value: "5", text: "5 min before" },
@@ -218,63 +224,47 @@ export function openModalCreateTask() {
         selectOption.textContent = option.text;
         selectReminder.appendChild(selectOption);//Verification
     });
-    // creating taskTitleIcon
-    const selectReminderIconCorrect = document.createElement("img");
+    // selectReminderIcon
+    selectReminderIconCorrect.id = "selectReminderIconCorrect"
     selectReminderIconCorrect.src = "../assets/img/icons8-correct.svg"
     selectReminderIconCorrect.classList.add("form__icon--none");
-    const selectReminderIconWrong = document.createElement("img");
+    selectReminderIconWrong.id = "selectReminderIconWrong"
     selectReminderIconWrong.src = "../assets/img/icons8-wrong.svg"
     selectReminderIconWrong.classList.add("form__icon--none");
-    // insertion reminder
-    checkReminderContainer.appendChild(checkReminder);
-    checkReminderContainer.appendChild(checkReminderLabel);
-    selectReminderContainer.appendChild(selectReminder);
-    reminderContainer.appendChild(checkReminderContainer);
-    reminderContainer.appendChild(selectReminderContainer);
-    selectReminderContainer.appendChild(selectReminderIconCorrect);
-    selectReminderContainer.appendChild(selectReminderIconWrong);
-    taskForm.appendChild(reminderContainer);
 
-    // creating taskDescriptionContainer
-    const taskDescriptionContainer = document.createElement("div");
+    // taskDescriptionContainer
     taskDescriptionContainer.classList.add("mb-3", "form__groupe");
     taskDescriptionContainer.id = "taskDescriptionContainer";
-    // creating taskDescriptionArea
-    const taskDescriptionArea = document.createElement("textarea");
+    // taskDescriptionArea
     taskDescriptionArea.classList.add("form-control");
     taskDescriptionArea.id = "taskDescriptionArea";
     taskDescriptionArea.rows = 4;
     taskDescriptionArea.placeholder = "Type a brief description of the event or task...";
-    taskDescriptionArea.disabled = true;
-    taskDescriptionArea.setAttribute("data-conform", "ok");
-    // creating taskTitleIcon
-    const taskDescriptionAreaIconCorrect = document.createElement("img");
-    taskDescriptionAreaIconCorrect.src = "../assets/img/icons8-correct.svg"
-    taskDescriptionAreaIconCorrect.classList.add("form__icon--none");
-    const taskDescriptionAreaIconWrong = document.createElement("img");
-    taskDescriptionAreaIconWrong.src = "../assets/img/icons8-wrong.svg"
-    taskDescriptionAreaIconWrong.classList.add("form__icon--none");
-    // insertion taskDescription
-    taskDescriptionContainer.appendChild(taskDescriptionArea);
-    taskDescriptionContainer.appendChild(taskDescriptionAreaIconCorrect);
-    taskDescriptionContainer.appendChild(taskDescriptionAreaIconWrong);
-    taskForm.appendChild(taskDescriptionContainer);
 
-    // creating taskTypeContainer
-    const selectTypeContainer = document.createElement("div");
+    taskDescriptionArea.setAttribute("data-conform", "ok");
+    taskDescriptionArea.setAttribute("data-must", "no");
+    // taskTitleIcon
+    taskDescriptionAreaIconCorrect.id = "taskDescriptionAreaIconCorrect";
+    taskDescriptionAreaIconCorrect.src = "../assets/img/icons8-correct.svg";
+    taskDescriptionAreaIconCorrect.classList.add("form__icon--none");
+    taskDescriptionAreaIconWrong.id = "taskDescriptionAreaIconWrong";
+    taskDescriptionAreaIconWrong.src = "../assets/img/icons8-wrong.svg";
+    taskDescriptionAreaIconWrong.classList.add("form__icon--none");
+
+    // taskTypeContainer
     selectTypeContainer.classList.add("mb-3", "form__groupe");
     selectTypeContainer.id = "selectTypeContainer";
-    // creating selectType
-    const selectType = document.createElement("select");
+    // selectType
     selectType.classList.add("form-select");
     selectType.setAttribute("aria-label", "Default select example");
     selectType.id = "taskTypeSelect";
     selectType.required = true;
-    selectType.disabled = true;
+
     selectType.setAttribute("data-conform", "noOk");
-    // creating selectTypeOptions
+    selectType.setAttribute("data-must", "yes");
+    // selectTypeOptions
     const selectTypeOptions = [
-        { value: "", text: "Open this select menu" },
+        { value: "0", text: "Open this select menu" },
         { value: "task", text: "Task" },
         { value: "event", text: "Event" },
         { value: "meeting", text: "Meeting" },
@@ -287,28 +277,17 @@ export function openModalCreateTask() {
         selectOption.textContent = option.text;
         selectType.appendChild(selectOption);//Verification
     });
-    const selectTypeIconCorrect = document.createElement("img");
-    selectTypeIconCorrect.src = "../assets/img/icons8-correct.svg"
+    selectTypeIconCorrect.id = "selectTypeIconCorrect";
+    selectTypeIconCorrect.src = "../assets/img/icons8-correct.svg";
     selectTypeIconCorrect.classList.add("form__icon--none");
-    const selectTypeIconWrong = document.createElement("img");
-    selectTypeIconWrong.src = "../assets/img/icons8-wrong.svg"
+    selectTypeIconWrong.id = "selectTypeIconWrong";
+    selectTypeIconWrong.src = "../assets/img/icons8-wrong.svg";
     selectTypeIconWrong.classList.add("form__icon--none");
-    // insertion selectType
-    selectTypeContainer.appendChild(selectType);
-    selectTypeContainer.appendChild(selectTypeIconCorrect);
-    selectTypeContainer.appendChild(selectTypeIconWrong);
-    taskForm.appendChild(selectTypeContainer);
 
-    // general body insertion
-    modalBody.appendChild(taskForm);
-    modalContent.appendChild(modalBody);
-
-    // creating modalFooter
-    const modalFooter = document.createElement("div");
+    // --------------------------------------------------------------------------- FOOTER
+    // modalFooter
     modalFooter.classList.add("modal-footer");
-    // creating btnClose & btnModify(SAVE)
-    const btnSave = document.createElement("button");
-    const btnClose = document.createElement("button");
+    // btnSave(MODIFY)
     btnSave.type = "button";
     btnSave.id = "form-save-btn";
     btnSave.classList.add("btn", "btn-success");
@@ -316,25 +295,81 @@ export function openModalCreateTask() {
     btnSave.textContent = "Save Changes";
     btnSave.addEventListener("click", modifyTask);
     btnSave.style.display = "none";
+    btnSave.setAttribute("data-bs-dismiss", "modal");
+    // btnSave.setAttribute("data-bs-dismiss", "modal");
+    // btnClose
     btnClose.type = "button";
     btnClose.classList.add("btn", "btn-secondary");
     btnClose.setAttribute("data-bs-dismiss", "modal");
     btnClose.textContent = "Close";
     // creating btnCreate
-    const btnCreate = document.createElement("button");
     btnCreate.type = "button";
     btnCreate.id = "form-create-btn";
     btnCreate.classList.add("btn", "btn-primary");
     btnCreate.setAttribute("form", "createTaskForm");
     btnCreate.textContent = "Create";
-    btnCreate.addEventListener("click", createTask);
     btnCreate.disabled = true;
-    // insertion footer
+
+    // INSERTION-DOM --------------------------------------------------------------------------------- INSERTION-DOM
+    // insertion modal basics ---------------------------------insertion
+    containerModalTask.appendChild(modalDialog);
+    modalDialog.appendChild(modalContent);
+    // insertion header --------------------------------------insertion
+    modalHeader.appendChild(modalTitle);
+    modalHeader.appendChild(btnCloseX);
+    modalContent.appendChild(modalHeader);
+    document.body.appendChild(containerModalTask);
+    // insertion title ----------------------------------------insertion
+    taskTitleInputIconContainer.appendChild(taskTitleInput);
+    taskTitleInputIconContainer.appendChild(taskTitleIconCorrect);
+    taskTitleInputIconContainer.appendChild(taskTitleIconWrong);
+    taskTitleContainer.appendChild(taskTitleInputIconContainer);
+    taskForm.appendChild(taskTitleContainer);
+    // insertion dataIni ---------------------------------------insertion
+    taskDateIniInputContainer.appendChild(taskDateIniInput);
+    taskDateIniContainer.appendChild(taskDateIniLabel);
+    taskDateIniContainer.appendChild(taskDateIniInputContainer);
+    taskDateIniInputContainer.appendChild(taskDateIniIconCorrect);
+    taskDateIniInputContainer.appendChild(taskDateIniIconWrong);
+    taskForm.appendChild(taskDateIniContainer);
+    // insertion dateEnd ----------------------------------------insertion
+    checkDateEndContainer.appendChild(checkDateEnd);
+    checkDateEndContainer.appendChild(checkDateEndLabel);
+    taskDateEndInputContainer.appendChild(taskDateEndInput);
+    taskDateEndContainer.appendChild(checkDateEndContainer);
+    taskDateEndContainer.appendChild(taskDateEndInputContainer);
+    taskDateEndInputContainer.appendChild(taskDateEndIconCorrect);
+    taskDateEndInputContainer.appendChild(taskDateEndIconWrong);
+    taskForm.appendChild(taskDateEndContainer);
+    // insertion reminder ---------------------------------------insertion
+    checkReminderContainer.appendChild(checkReminder);
+    checkReminderContainer.appendChild(checkReminderLabel);
+    selectReminderContainer.appendChild(selectReminder);
+    reminderContainer.appendChild(checkReminderContainer);
+    reminderContainer.appendChild(selectReminderContainer);
+    selectReminderContainer.appendChild(selectReminderIconCorrect);
+    selectReminderContainer.appendChild(selectReminderIconWrong);
+    taskForm.appendChild(reminderContainer);
+    // insertion taskDescription ---------------------------------insertion
+    taskDescriptionContainer.appendChild(taskDescriptionArea);
+    taskDescriptionContainer.appendChild(taskDescriptionAreaIconCorrect);
+    taskDescriptionContainer.appendChild(taskDescriptionAreaIconWrong);
+    taskForm.appendChild(taskDescriptionContainer);
+    // insertion selectType --------------------------------------insertion
+    selectTypeContainer.appendChild(selectType);
+    selectTypeContainer.appendChild(selectTypeIconCorrect);
+    selectTypeContainer.appendChild(selectTypeIconWrong);
+    taskForm.appendChild(selectTypeContainer);
+    // general body insertion ------------------------------------insertion
+    modalBody.appendChild(taskForm);
+    modalContent.appendChild(modalBody);
+    // insertion footer -------------------------------------------insertion
     modalFooter.appendChild(btnSave);
     modalFooter.appendChild(btnClose);
     modalFooter.appendChild(btnCreate);
     modalContent.appendChild(modalFooter);
-
+    // FUNCTIONS ------------------------------------------------------------------------------------------------ FUNCTIONS
+    initialStateInputsToCreate();
     // control checkbox fields
     checkDateEnd.addEventListener("click", e => {
         if (taskDateIniInput.dataset.conform != "ok" || taskTitleInput.dataset.conform != "ok") {
@@ -342,11 +377,17 @@ export function openModalCreateTask() {
             return
         }
         if (checkDateEnd.checked == true) {
+            let minIni = new Date(taskDateIniInput.value);
+            let minIso = calculDate(minIni)
+            taskDateEndInput.min = minIso.slice (0, -8);
             taskDateEndInput.disabled = false;
         } else {
             taskDateEndInput.disabled = true;
             taskDateEndInput.dataset.conform = "ok";
+            console.log("else")
             taskDateEndInput.value = "";
+            taskDateEndInput.min = "";
+            taskDateEndInput.max = "";
             classRemoverIcon(taskDateEndIconCorrect, taskDateEndIconWrong)
             taskDateEndIconWrong.classList.add("form__icon--none");
             taskDateEndIconCorrect.classList.add("form__icon--none");
@@ -362,7 +403,7 @@ export function openModalCreateTask() {
             selectReminder.disabled = false;
         } else {
             selectReminder.disabled = true;
-            selectReminder.value = "";
+            selectReminder.value = "0";
             classRemoverIcon(selectReminderIconCorrect, selectReminderIconWrong)
             selectReminderIconCorrect.classList.add("form__icon--none");
             selectReminderIconWrong.classList.add("form__icon--none");
@@ -388,11 +429,34 @@ export function openModalCreateTask() {
             selectType.disabled = false;
         }
     });
+    taskTitleInput.addEventListener("focusout", () => {
+        if (taskTitleInput.value.length >= 6) {
+            taskTitleInput.dataset.conform = "ok";
+            classRemoverIcon(taskTitleIconCorrect, taskTitleIconWrong)
+            taskTitleIconCorrect.classList.add("form__text--show");
+            taskTitleIconWrong.classList.add("form__icon--none");
+            console.log (taskDateIniInput.value);
+        }
+        if (taskTitleInput.value.length < 6) {
+            taskTitleInput.dataset.conform = "noOk";
+            classRemoverIcon(taskTitleIconCorrect, taskTitleIconWrong)
+            taskTitleIconWrong.classList.add("form__text--show");
+            taskTitleIconCorrect.classList.add("form__icon--none");
+        }
+        if (taskTitleInput.dataset.conform == "ok" && taskDateIniInput.dataset.conform == "ok") {
+            taskDescriptionArea.disabled = false;
+            selectType.disabled = false;
+        }
+    });
 
     taskDateIniInput.addEventListener("focusout", () => {
+
         let controlDelay = new Date(taskDateIniInput.value).getTime() - new Date().getTime();
+
         if (taskDateIniInput.dataset.conform == "ok") {
-            taskDateEndInput.min = taskDateIniInput.value;
+            let minIni = new Date(taskDateIniInput.value);
+            let minIso = calculDate(minIni)
+            taskDateEndInput.min = minIso.slice (0, -8);
             taskDateEndInput.max = `${taskDateEndInput.min.slice(0, -5)}23:59`;
             selectReminder.innerHTML = "";
             selectReminderOptions = [
@@ -414,7 +478,7 @@ export function openModalCreateTask() {
         if (controlDelay <= 60 * 60000 && taskDateIniInput.dataset.conform == "ok") {
             selectReminder.innerHTML = "";
             selectReminderOptions = [
-                { value: "", text: "Selection not available" },
+                { value: "0", text: "Selection not available" },
             ];
             selectReminderOptions.forEach(option => {
                 const selectOption = document.createElement("option");
@@ -512,19 +576,30 @@ export function openModalCreateTask() {
             selectTypeIconCorrect.classList.add("form__icon--none");
         }
     });
-    const arrayModalComponents: ArrayModalComponents = [taskTitleInput, taskDateIniInput, taskDateEndInput, selectReminder, taskDescriptionArea, selectType];
-    const arrayModalIcons = [taskTitleIconCorrect, taskTitleIconWrong, taskDateIniIconCorrect, taskDateIniIconWrong, taskDateEndIconCorrect, taskDateEndIconWrong, selectReminderIconCorrect, selectReminderIconWrong, taskDescriptionAreaIconCorrect, taskDescriptionAreaIconWrong, selectTypeIconCorrect, selectTypeIconWrong];
     btnCloseX.addEventListener("click", () => {
-        classModalCleaner(arrayModalIcons);
-        formCleaner(arrayModalComponents);
+        classModalCleaner();
+        formCleaner();
+        initialStateInputsToCreate ();
+        resetModalButtons ();
     });
     btnClose.addEventListener("click", () => {
-        classModalCleaner(arrayModalIcons);
-        formCleaner(arrayModalComponents);
+        classModalCleaner();
+        formCleaner();
+        initialStateInputsToCreate ();
+        resetModalButtons ();
+    });
+    btnCreate.addEventListener("click", () => {
+        createTask ();
+        formCleaner();
+        classModalCleaner();
+        initialStateInputsToCreate ();
+        searchProxTasks();
+        btnCreate.disabled = true;
     });
 
+
     // contorl FORM submit
-    taskForm.addEventListener("change", () => {
+    taskForm.addEventListener("input", () => {
         if (taskTitleInput.dataset.conform == "ok" &&
             taskDateIniInput.dataset.conform == "ok" &&
             taskDateEndInput.dataset.conform == "ok" &&
@@ -532,11 +607,26 @@ export function openModalCreateTask() {
             taskDescriptionArea.dataset.conform == "ok" &&
             selectType.dataset.conform == "ok") {
             btnCreate.disabled = false;
+            btnSave.disabled = false;
         } else {
             btnCreate.disabled = true;
+            btnSave.disabled = true;
         }
     });
-
+    taskForm.addEventListener("focusout", () => {
+        if (taskTitleInput.dataset.conform == "ok" &&
+            taskDateIniInput.dataset.conform == "ok" &&
+            taskDateEndInput.dataset.conform == "ok" &&
+            selectReminder.dataset.conform == "ok" &&
+            taskDescriptionArea.dataset.conform == "ok" &&
+            selectType.dataset.conform == "ok") {
+            btnCreate.disabled = false;
+            btnSave.disabled = false;
+        } else {
+            btnCreate.disabled = true;
+            btnSave.disabled = true;
+        }
+    });
 }
 
 
