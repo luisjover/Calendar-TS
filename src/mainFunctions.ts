@@ -16,11 +16,15 @@ export function showmonthlyCalendar(refIncomingDate: Date = new Date()) {
 
     const btnPrevMonth = document.createElement("button");
     btnPrevMonth.classList.add("btn-prev");
-    btnPrevMonth.textContent = "<";
+    const btnPrevImg = document.createElement("img");
+    btnPrevImg.src = "/assets/img/icon-left.svg"
+    btnPrevMonth.appendChild(btnPrevImg);
 
     const btnNextMonth = document.createElement("button");
     btnNextMonth.classList.add("btn-next");
-    btnNextMonth.textContent = ">";
+    const btnNextImg = document.createElement("img");
+    btnNextImg.src = "/assets/img/icon-right.svg"
+    btnNextMonth.appendChild(btnNextImg);
 
     const titleMonth = document.createElement("h4");
 
@@ -129,14 +133,14 @@ export function showmonthlyCalendar(refIncomingDate: Date = new Date()) {
 export function setWeekCalendar(date: Date = new Date()) {
     resetModalButtons();
 
-    //BUTTONS
+    // BUTTONS
     const btnPrevWeek = document.querySelector("#prev-week") as HTMLButtonElement | null;
     if (btnPrevWeek === null) return;
-    btnPrevWeek.textContent = "<";
+    // btnPrevWeek.textContent = "<";
     btnPrevWeek.addEventListener("click", changeWeek)
     const btnNextWeek = document.querySelector("#next-week") as HTMLButtonElement | null;
     if (btnNextWeek === null) return;
-    btnNextWeek.textContent = ">";
+    // btnNextWeek.textContent = ">";
     btnNextWeek.addEventListener("click", changeWeek);
     const emptySpace = document.createElement("div");
     emptySpace.classList.add("empty-space");
@@ -208,7 +212,7 @@ export function setWeekCalendar(date: Date = new Date()) {
 
         const dayContainer = document.createElement("div");
         const taskContainer = document.querySelector(`#day-task-section-${i + 1}`);
-        dayContainer.classList.add(`day-section-${i + 1}`);
+        dayContainer.classList.add(`day-section-${i + 1}`, "day-section");
         dayContainer.id = `day-section-${i + 1}`
         dayContainer.textContent = weekDays[i];
 
