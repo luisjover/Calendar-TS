@@ -1,5 +1,6 @@
 import { Task } from "./types.js";
 import { changeWeek, setTodayWeekMonthly, prevFunction, nextFunction, showWeek, checkTimeAlert, cleanElement, editTask } from "./supportFunctions.js";
+import { timeLine } from "./timeLine.js";
 export function showmonthlyCalendar(refIncomingDate = new Date()) {
     const asideCalendarMonth = document.querySelector("#sidebar");
     const calendarMonthContainer = document.createElement("div");
@@ -152,6 +153,7 @@ export function setWeekCalendar(date = new Date()) {
             currentWeekDay = new Date(firstWeekDay.getTime() + addMlSeconds);
         }
         const dayContainer = document.createElement("div");
+        const taskContainer = document.querySelector(`#day-task-section-${i + 1}`);
         dayContainer.classList.add(`day-section-${i + 1}`);
         dayContainer.id = `day-section-${i + 1}`;
         dayContainer.textContent = weekDays[i];
@@ -162,11 +164,17 @@ export function setWeekCalendar(date = new Date()) {
         const isCurrentDay = currentWeekDay.getDate() === refCurrentWeekDay.getDate() && currentWeekDay.getMonth() === refCurrentWeekDay.getMonth() && currentWeekDay.getFullYear() === refCurrentWeekDay.getFullYear();
         if (isCurrentDay) {
             dayNumber.classList.add("currentDay");
+            taskContainer === null || taskContainer === void 0 ? void 0 : taskContainer.setAttribute("currentDay", "true");
+        }
+        else {
+            dayNumber.classList.remove("currentDay");
+            taskContainer === null || taskContainer === void 0 ? void 0 : taskContainer.removeAttribute("currentDay");
         }
         weekHeader === null || weekHeader === void 0 ? void 0 : weekHeader.appendChild(dayContainer);
         dayContainer.appendChild(dayNumber);
     }
     setEvents(firstWeekDay);
+    timeLine();
     btnToday === null || btnToday === void 0 ? void 0 : btnToday.addEventListener("click", setTodayWeekMonthly);
 }
 function setEvents(firstWeekDay) {
