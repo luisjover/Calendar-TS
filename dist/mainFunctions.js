@@ -104,6 +104,8 @@ export function setWeekCalendar(date = new Date()) {
     btnNextWeek.addEventListener("click", changeWeek);
     const emptySpace = document.createElement("div");
     emptySpace.classList.add("empty-space");
+    const localTimeContainer = document.createElement("div");
+    localTimeContainer.classList.add("local-time-container");
     const btnModal = document.createElement("button");
     btnModal.type = "button";
     btnModal.classList.add("btn", "btn-primary", "empty-space__btn");
@@ -120,6 +122,7 @@ export function setWeekCalendar(date = new Date()) {
     if (weekHeader)
         weekHeader.innerHTML = "";
     weekHeader === null || weekHeader === void 0 ? void 0 : weekHeader.appendChild(emptySpace);
+    weekHeader === null || weekHeader === void 0 ? void 0 : weekHeader.appendChild(localTimeContainer);
     let weekDays = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
     const today = date;
     const todayWeekDay = today.getDay();

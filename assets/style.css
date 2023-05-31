@@ -64,9 +64,10 @@ header {
 
 .empty-space {
     display: flex;
-    grid-column: 1/6;
+    grid-column: 1/5;
     padding-left: 0.5rem;
     gap: 1rem;
+    justify-content: space-around;
     align-items: center;
 }
 
@@ -80,6 +81,11 @@ header {
 }
 .empty-space__btn:hover{
     background-color:  rgb(172, 100, 200) !important;
+}
+.local-time-container{
+    background-color: aqua;
+    grid-column: 5/6;
+
 }
 .day-section-1 {
     display: flex;

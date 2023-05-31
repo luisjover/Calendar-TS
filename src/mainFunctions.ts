@@ -141,6 +141,10 @@ export function setWeekCalendar(date: Date = new Date()) {
     const emptySpace = document.createElement("div");
     emptySpace.classList.add("empty-space");
 
+    const localTimeContainer = document.createElement("div");
+    localTimeContainer.classList.add("local-time-container");
+    
+
     const btnModal = document.createElement("button");
     btnModal.type = "button";
     btnModal.classList.add("btn", "btn-primary", "empty-space__btn");
@@ -160,6 +164,7 @@ export function setWeekCalendar(date: Date = new Date()) {
     if (weekHeader) weekHeader.innerHTML = ""
 
     weekHeader?.appendChild(emptySpace);
+    weekHeader?.appendChild(localTimeContainer);
 
     let weekDays: string[] = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
     const today = date;
