@@ -1,6 +1,7 @@
 import { Task } from "./types.js";
 import { changeWeek, setTodayWeekMonthly, prevFunction, nextFunction, showWeek, checkTimeAlert, cleanElement, editTask, resetModalButtons } from "./supportFunctions.js";
 import { timeLine } from "./timeLine.js";
+import { checkTaskContainerOverlap } from "./events.js";
 
 export function showmonthlyCalendar(refIncomingDate: Date = new Date()) {
 
@@ -229,6 +230,8 @@ export function setWeekCalendar(date: Date = new Date()) {
     timeLine();
     btnToday?.addEventListener("click", setTodayWeekMonthly);
 
+    console.log("la funcion se llama desde setWeek");
+    checkTaskContainerOverlap();
 }
 
 
@@ -298,6 +301,7 @@ function printTasks(task: Task) {
     newTaskContainer.innerText = task.title;
     newTaskContainer.style.top = `${decimalInitialTime * 6}rem`;
     newTaskContainer.style.height = `${durationTime * 6}rem`;
+    newTaskContainer.style.width = "80%";
 
     taskSection?.appendChild(newTaskContainer);
 }
@@ -349,6 +353,7 @@ export function createTask() {
     localStorage.setItem("events", JSON.stringify(events));
 
     checkTimeAlert()
-    setWeekCalendar(new Date (initialDate));
+    setWeekCalendar(new Date(initialDate));
 
 }
+

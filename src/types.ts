@@ -1,7 +1,7 @@
 
 
 export class Task {
-    constructor(newTaskId: number, newTitle: string, initialDate: string, endDate: string, reminderTime: number, taskDescription: string, taskType: string) {
+    constructor(newTaskId: number, newTitle: string, initialDate: string, endDate: string = "string para esto", reminderTime: number, taskDescription: string, taskType: string) {
         this.id = newTaskId;
         this.title = newTitle;
         this.initialDate = initialDate;
