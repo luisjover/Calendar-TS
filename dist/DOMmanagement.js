@@ -1,5 +1,5 @@
-import { createTask } from "./mainFunctions.js";
-import { classModalCleaner, classRemoverIcon, formCleaner, modifyTask, calculDate, initialStateInputsToCreate, resetModalButtons, searchProxTasks } from "./supportFunctions.js";
+import { createTask, setWeekCalendar } from "./mainFunctions.js";
+import { classModalCleaner, classRemoverIcon, formCleaner, modifyTask, calculDate, initialStateInputsToCreate, resetModalButtons, searchProxTasks, deleteTask, checkTimeAlert } from "./supportFunctions.js";
 export function openModalCreateTask() {
     const containerModalTask = document.createElement("div");
     const modalDialog = document.createElement("div");
@@ -45,8 +45,9 @@ export function openModalCreateTask() {
     const selectTypeIconCorrect = document.createElement("img");
     const selectTypeIconWrong = document.createElement("img");
     const modalFooter = document.createElement("div");
-    const btnSave = document.createElement("button");
     const btnClose = document.createElement("button");
+    const btnDelete = document.createElement("button");
+    const btnSave = document.createElement("button");
     const btnCreate = document.createElement("button");
     containerModalTask.classList.add("modal", "fade");
     containerModalTask.id = "containerModalTask";
@@ -220,6 +221,12 @@ export function openModalCreateTask() {
     btnSave.addEventListener("click", modifyTask);
     btnSave.style.display = "none";
     btnSave.setAttribute("data-bs-dismiss", "modal");
+    btnDelete.type = "button";
+    btnDelete.id = "form-delete-btn";
+    btnDelete.classList.add("btn", "btn-danger");
+    btnDelete.setAttribute("data-bs-dismiss", "modal");
+    btnDelete.style.display = "none";
+    btnDelete.textContent = "Delete";
     btnClose.type = "button";
     btnClose.classList.add("btn", "btn-secondary");
     btnClose.setAttribute("data-bs-dismiss", "modal");
@@ -273,8 +280,9 @@ export function openModalCreateTask() {
     taskForm.appendChild(selectTypeContainer);
     modalBody.appendChild(taskForm);
     modalContent.appendChild(modalBody);
-    modalFooter.appendChild(btnSave);
     modalFooter.appendChild(btnClose);
+    modalFooter.appendChild(btnDelete);
+    modalFooter.appendChild(btnSave);
     modalFooter.appendChild(btnCreate);
     modalContent.appendChild(modalFooter);
     initialStateInputsToCreate();
@@ -292,7 +300,6 @@ export function openModalCreateTask() {
         else {
             taskDateEndInput.disabled = true;
             taskDateEndInput.dataset.conform = "ok";
-            console.log("else");
             taskDateEndInput.value = "";
             taskDateEndInput.min = "";
             taskDateEndInput.max = "";
@@ -341,7 +348,6 @@ export function openModalCreateTask() {
             classRemoverIcon(taskTitleIconCorrect, taskTitleIconWrong);
             taskTitleIconCorrect.classList.add("form__text--show");
             taskTitleIconWrong.classList.add("form__icon--none");
-            console.log(taskDateIniInput.value);
         }
         if (taskTitleInput.value.length < 6) {
             taskTitleInput.dataset.conform = "noOk";
@@ -496,6 +502,16 @@ export function openModalCreateTask() {
         initialStateInputsToCreate();
         searchProxTasks();
         btnCreate.disabled = true;
+    });
+    btnDelete.addEventListener("click", deleteTask);
+    btnDelete.addEventListener("click", () => {
+        formCleaner();
+        classModalCleaner();
+        initialStateInputsToCreate();
+        checkTimeAlert();
+        setWeekCalendar();
+        resetModalButtons();
+        searchProxTasks();
     });
     taskForm.addEventListener("input", () => {
         if (taskTitleInput.dataset.conform == "ok" &&

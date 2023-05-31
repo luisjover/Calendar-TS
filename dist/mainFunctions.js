@@ -1,5 +1,5 @@
 import { Task } from "./types.js";
-import { changeWeek, setTodayWeekMonthly, prevFunction, nextFunction, showWeek, checkTimeAlert, cleanElement, editTask, resetModalButtons } from "./supportFunctions.js";
+import { changeWeek, setTodayWeekMonthly, prevFunction, nextFunction, showWeek, checkTimeAlert, cleanElement, editTask, resetModalButtons, calculDate } from "./supportFunctions.js";
 import { timeLine } from "./timeLine.js";
 import { checkTaskContainerOverlap } from "./events.js";
 export function showmonthlyCalendar(refIncomingDate = new Date()) {
@@ -178,7 +178,6 @@ export function setWeekCalendar(date = new Date()) {
     setEvents(firstWeekDay);
     timeLine();
     btnToday === null || btnToday === void 0 ? void 0 : btnToday.addEventListener("click", setTodayWeekMonthly);
-    console.log("la funcion se llama desde setWeek");
     checkTaskContainerOverlap();
 }
 function setEvents(firstWeekDay) {
@@ -236,12 +235,13 @@ function printTasks(task) {
 export function createTask() {
     let events;
     const storage = localStorage.getItem("events");
-    if (storage !== null) {
-        events = JSON.parse(storage);
-    }
+    if (storage === null)
+        return;
+    events = JSON.parse(storage);
     let taskId;
-    if (events) {
-        taskId = events.length;
+    if (events.length > 0) {
+        let longEvents = events.length - 1;
+        taskId = events[longEvents].id + 1;
     }
     else
         taskId = 0;
@@ -264,7 +264,22 @@ export function createTask() {
     const checkFinalDate = checkFinalDateElement === null || checkFinalDateElement === void 0 ? void 0 : checkFinalDateElement.value;
     if ((finalDateElement === null || finalDateElement === void 0 ? void 0 : finalDateElement.value) === null || (finalDateElement === null || finalDateElement === void 0 ? void 0 : finalDateElement.value) === undefined)
         return;
-    const finalDate = finalDateElement === null || finalDateElement === void 0 ? void 0 : finalDateElement.value;
+    let finalDate = finalDateElement === null || finalDateElement === void 0 ? void 0 : finalDateElement.value;
+    if (finalDateElement.value == "") {
+        const initialDateInDate = new Date(initialDate);
+        const finalDateInTime = new Date(initialDate).getTime() + (60 * 60000);
+        const finalDateHelper1 = new Date(finalDateInTime);
+        if (initialDateInDate.getDate() !== finalDateHelper1.getDate()) {
+            finalDate = `${initialDateElement.value.slice(0, -5)}23:59`;
+        }
+        else {
+            const finalDateHelper2 = calculDate(finalDateHelper1);
+            finalDate = finalDateHelper2.slice(0, -8);
+        }
+    }
+    else {
+        finalDate = finalDateElement === null || finalDateElement === void 0 ? void 0 : finalDateElement.value;
+    }
     if ((reminderTimeSelectElement === null || reminderTimeSelectElement === void 0 ? void 0 : reminderTimeSelectElement.value) === null || (reminderTimeSelectElement === null || reminderTimeSelectElement === void 0 ? void 0 : reminderTimeSelectElement.value) === undefined)
         return;
     const reminderTimeSelect = new Date(initialDate).getTime() - parseInt(reminderTimeSelectElement === null || reminderTimeSelectElement === void 0 ? void 0 : reminderTimeSelectElement.value) * 60 * 1000;
