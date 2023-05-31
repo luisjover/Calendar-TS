@@ -10,10 +10,14 @@ export function showmonthlyCalendar(refIncomingDate = new Date()) {
     headerCalendarContainer.classList.add("header-month", "px-4", "d-flex", "justify-content-between");
     const btnPrevMonth = document.createElement("button");
     btnPrevMonth.classList.add("btn-prev");
-    btnPrevMonth.textContent = "<";
+    const btnPrevImg = document.createElement("img");
+    btnPrevImg.src = "/assets/img/icon-left.svg";
+    btnPrevMonth.appendChild(btnPrevImg);
     const btnNextMonth = document.createElement("button");
     btnNextMonth.classList.add("btn-next");
-    btnNextMonth.textContent = ">";
+    const btnNextImg = document.createElement("img");
+    btnNextImg.src = "/assets/img/icon-right.svg";
+    btnNextMonth.appendChild(btnNextImg);
     const titleMonth = document.createElement("h4");
     const listDays = document.createElement("ol");
     let firstDayMonth = new Date(refIncomingDate.getFullYear(), refIncomingDate.getMonth(), 1);
@@ -95,12 +99,10 @@ export function setWeekCalendar(date = new Date()) {
     const btnPrevWeek = document.querySelector("#prev-week");
     if (btnPrevWeek === null)
         return;
-    btnPrevWeek.textContent = "<";
     btnPrevWeek.addEventListener("click", changeWeek);
     const btnNextWeek = document.querySelector("#next-week");
     if (btnNextWeek === null)
         return;
-    btnNextWeek.textContent = ">";
     btnNextWeek.addEventListener("click", changeWeek);
     const emptySpace = document.createElement("div");
     emptySpace.classList.add("empty-space");
@@ -156,7 +158,7 @@ export function setWeekCalendar(date = new Date()) {
         }
         const dayContainer = document.createElement("div");
         const taskContainer = document.querySelector(`#day-task-section-${i + 1}`);
-        dayContainer.classList.add(`day-section-${i + 1}`);
+        dayContainer.classList.add(`day-section-${i + 1}`, "day-section");
         dayContainer.id = `day-section-${i + 1}`;
         dayContainer.textContent = weekDays[i];
         const dayNumber = document.createElement("span");
