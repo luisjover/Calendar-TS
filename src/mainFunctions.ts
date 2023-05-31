@@ -133,6 +133,8 @@ export function showmonthlyCalendar(refIncomingDate: Date = new Date()) {
 export function setWeekCalendar(date: Date = new Date()) {
     resetModalButtons();
 
+    const weekContainer = document.querySelector("#week-container");
+    weekContainer?.scrollTo({ top: 600, behavior: 'smooth' })
     // BUTTONS
     const btnPrevWeek = document.querySelector("#prev-week") as HTMLButtonElement | null;
     if (btnPrevWeek === null) return;

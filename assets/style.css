@@ -342,8 +342,8 @@ ol {
 
 .currentMonth:hover,
 .notCurrentMonth:hover {
-    background-color: rgb(208, 167, 225);
-    opacity: 90%;
+    background-color: rgba(208, 167, 225, .9);
+    color: whitesmoke;
 }
 
 .currentDay {
