@@ -1,10 +1,11 @@
-.logo{
+.logo {
     grid-column: 1/2;
     background-image: url("./img/logo.jpg");
     background-repeat: no-repeat;
 }
 
-.main-title{
+.main-title {
+    cursor: default;
     grid-column: 2/6;
     display: flex;
     align-items: center;
@@ -12,59 +13,66 @@
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     font-size: xx-large;
 }
-.week-btn-container{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.week-btn{
+
+
+
+.week-btn {
     width: 3rem;
     height: 3rem;
     background-color: transparent;
     border-radius: 50%;
-    margin-top: 1rem;
-    
+    margin-top: .5rem;
+
 }
 
-.week-btn:hover{
-    background-color:  rgb(208, 167, 225);
-    
+.week-btn-img {
+    height: 3rem;
 }
 
-.btn-next{
+.week-btn:hover {
+    background-color: rgb(208, 167, 225);
+
+}
+
+.btn-next {
     width: 24px;
     height: 24px;
     background-color: transparent;
     border-radius: 50%;
-   
+
 }
 
-.btn-prev{
+.btn-prev {
     width: 24px;
     height: 24px;
     background-color: transparent;
     border-radius: 50%;
-   
+
 }
 
-.btn-next:hover{
-    background-color:  rgb(208, 167, 225);
-    opacity: 90%;}
-
-.btn-prev:hover{
-    background-color:  rgb(208, 167, 225);
+.btn-next:hover {
+    background-color: rgb(208, 167, 225);
     opacity: 90%;
 }
-.container-month{
+
+.btn-prev:hover {
+    background-color: rgb(208, 167, 225);
+    opacity: 90%;
+}
+
+.container-month {
     margin-top: 1rem;
     margin-left: 0.5rem;
     box-shadow: 0px 0px 10px gray;
     border-radius: 5px;
 }
-.card{
+
+.card {
+    cursor: default;
     padding-left: 1rem;
     padding-right: 1rem;
     margin-top: 1rem;
+    margin-bottom: .5rem;
     margin-right: 0.5rem;
     margin-left: 1rem;
     font-size: medium;
@@ -72,11 +80,21 @@
     border-radius: 5px !important;
     box-shadow: 0px 0px 10px gray;
 }
-.card>h3{
+
+.card>h3 {
     color: rgb(172, 100, 200);
-   
+
 }
-.weekNameDay{
+
+.weekNameDay {
     border-bottom: 1px solid rgb(172, 100, 200);
-    
+    cursor: default;
+    justify-self: stretch;
+    text-align: center;
+
+}
+
+.currentMonth {
+    display: flex;
+    justify-content: center;
 }
