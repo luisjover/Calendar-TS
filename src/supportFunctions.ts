@@ -43,15 +43,12 @@ export function showWeek(this: HTMLElement) {
 }
 
 export function searchProxTasks() {
-
     const sidebar = document.querySelector("#sidebar");
 
     let events: any;
     const storage = localStorage.getItem("events");
     if (storage === null) return;
     events = JSON.parse(storage);
-
-
 
     const nearEvents = events.sort((x: Task, y: Task) => new Date(x.initialDate).getTime() - new Date(y.initialDate).getTime());
 
@@ -96,8 +93,6 @@ export function checkTimeAlert() {
     const sameTimeEvents = orderedEvents.filter(event => event.reminderTime === orderedEvents[0].reminderTime);
 
     const time = sameTimeEvents[0].reminderTime - todayTime;
-    console.log(time);
-
 
     const timer = setTimeout(() => {
         sameTimeEvents.forEach(task => {
@@ -194,7 +189,6 @@ export function classModalCleaner() {
 
 // FORM cleaner
 export function formCleaner() {
-    console.log ("entra en crear");
     const taskTitleInput = document.querySelector ("#taskTitle") as HTMLInputElement | null;
     const taskDateIniInput = document.querySelector ("#taskDateIniInput") as HTMLInputElement | null;
     const checkDateEnd = document.querySelector("#checkDateEnd") as HTMLInputElement | null;
@@ -281,14 +275,18 @@ export function editTask(this: HTMLElement) {
         }
     });
 
-    const createBtn = document.querySelector("#form-create-btn") as HTMLButtonElement | null;
-    const saveBtn = document.querySelector("#form-save-btn") as HTMLButtonElement | null;
-    if (createBtn === null || saveBtn === null) return;
+    const createBtn = document.querySelector ("#form-create-btn") as HTMLButtonElement | null;
+    const saveBtn = document.querySelector ("#form-save-btn") as HTMLButtonElement | null;
+    const deleteBtn = document.querySelector ("#form-delete-btn") as HTMLButtonElement | null;
+    if (createBtn === null || saveBtn === null || deleteBtn === null) return;
     createBtn.style.display = "none";
     saveBtn.style.display = "inline-block";
     saveBtn.disabled = false;
     saveBtn.setAttribute("taskId", taskId);
-    
+    deleteBtn.style.display = "inline-block";
+    deleteBtn.disabled = false;
+    deleteBtn.setAttribute ("taskId", taskId);
+
 }
 
 export function modifyTask(this: HTMLElement) {
@@ -328,7 +326,7 @@ export function modifyTask(this: HTMLElement) {
             task.taskType = typeSelect.value;
             console.log (task);
         }
-    })
+    });
     
     localStorage.setItem("events", JSON.stringify(taskList));
     checkTimeAlert();
@@ -351,12 +349,13 @@ export function calculDate (date: Date): string {
 }
 
 export function resetModalButtons () {
-    console.log ("entra");
     const btnCreate = document.querySelector ("#form-create-btn") as HTMLButtonElement | null;
     const btnSave = document.querySelector ("#form-save-btn") as HTMLButtonElement | null;
-    if (btnCreate === null || btnSave === null) return;
+    const btnDelete = document.querySelector ("#form-delete-btn") as HTMLButtonElement | null;
+    if (btnCreate === null || btnSave === null || btnDelete === null) return;
     btnCreate.style.display = "inline-block";
     btnSave.style.display = "none";
+    btnDelete.style.display = "none";
 }
 
 export function initialStateInputsToCreate () {
@@ -414,5 +413,22 @@ export function initialStateInputsToModify () {
     reminderTime.dataset.conform = "ok";
     description.dataset.conform = "ok";
     typeSelect.dataset.conform = "ok";
+}
+
+export function deleteTask (this: HTMLElement) {
+    console.log (this.getAttribute("taskId"))
+    const currentTaskStringId = this.getAttribute("taskId");
+    if (currentTaskStringId === null) return;
+    const currentTaskId = parseInt(currentTaskStringId);
+    const storage = localStorage.getItem("events");
+    if (storage === null) return;
+
+    const taskList: Task[] = JSON.parse(storage);
+    const newTaskList: Task[] = taskList.filter (task => task.id !== currentTaskId);
+    console.log (taskList);
+    console.log (newTaskList);
+
+    localStorage.setItem ("events", JSON.stringify(newTaskList));
+
 }
 

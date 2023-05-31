@@ -249,6 +249,24 @@ header {
     background-color: rgba(54, 44, 61, .8);
 }
 
+
+
+.task-green {
+    background-color: rgba(109, 202, 130, .8);
+}
+
+.task-blue {
+    background-color: rgba(82, 160, 225, .8);
+}
+
+.task-red {
+    background-color: rgba(191, 79, 56, .8);
+}
+
+.task-orange {
+    background-color: rgba(228, 130, 19, .8);
+}
+
 .reminders-container {
     position: absolute;
     display: flex;
@@ -297,6 +315,7 @@ ol {
     margin-right: 10px;
     margin-left: 10px;
     justify-items: center;
+    /* gap: 5px; */
 }
 
 .previous,
@@ -329,8 +348,8 @@ ol {
 
 .currentMonth:hover,
 .notCurrentMonth:hover {
-    background-color: rgb(208, 167, 225);
-    opacity: 90%;
+    background-color: rgba(208, 167, 225, .9);
+    color: whitesmoke;
 }
 
 .currentDay {

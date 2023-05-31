@@ -1,15 +1,11 @@
 
-import { createTask } from "./mainFunctions.js";
-import { classModalCleaner, classRemoverIcon, formCleaner, modifyTask, calculDate, initialStateInputsToCreate, resetModalButtons, searchProxTasks } from "./supportFunctions.js";
+import { createTask, setWeekCalendar } from "./mainFunctions.js";
+import { classModalCleaner, classRemoverIcon, formCleaner, modifyTask, calculDate, initialStateInputsToCreate, resetModalButtons, searchProxTasks, deleteTask, checkTimeAlert } from "./supportFunctions.js";
 import { ArrayModalComponents } from "./types";
 
 
-
-
-
-
 export function openModalCreateTask() {
-
+    // ---------------------------------------------------------------------------------------ELEMENTS CREATION
     const containerModalTask = document.createElement("div");
     const modalDialog = document.createElement("div");
     const modalContent = document.createElement("div");
@@ -63,11 +59,12 @@ export function openModalCreateTask() {
     const selectTypeIconWrong = document.createElement("img");
     //------------------------------------------------------------------------
     const modalFooter = document.createElement("div");
-    const btnSave = document.createElement("button");
     const btnClose = document.createElement("button");
+    const btnDelete = document.createElement("button");
+    const btnSave = document.createElement("button");
     const btnCreate = document.createElement("button");
-    //------------------------------------------------------------------------
 
+    // ------------------------------------------------------------------------------------------------ ATTRIBUTES
     // containerModalTask
     containerModalTask.classList.add("modal", "fade");
     containerModalTask.id = "containerModalTask";
@@ -81,9 +78,7 @@ export function openModalCreateTask() {
     modalContent.classList.add("modal-content");
     modalContent.id = "modalContent";
 
-
-
-    // modalHeader
+    // ---------------------------------------------------------------- modalHeader
     modalHeader.classList.add("modal-header");
     modalHeader.id = "modalHeader";
     // formTitle
@@ -96,7 +91,7 @@ export function openModalCreateTask() {
     btnCloseX.setAttribute("data-bs-dismiss", "modal");
     btnCloseX.setAttribute("aria-label", "Close");
 
-    // modalBody
+    // --------------------------------------------------------------------modalBody
     modalBody.classList.add("modal-body");
     modalDialog.id = "modalBody";
     // taskForm
@@ -284,8 +279,7 @@ export function openModalCreateTask() {
     selectTypeIconWrong.src = "../assets/img/icons8-wrong.svg";
     selectTypeIconWrong.classList.add("form__icon--none");
 
-    // --------------------------------------------------------------------------- FOOTER
-    // modalFooter
+    // ---------------------------------------------------------------------------- modalFooter
     modalFooter.classList.add("modal-footer");
     // btnSave(MODIFY)
     btnSave.type = "button";
@@ -296,7 +290,13 @@ export function openModalCreateTask() {
     btnSave.addEventListener("click", modifyTask);
     btnSave.style.display = "none";
     btnSave.setAttribute("data-bs-dismiss", "modal");
-    // btnSave.setAttribute("data-bs-dismiss", "modal");
+    // btnDelete
+    btnDelete.type = "button";
+    btnDelete.id = "form-delete-btn"
+    btnDelete.classList.add("btn", "btn-danger");
+    btnDelete.setAttribute("data-bs-dismiss", "modal");
+    btnDelete.style.display = "none";
+    btnDelete.textContent = "Delete";
     // btnClose
     btnClose.type = "button";
     btnClose.classList.add("btn", "btn-secondary");
@@ -310,7 +310,7 @@ export function openModalCreateTask() {
     btnCreate.textContent = "Create";
     btnCreate.disabled = true;
 
-    // INSERTION-DOM --------------------------------------------------------------------------------- INSERTION-DOM
+    // INSERTION-DOM ---------------------------------------------------------------------- INSERTION-DOM
     // insertion modal basics ---------------------------------insertion
     containerModalTask.appendChild(modalDialog);
     modalDialog.appendChild(modalContent);
@@ -364,13 +364,14 @@ export function openModalCreateTask() {
     modalBody.appendChild(taskForm);
     modalContent.appendChild(modalBody);
     // insertion footer -------------------------------------------insertion
-    modalFooter.appendChild(btnSave);
     modalFooter.appendChild(btnClose);
+    modalFooter.appendChild(btnDelete);
+    modalFooter.appendChild(btnSave);
     modalFooter.appendChild(btnCreate);
     modalContent.appendChild(modalFooter);
     // FUNCTIONS ------------------------------------------------------------------------------------------------ FUNCTIONS
     initialStateInputsToCreate();
-    // control checkbox fields
+    // --------------------------------------------------------------checkbox fields
     checkDateEnd.addEventListener("click", e => {
         if (taskDateIniInput.dataset.conform != "ok" || taskTitleInput.dataset.conform != "ok") {
             checkDateEnd.checked = false;
@@ -384,7 +385,6 @@ export function openModalCreateTask() {
         } else {
             taskDateEndInput.disabled = true;
             taskDateEndInput.dataset.conform = "ok";
-            console.log("else")
             taskDateEndInput.value = "";
             taskDateEndInput.min = "";
             taskDateEndInput.max = "";
@@ -410,7 +410,7 @@ export function openModalCreateTask() {
         }
     });
 
-    // control input fields
+    // --------------------------------------------------------------------- input fields
     taskTitleInput.addEventListener("input", () => {
         if (taskTitleInput.value.length >= 6) {
             taskTitleInput.dataset.conform = "ok";
@@ -435,7 +435,6 @@ export function openModalCreateTask() {
             classRemoverIcon(taskTitleIconCorrect, taskTitleIconWrong)
             taskTitleIconCorrect.classList.add("form__text--show");
             taskTitleIconWrong.classList.add("form__icon--none");
-            console.log (taskDateIniInput.value);
         }
         if (taskTitleInput.value.length < 6) {
             taskTitleInput.dataset.conform = "noOk";
@@ -473,7 +472,6 @@ export function openModalCreateTask() {
                 selectOption.textContent = option.text;
                 selectReminder.appendChild(selectOption);
             });
-            //Posible setTimeOut para ver si se ha esperado a que el tiempo sea menor a una hora.
         }
         if (controlDelay <= 60 * 60000 && taskDateIniInput.dataset.conform == "ok") {
             selectReminder.innerHTML = "";
@@ -494,7 +492,6 @@ export function openModalCreateTask() {
             taskDateEndIconCorrect.classList.add("form__icon--none");
         }
     });
-
     taskDateIniInput.addEventListener("input", () => {
         if (new Date(taskDateIniInput.value) < new Date()) {
             taskDateIniInput.dataset.conform = "noOk";
@@ -516,7 +513,6 @@ export function openModalCreateTask() {
             selectType.disabled = true;
         }
     });
-
     taskDateEndInput.addEventListener("input", () => {
         if (new Date(taskDateEndInput.value) < new Date(taskDateIniInput.value)) { //Se podría eliminar. Está pillado con min en el input del formulario.
             taskDateEndInput.dataset.conform = "noOk";
@@ -530,7 +526,6 @@ export function openModalCreateTask() {
             taskDateEndIconWrong.classList.add("form__icon--none");
         }
     });
-
     selectReminder.addEventListener("input", () => {
         if (checkReminder.checked == true && selectReminder.value != "") {
             selectReminder.dataset.conform = "ok";
@@ -544,7 +539,6 @@ export function openModalCreateTask() {
             selectReminderIconWrong.classList.add("form__icon--none");
         }
     });
-
     taskDescriptionArea.addEventListener("input", () => {
         if (taskDescriptionArea.value.length >= 6) {
             taskDescriptionArea.dataset.conform = "ok";
@@ -562,7 +556,6 @@ export function openModalCreateTask() {
             taskDescriptionArea.disabled = false;
         }
     });
-
     selectType.addEventListener("input", () => {
         if (selectType.value != "") {
             selectType.dataset.conform = "ok";
@@ -596,9 +589,17 @@ export function openModalCreateTask() {
         searchProxTasks();
         btnCreate.disabled = true;
     });
-
-
-    // contorl FORM submit
+    btnDelete.addEventListener ("click", deleteTask);
+    btnDelete.addEventListener("click", () => {
+        formCleaner();
+        classModalCleaner();
+        initialStateInputsToCreate ();
+        checkTimeAlert();
+        setWeekCalendar();
+        resetModalButtons();
+        searchProxTasks();
+    });
+    // -------------------------------------------------------- control FORM submit
     taskForm.addEventListener("input", () => {
         if (taskTitleInput.dataset.conform == "ok" &&
             taskDateIniInput.dataset.conform == "ok" &&

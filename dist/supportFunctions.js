@@ -79,7 +79,6 @@ export function checkTimeAlert() {
     const orderedEvents = filteredEvents.sort((x, y) => new Date(x.reminderTime).getTime() - new Date(y.reminderTime).getTime());
     const sameTimeEvents = orderedEvents.filter(event => event.reminderTime === orderedEvents[0].reminderTime);
     const time = sameTimeEvents[0].reminderTime - todayTime;
-    console.log(time);
     const timer = setTimeout(() => {
         sameTimeEvents.forEach(task => {
             printReminder(task);
@@ -157,7 +156,6 @@ export function classModalCleaner() {
     });
 }
 export function formCleaner() {
-    console.log("entra en crear");
     const taskTitleInput = document.querySelector("#taskTitle");
     const taskDateIniInput = document.querySelector("#taskDateIniInput");
     const checkDateEnd = document.querySelector("#checkDateEnd");
@@ -241,12 +239,16 @@ export function editTask() {
     });
     const createBtn = document.querySelector("#form-create-btn");
     const saveBtn = document.querySelector("#form-save-btn");
-    if (createBtn === null || saveBtn === null)
+    const deleteBtn = document.querySelector("#form-delete-btn");
+    if (createBtn === null || saveBtn === null || deleteBtn === null)
         return;
     createBtn.style.display = "none";
     saveBtn.style.display = "inline-block";
     saveBtn.disabled = false;
     saveBtn.setAttribute("taskId", taskId);
+    deleteBtn.style.display = "inline-block";
+    deleteBtn.disabled = false;
+    deleteBtn.setAttribute("taskId", taskId);
 }
 export function modifyTask() {
     const title = document.querySelector("#taskTitle");
@@ -298,13 +300,14 @@ export function calculDate(date) {
     return localDate.toISOString();
 }
 export function resetModalButtons() {
-    console.log("entra");
     const btnCreate = document.querySelector("#form-create-btn");
     const btnSave = document.querySelector("#form-save-btn");
-    if (btnCreate === null || btnSave === null)
+    const btnDelete = document.querySelector("#form-delete-btn");
+    if (btnCreate === null || btnSave === null || btnDelete === null)
         return;
     btnCreate.style.display = "inline-block";
     btnSave.style.display = "none";
+    btnDelete.style.display = "none";
 }
 export function initialStateInputsToCreate() {
     const title = document.querySelector("#taskTitle");
@@ -359,5 +362,20 @@ export function initialStateInputsToModify() {
     reminderTime.dataset.conform = "ok";
     description.dataset.conform = "ok";
     typeSelect.dataset.conform = "ok";
+}
+export function deleteTask() {
+    console.log(this.getAttribute("taskId"));
+    const currentTaskStringId = this.getAttribute("taskId");
+    if (currentTaskStringId === null)
+        return;
+    const currentTaskId = parseInt(currentTaskStringId);
+    const storage = localStorage.getItem("events");
+    if (storage === null)
+        return;
+    const taskList = JSON.parse(storage);
+    const newTaskList = taskList.filter(task => task.id !== currentTaskId);
+    console.log(taskList);
+    console.log(newTaskList);
+    localStorage.setItem("events", JSON.stringify(newTaskList));
 }
 //# sourceMappingURL=supportFunctions.js.map

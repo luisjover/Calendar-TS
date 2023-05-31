@@ -15,9 +15,6 @@ export function checkTaskContainerOverlap() {
                 if (storage === null)
                     return;
                 const id = parseInt(storage);
-                console.log(`esto es length ${length}`);
-                console.log(`esto es start ${start}`);
-                console.log(`esto es final ${final}`);
                 childrenContainers.forEach(childContainer2 => {
                     const width2 = 10 / (childContainer2.clientWidth * 0.063);
                     const start2 = parseInt(childContainer2.style.top);
@@ -29,6 +26,8 @@ export function checkTaskContainerOverlap() {
                     const id2 = parseInt(storage2);
                     if (id !== id2) {
                         if ((start >= start2 && start <= final2) || (start2 <= final && final <= final2)) {
+                            if (childContainer === undefined)
+                                return;
                             if (id > id2) {
                                 childContainer.style.width = `${(initialWidth - widthDecrement * i)}%`;
                                 i += 0.2;

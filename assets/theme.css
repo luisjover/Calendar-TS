@@ -33,6 +33,7 @@
 
 .week-btn:hover {
     background-color: rgb(208, 167, 225);
+    color: whitesmoke;
 
 }
 
@@ -51,13 +52,13 @@
 }
 
 .btn-next:hover {
-    background-color: rgb(208, 167, 225);
-    opacity: 90%;
+    background-color: rgba(208, 167, 225, .9);
+
 }
 
 .btn-prev:hover {
-    background-color: rgb(208, 167, 225);
-    opacity: 90%;
+    background-color: rgba(208, 167, 225, .9);
+
 }
 
 .container-month {
@@ -94,7 +95,6 @@
 
 }
 
-.currentMonth {
-    display: flex;
-    justify-content: center;
+.day-container {
+    margin-top: 5px;
 }
