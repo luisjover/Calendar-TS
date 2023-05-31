@@ -229,8 +229,9 @@ export function setWeekCalendar(date: Date = new Date()) {
     setEvents(firstWeekDay);
     timeLine();
     btnToday?.addEventListener("click", setTodayWeekMonthly);
-    
-  checkTaskContainerOverlap();
+
+    console.log("la funcion se llama desde setWeek");
+    checkTaskContainerOverlap();
 }
 
 
@@ -300,6 +301,7 @@ function printTasks(task: Task) {
     newTaskContainer.innerText = task.title;
     newTaskContainer.style.top = `${decimalInitialTime * 6}rem`;
     newTaskContainer.style.height = `${durationTime * 6}rem`;
+    newTaskContainer.style.width = "80%";
 
     taskSection?.appendChild(newTaskContainer);
 }
@@ -351,7 +353,7 @@ export function createTask() {
     localStorage.setItem("events", JSON.stringify(events));
 
     checkTimeAlert()
-    setWeekCalendar(new Date (initialDate));
+    setWeekCalendar(new Date(initialDate));
 
 }
 

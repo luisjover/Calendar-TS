@@ -1,34 +1,47 @@
 export function checkTaskContainerOverlap() {
-    const dayTaskSection = document.querySelector(".day-task-section");
-    const initialWidth = 90;
+    const dayTaskSection = document.querySelectorAll(".day-task-section");
+    const initialWidth = 80;
     const widthDecrement = 10;
-    if (dayTaskSection) {
-        const taskContainers = dayTaskSection.getElementsByClassName("task-container");
-        for (let i = 0; i < taskContainers.length; i++) {
-            const currentContainer = taskContainers[i];
-            const currentStartDate = new Date(currentContainer.getAttribute("data-initialdate"));
-            const currentEndDate = new Date(currentContainer.getAttribute("data-finaldate"));
-            let isOverlapping = false;
-            for (let j = 0; j < taskContainers.length; j++) {
-                if (i !== j) {
-                    const otherContainer = taskContainers[j];
-                    const otherStartDate = new Date(otherContainer.getAttribute("data-initialdate"));
-                    const otherEndDate = new Date(otherContainer.getAttribute("data-finaldate"));
-                    if (currentStartDate.getTime() <= otherEndDate.getTime() && currentEndDate.getTime() >= otherStartDate.getTime()) {
-                        isOverlapping = true;
-                        if (parseInt(otherContainer.id) > parseInt(currentContainer.id)) {
-                            currentContainer.classList.add("overlapped");
-                            currentContainer.style.width = `${initialWidth - (widthDecrement * i)}%`;
+    dayTaskSection.forEach(parentContainer => {
+        const childrenContainers = parentContainer.querySelectorAll(".task-container");
+        if (childrenContainers.length > 1) {
+            let i = 1;
+            childrenContainers.forEach(childContainer => {
+                const width = 10 / (childContainer.clientWidth * 0.063);
+                const start = parseInt(childContainer.style.top);
+                const length = childContainer.clientHeight * 0.063;
+                const final = start + length;
+                const storage = childContainer.getAttribute("taskId");
+                if (storage === null)
+                    return;
+                const id = parseInt(storage);
+                console.log(`esto es length ${length}`);
+                console.log(`esto es start ${start}`);
+                console.log(`esto es final ${final}`);
+                childrenContainers.forEach(childContainer2 => {
+                    const width2 = 10 / (childContainer2.clientWidth * 0.063);
+                    const start2 = parseInt(childContainer2.style.top);
+                    const length2 = childContainer2.clientHeight * 0.063;
+                    const final2 = start2 + length2;
+                    const storage2 = childContainer2.getAttribute("taskId");
+                    if (storage2 === null)
+                        return;
+                    const id2 = parseInt(storage2);
+                    if (id !== id2) {
+                        if ((start >= start2 && start <= final2) || (start2 <= final && final <= final2)) {
+                            if (id > id2) {
+                                childContainer.style.width = `${(initialWidth - widthDecrement * i)}%`;
+                                i += 0.2;
+                            }
+                            else {
+                                childContainer2.style.width = `${(initialWidth - widthDecrement * i)}%`;
+                                i += 0.2;
+                            }
                         }
                     }
-                }
-            }
-            if (!isOverlapping) {
-                currentContainer.classList.remove("overlapped");
-                currentContainer.style.width = "100%";
-                currentContainer.style.left = "0%";
-            }
+                });
+            });
         }
-    }
+    });
 }
 //# sourceMappingURL=events.js.map
