@@ -1,6 +1,7 @@
 import { Task } from "./types.js";
 import { changeWeek, setTodayWeekMonthly, prevFunction, nextFunction, showWeek, checkTimeAlert, cleanElement, editTask } from "./supportFunctions.js";
 import { timeLine } from "./timeLine.js";
+import { checkTaskContainerOverlap } from "./events.js";
 
 export function showmonthlyCalendar(refIncomingDate: Date = new Date()) {
 
@@ -229,7 +230,8 @@ export function setWeekCalendar(date: Date = new Date()) {
     setEvents(firstWeekDay);
     timeLine();
     btnToday?.addEventListener("click", setTodayWeekMonthly);
-
+    
+  checkTaskContainerOverlap();
 }
 
 
@@ -352,3 +354,4 @@ export function createTask() {
     checkTimeAlert()
 
 }
+

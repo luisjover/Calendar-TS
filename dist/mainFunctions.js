@@ -1,6 +1,7 @@
 import { Task } from "./types.js";
 import { changeWeek, setTodayWeekMonthly, prevFunction, nextFunction, showWeek, checkTimeAlert, cleanElement, editTask } from "./supportFunctions.js";
 import { timeLine } from "./timeLine.js";
+import { checkTaskContainerOverlap } from "./events.js";
 export function showmonthlyCalendar(refIncomingDate = new Date()) {
     const asideCalendarMonth = document.querySelector("#sidebar");
     const calendarMonthContainer = document.createElement("div");
@@ -176,6 +177,7 @@ export function setWeekCalendar(date = new Date()) {
     setEvents(firstWeekDay);
     timeLine();
     btnToday === null || btnToday === void 0 ? void 0 : btnToday.addEventListener("click", setTodayWeekMonthly);
+    checkTaskContainerOverlap();
 }
 function setEvents(firstWeekDay) {
     const weekDaysList = document.querySelectorAll(".day-task-section");
