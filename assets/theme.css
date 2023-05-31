@@ -94,7 +94,6 @@
 
 }
 
-.currentMonth {
-    display: flex;
-    justify-content: center;
+.day-container {
+    margin-top: 5px;
 }

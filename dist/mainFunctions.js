@@ -217,6 +217,7 @@ function printTasks(task) {
     const initialHours = initialDate.getHours();
     const initialAbsoluteMinutes = initialDate.getMinutes() / 60;
     const decimalInitialTime = initialHours + initialAbsoluteMinutes;
+    const typeOfEvent = task.taskType;
     const endDate = new Date(task.endDate);
     const finallHours = endDate.getHours();
     const finalAbsoluteMinutes = endDate.getMinutes() / 60;
@@ -232,6 +233,22 @@ function printTasks(task) {
     newTaskContainer.style.top = `${decimalInitialTime * 6}rem`;
     newTaskContainer.style.height = `${durationTime * 6}rem`;
     newTaskContainer.style.width = "80%";
+    switch (typeOfEvent) {
+        case "task":
+            break;
+        case "event":
+            newTaskContainer.classList.add("task-green");
+            break;
+        case "meeting":
+            newTaskContainer.classList.add("task-blue");
+            break;
+        case "study":
+            newTaskContainer.classList.add("task-red");
+            break;
+        case "other":
+            newTaskContainer.classList.add("task-orange");
+            break;
+    }
     taskSection === null || taskSection === void 0 ? void 0 : taskSection.appendChild(newTaskContainer);
 }
 export function createTask() {

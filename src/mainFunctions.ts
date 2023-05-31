@@ -288,6 +288,8 @@ function printTasks(task: Task) {
     const initialAbsoluteMinutes = initialDate.getMinutes() / 60;
     const decimalInitialTime = initialHours + initialAbsoluteMinutes;
 
+    const typeOfEvent = task.taskType;
+
     const endDate = new Date(task.endDate);
     const finallHours = endDate.getHours();
     const finalAbsoluteMinutes = endDate.getMinutes() / 60;
@@ -305,6 +307,23 @@ function printTasks(task: Task) {
     newTaskContainer.style.height = `${durationTime * 6}rem`;
     newTaskContainer.style.width = "80%";
 
+    switch (typeOfEvent) {
+        case "task":
+            break;
+        case "event":
+            newTaskContainer.classList.add("task-green");
+            break;
+        case "meeting":
+            newTaskContainer.classList.add("task-blue");
+            break;
+        case "study":
+            newTaskContainer.classList.add("task-red");
+            break;
+        case "other":
+            newTaskContainer.classList.add("task-orange");
+            break;
+    }
+
     taskSection?.appendChild(newTaskContainer);
 }
 
@@ -320,10 +339,10 @@ export function createTask() {
     events = JSON.parse(storage);
 
     let taskId: number;
-    if (events.length>0) {
+    if (events.length > 0) {
 
-        let longEvents = events.length-1;
-        taskId = events[longEvents].id +1;
+        let longEvents = events.length - 1;
+        taskId = events[longEvents].id + 1;
 
     } else taskId = 0;
 
@@ -347,12 +366,12 @@ export function createTask() {
     if (finalDateElement.value == "") {
         const initialDateInDate: Date = new Date(initialDate)
         const finalDateInTime = new Date(initialDate).getTime() + (60 * 60000);
-        const finalDateHelper1: Date = new Date (finalDateInTime);
+        const finalDateHelper1: Date = new Date(finalDateInTime);
         if (initialDateInDate.getDate() !== finalDateHelper1.getDate()) {
-            finalDate = `${initialDateElement.value.slice(0,-5)}23:59`;
+            finalDate = `${initialDateElement.value.slice(0, -5)}23:59`;
         } else {
             const finalDateHelper2 = calculDate(finalDateHelper1);
-            finalDate = finalDateHelper2.slice (0, -8);
+            finalDate = finalDateHelper2.slice(0, -8);
         }
     } else {
         finalDate = finalDateElement?.value;
