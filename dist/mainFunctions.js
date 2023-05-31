@@ -1,6 +1,7 @@
 import { Task } from "./types.js";
-import { changeWeek, setTodayWeekMonthly, prevFunction, nextFunction, showWeek, checkTimeAlert, cleanElement, editTask } from "./supportFunctions.js";
+import { changeWeek, setTodayWeekMonthly, prevFunction, nextFunction, showWeek, checkTimeAlert, cleanElement, editTask, resetModalButtons } from "./supportFunctions.js";
 import { timeLine } from "./timeLine.js";
+import { checkTaskContainerOverlap } from "./events.js";
 export function showmonthlyCalendar(refIncomingDate = new Date()) {
     const asideCalendarMonth = document.querySelector("#sidebar");
     const calendarMonthContainer = document.createElement("div");
@@ -90,6 +91,7 @@ export function showmonthlyCalendar(refIncomingDate = new Date()) {
     }
 }
 export function setWeekCalendar(date = new Date()) {
+    resetModalButtons();
     const btnPrevWeek = document.querySelector("#prev-week");
     if (btnPrevWeek === null)
         return;
@@ -176,6 +178,8 @@ export function setWeekCalendar(date = new Date()) {
     setEvents(firstWeekDay);
     timeLine();
     btnToday === null || btnToday === void 0 ? void 0 : btnToday.addEventListener("click", setTodayWeekMonthly);
+    console.log("la funcion se llama desde setWeek");
+    checkTaskContainerOverlap();
 }
 function setEvents(firstWeekDay) {
     const weekDaysList = document.querySelectorAll(".day-task-section");
@@ -226,6 +230,7 @@ function printTasks(task) {
     newTaskContainer.innerText = task.title;
     newTaskContainer.style.top = `${decimalInitialTime * 6}rem`;
     newTaskContainer.style.height = `${durationTime * 6}rem`;
+    newTaskContainer.style.width = "80%";
     taskSection === null || taskSection === void 0 ? void 0 : taskSection.appendChild(newTaskContainer);
 }
 export function createTask() {
@@ -273,5 +278,6 @@ export function createTask() {
     events === null || events === void 0 ? void 0 : events.push(objeto);
     localStorage.setItem("events", JSON.stringify(events));
     checkTimeAlert();
+    setWeekCalendar(new Date(initialDate));
 }
 //# sourceMappingURL=mainFunctions.js.map

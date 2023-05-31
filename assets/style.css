@@ -238,6 +238,23 @@ header {
     opacity: 0.8;
     height: 6rem;
     overflow: hidden;
+    border: 1px solid black;
+    border-radius: 5px;
+    color: white;
+    padding-left: 1rem;
+    transition: ease-in;
+    -webkit-transition: ease-in;
+    -moz-transition: ease-in;
+    -ms-transition: ease-in;
+    -o-transition: ease-in;
+    transition-duration: .2s;
+}
+
+.task-container:hover {
+    z-index: 100;
+    scale: 1.3;
+    opacity: 1;
+    background-color: rgba(54, 44, 61, .8);
 }
 
 .reminders-container {
@@ -390,6 +407,8 @@ ol {
     }
 }
 
+
+
 @media (max-width: 670px) {
     .main {
         display: flex;
@@ -462,6 +481,7 @@ ol {
 
     .day-task-section-3 {
         grid-column: 4/5;
+        position: relative;
     }
 
     .day-task-section-4 {

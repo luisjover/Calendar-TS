@@ -27,8 +27,7 @@ export function timeLine() {
         const absoluteMinutes = today.getMinutes() / 60;
         const decimalTime = hour + absoluteMinutes;
         timeLineContainer.style.top = `${decimalTime * 6}rem`;
-        console.log(timeLineContainer.style.top);
-        if (timeLineContainer.style.top === "144rem") {
+        if (timeLineContainer.style.top === "0rem") {
             setWeekCalendar();
             clearInterval(lineChecker);
         }
