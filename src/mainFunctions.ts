@@ -1,5 +1,5 @@
 import { Task } from "./types.js";
-import { changeWeek, setTodayWeekMonthly, prevFunction, nextFunction, showWeek, checkTimeAlert, cleanElement, editTask } from "./supportFunctions.js";
+import { changeWeek, setTodayWeekMonthly, prevFunction, nextFunction, showWeek, checkTimeAlert, cleanElement, editTask, resetModalButtons } from "./supportFunctions.js";
 import { timeLine } from "./timeLine.js";
 import { checkTaskContainerOverlap } from "./events.js";
 
@@ -71,7 +71,6 @@ export function showmonthlyCalendar(refIncomingDate: Date = new Date()) {
 
         firstDayMonth = new Date(firstDayMonth.getTime() - addMlSeconds);
     }
-
     const days = ["M", "T", "W", "T", "F", "S", "S"];
     for (let i of days) {
         const weekNameDay = document.createElement("div");
@@ -79,7 +78,6 @@ export function showmonthlyCalendar(refIncomingDate: Date = new Date()) {
         weekNameDay.textContent = i;
         listDays.appendChild(weekNameDay);
     }
-
     for (let i = 0; i < 42; i++) {
         if (i == 0) {
             currentDate = firstDayMonth
@@ -129,6 +127,7 @@ export function showmonthlyCalendar(refIncomingDate: Date = new Date()) {
 
 
 export function setWeekCalendar(date: Date = new Date()) {
+    resetModalButtons();
 
     //BUTTONS
     const btnPrevWeek = document.querySelector("#prev-week") as HTMLButtonElement | null;
@@ -352,6 +351,7 @@ export function createTask() {
     localStorage.setItem("events", JSON.stringify(events));
 
     checkTimeAlert()
+    setWeekCalendar(new Date (initialDate));
 
 }
 

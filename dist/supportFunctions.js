@@ -121,7 +121,34 @@ export function classRemoverIcon(iCorrect, iWrong) {
     iCorrect.classList.remove("form__type--show");
     iCorrect.classList.remove("form__icon--none");
 }
-export function classModalCleaner(arrayModalIcons) {
+export function classModalCleaner() {
+    const taskTitleIconCorrect = document.querySelector("#taskTitleIconCorrect");
+    const taskTitleIconWrong = document.querySelector("#taskTitleIconWrong");
+    const taskDateIniIconCorrect = document.querySelector("#taskDateIniIconCorrect");
+    const taskDateIniIconWrong = document.querySelector("#taskDateIniIconWrong");
+    const taskDateEndIconCorrect = document.querySelector("#taskDateEndIconCorrect");
+    const taskDateEndIconWrong = document.querySelector("#taskDateEndIconWrong");
+    const selectReminderIconCorrect = document.querySelector("#selectReminderIconCorrect");
+    const selectReminderIconWrong = document.querySelector("#selectReminderIconWrong");
+    const taskDescriptionAreaIconCorrect = document.querySelector("#taskDescriptionAreaIconCorrect");
+    const taskDescriptionAreaIconWrong = document.querySelector("#taskDescriptionAreaIconWrong");
+    const selectTypeIconCorrect = document.querySelector("#selectTypeIconCorrect");
+    const selectTypeIconWrong = document.querySelector("#selectTypeIconWrong");
+    if (taskTitleIconCorrect === null ||
+        taskTitleIconWrong === null ||
+        taskDateIniIconCorrect === null ||
+        taskDateIniIconWrong === null ||
+        taskDateEndIconCorrect === null ||
+        taskDateEndIconWrong === null ||
+        selectReminderIconCorrect === null ||
+        selectReminderIconWrong === null ||
+        taskDescriptionAreaIconCorrect === null ||
+        taskDescriptionAreaIconWrong === null ||
+        selectTypeIconCorrect === null ||
+        selectTypeIconWrong === null) {
+        return;
+    }
+    const arrayModalIcons = [taskTitleIconCorrect, taskTitleIconWrong, taskDateIniIconCorrect, taskDateIniIconWrong, taskDateEndIconCorrect, taskDateEndIconWrong, selectReminderIconCorrect, selectReminderIconWrong, taskDescriptionAreaIconCorrect, taskDescriptionAreaIconWrong, selectTypeIconCorrect, selectTypeIconWrong];
     arrayModalIcons.forEach(input => {
         input.classList.remove("form__text--show");
         input.classList.remove("form__choose--show");
@@ -129,15 +156,41 @@ export function classModalCleaner(arrayModalIcons) {
         input.classList.add("form__icon--none");
     });
 }
-export function formCleaner(arrayModalComponents) {
+export function formCleaner() {
+    console.log("entra en crear");
+    const taskTitleInput = document.querySelector("#taskTitle");
+    const taskDateIniInput = document.querySelector("#taskDateIniInput");
     const checkDateEnd = document.querySelector("#checkDateEnd");
     const checkReminder = document.querySelector("#checkReminder");
-    if (checkDateEnd === null || checkReminder === null)
+    const taskDateEndInput = document.querySelector("#taskDateEndInput");
+    const selectReminder = document.querySelector("#reminderSelect");
+    const taskDescriptionArea = document.querySelector("#taskDescriptionArea");
+    const selectType = document.querySelector("#taskTypeSelect");
+    if (taskTitleInput === null ||
+        taskDateIniInput === null ||
+        checkDateEnd === null ||
+        checkReminder === null ||
+        taskDateEndInput === null ||
+        selectReminder === null ||
+        taskDescriptionArea === null ||
+        selectType === null) {
         return;
+    }
+    ;
+    const arrayModalComponents = [taskTitleInput, taskDateIniInput, taskDateEndInput, selectReminder, taskDescriptionArea, selectType];
+    taskDateEndInput.min = "";
+    taskDateEndInput.max = "";
     arrayModalComponents.forEach(input => {
         input.value = "";
-        input.dataset.conform = "noOk";
+        if (input.dataset.must == "yes") {
+            input.dataset.conform = "noOk";
+        }
+        else if (input.dataset.must == "no") {
+            input.dataset.conform = "ok";
+        }
     });
+    selectReminder.value = "0";
+    selectType.value = "0";
     checkDateEnd.checked = false;
     checkReminder.checked = false;
 }
@@ -166,6 +219,7 @@ export function editTask() {
     if (storage === null)
         return;
     const taskList = JSON.parse(storage);
+    initialStateInputsToModify();
     taskList.forEach(task => {
         if (task.id === parseInt(taskId)) {
             title.value = task.title;
@@ -191,6 +245,7 @@ export function editTask() {
         return;
     createBtn.style.display = "none";
     saveBtn.style.display = "inline-block";
+    saveBtn.disabled = false;
     saveBtn.setAttribute("taskId", taskId);
 }
 export function modifyTask() {
@@ -224,11 +279,85 @@ export function modifyTask() {
             task.reminderTime = parseInt(reminderTime.value);
             task.taskDescription = description.value;
             task.taskType = typeSelect.value;
+            console.log(task);
         }
     });
     localStorage.setItem("events", JSON.stringify(taskList));
     checkTimeAlert();
-    searchProxTasks();
     setWeekCalendar(new Date(initialDate.value));
+    resetModalButtons();
+    initialStateInputsToCreate();
+    resetModalButtons();
+    classModalCleaner();
+    formCleaner();
+    searchProxTasks();
+}
+export function calculDate(date) {
+    const timeZone = date.getTimezoneOffset() * 60000;
+    const localDate = new Date(date.getTime() - timeZone);
+    return localDate.toISOString();
+}
+export function resetModalButtons() {
+    console.log("entra");
+    const btnCreate = document.querySelector("#form-create-btn");
+    const btnSave = document.querySelector("#form-save-btn");
+    if (btnCreate === null || btnSave === null)
+        return;
+    btnCreate.style.display = "inline-block";
+    btnSave.style.display = "none";
+}
+export function initialStateInputsToCreate() {
+    const title = document.querySelector("#taskTitle");
+    const initialDate = document.querySelector("#taskDateIniInput");
+    const finalDate = document.querySelector("#taskDateEndInput");
+    const reminderTime = document.querySelector("#reminderSelect");
+    const description = document.querySelector("#taskDescriptionArea");
+    const typeSelect = document.querySelector("#taskTypeSelect");
+    if (title === null ||
+        initialDate === null ||
+        finalDate === null ||
+        reminderTime === null ||
+        description === null ||
+        typeSelect === null) {
+        return;
+    }
+    finalDate.disabled = true;
+    reminderTime.disabled = true;
+    description.disabled = true;
+    typeSelect.disabled = true;
+    title.dataset.conform = "noOk";
+    initialDate.dataset.conform = "noOk";
+    finalDate.dataset.conform = "ok";
+    reminderTime.dataset.conform = "ok";
+    description.dataset.conform = "ok";
+    typeSelect.dataset.conform = "noOk";
+}
+export function initialStateInputsToModify() {
+    const title = document.querySelector("#taskTitle");
+    const initialDate = document.querySelector("#taskDateIniInput");
+    const finalDate = document.querySelector("#taskDateEndInput");
+    const reminderTime = document.querySelector("#reminderSelect");
+    const description = document.querySelector("#taskDescriptionArea");
+    const typeSelect = document.querySelector("#taskTypeSelect");
+    if (title === null ||
+        initialDate === null ||
+        finalDate === null ||
+        reminderTime === null ||
+        description === null ||
+        typeSelect === null) {
+        return;
+    }
+    title.disabled = false;
+    initialDate.disabled = false;
+    finalDate.disabled = false;
+    reminderTime.disabled = false;
+    description.disabled = false;
+    typeSelect.disabled = false;
+    title.dataset.conform = "ok";
+    initialDate.dataset.conform = "ok";
+    finalDate.dataset.conform = "ok";
+    reminderTime.dataset.conform = "ok";
+    description.dataset.conform = "ok";
+    typeSelect.dataset.conform = "ok";
 }
 //# sourceMappingURL=supportFunctions.js.map
