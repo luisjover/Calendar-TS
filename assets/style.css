@@ -144,10 +144,6 @@ header {
     height: 80vh;
 }
 
-.calendarMonthContainer {
-    height: 30vh;
-}
-
 .taskAsideContainer {
     height: 50vh;
     overflow-y: scroll;
@@ -318,6 +314,10 @@ header {
 }
 
 /* /////////////////////////////////////// */
+
+.container-month {
+    height: calc(30vh - 16px);
+}
 
 ol {
     list-style: none;

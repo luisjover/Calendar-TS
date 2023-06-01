@@ -46,6 +46,8 @@ export function showWeek() {
 }
 export function searchProxTasks() {
     const sidebar = document.querySelector("#sidebar");
+    sidebar === null || sidebar === void 0 ? void 0 : sidebar.replaceChildren();
+    showmonthlyCalendar();
     let events;
     const storage = localStorage.getItem("events");
     if (storage === null)
@@ -53,7 +55,6 @@ export function searchProxTasks() {
     events = JSON.parse(storage);
     const nearEvents = events.sort((x, y) => new Date(x.initialDate).getTime() - new Date(y.initialDate).getTime());
     const taskGeneralAsideContainer = document.createElement("div");
-    taskGeneralAsideContainer.replaceChildren();
     taskGeneralAsideContainer.classList.add("taskAsideContainer");
     let counter;
     if (nearEvents.length > 8)
