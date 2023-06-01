@@ -15,16 +15,27 @@ export function cleanElement(element) {
     element.replaceChildren();
 }
 export function setTodayWeekMonthly() {
-    setWeekCalendar();
     showmonthlyCalendar();
+    setWeekCalendar();
+}
+export function setLocalTime() {
+    const today = new Date();
+    const localTime = today.getTimezoneOffset();
+    const localTimeHours = (localTime / 60) * -1;
+    const localTimeContainer = document.querySelector("#local-time-container");
+    if (localTimeContainer === null)
+        return;
+    localTimeContainer.textContent = `GTM+0${localTimeHours}`;
 }
 export function prevFunction() {
     let newDate = new Date(`${this.getAttribute("data-prev-month")}`);
     showmonthlyCalendar(newDate);
+    searchProxTasks();
 }
 export function nextFunction() {
     let newDate = new Date(`${this.getAttribute("data-next-month")}`);
     showmonthlyCalendar(newDate);
+    searchProxTasks();
 }
 export function showWeek() {
     const selectedTime = this.getAttribute("real-date");

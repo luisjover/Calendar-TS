@@ -1,4 +1,4 @@
-import { setNewEventsStorage, searchProxTasks } from "./supportFunctions.js";
+import { setNewEventsStorage, searchProxTasks, setLocalTime } from "./supportFunctions.js";
 import { showmonthlyCalendar, setWeekCalendar } from "./mainFunctions.js";
 import { openModalCreateTask } from "./DOMmanagement.js";
 window.addEventListener("load", setMain);
@@ -8,6 +8,7 @@ function setMain() {
     setNewEventsStorage();
     searchProxTasks();
     openModalCreateTask();
+    setLocalTime();
     const body = document.querySelector("body");
     const remindersContainer = document.createElement("div");
     remindersContainer.classList.add("reminders-container");

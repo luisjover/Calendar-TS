@@ -21,18 +21,31 @@ export function cleanElement(element: HTMLElement) {
 }
 
 export function setTodayWeekMonthly() {
-    setWeekCalendar();
     showmonthlyCalendar();
+    setWeekCalendar();
+
+}
+
+export function setLocalTime() {
+    const today = new Date();
+    const localTime = today.getTimezoneOffset();
+    const localTimeHours = (localTime / 60) * -1;
+    const localTimeContainer = document.querySelector("#local-time-container") as HTMLDivElement | null;
+    if (localTimeContainer === null) return;
+    localTimeContainer.textContent = `GTM+0${localTimeHours}`;
+
 }
 
 export function prevFunction(this: HTMLElement) {
     let newDate = new Date(`${this.getAttribute("data-prev-month")}`);
     showmonthlyCalendar(newDate);
+    searchProxTasks();
 }
 
 export function nextFunction(this: HTMLElement) {
     let newDate = new Date(`${this.getAttribute("data-next-month")}`);
     showmonthlyCalendar(newDate);
+    searchProxTasks();
 }
 
 export function showWeek(this: HTMLElement) {
@@ -151,19 +164,19 @@ export function classRemoverIcon(iCorrect: HTMLElement, iWrong: HTMLElement) {
 
 
 export function classModalCleaner() {
-    const taskTitleIconCorrect = document.querySelector ("#taskTitleIconCorrect") as HTMLInputElement | null;
-    const taskTitleIconWrong = document.querySelector ("#taskTitleIconWrong") as HTMLInputElement | null;
-    const taskDateIniIconCorrect = document.querySelector ("#taskDateIniIconCorrect") as HTMLInputElement | null;
-    const taskDateIniIconWrong = document.querySelector ("#taskDateIniIconWrong") as HTMLInputElement | null;
-    const taskDateEndIconCorrect = document.querySelector ("#taskDateEndIconCorrect") as HTMLInputElement | null;
-    const taskDateEndIconWrong = document.querySelector ("#taskDateEndIconWrong") as HTMLInputElement | null;
-    const selectReminderIconCorrect = document.querySelector ("#selectReminderIconCorrect") as HTMLInputElement | null;
-    const selectReminderIconWrong = document.querySelector ("#selectReminderIconWrong") as HTMLInputElement | null;
-    const taskDescriptionAreaIconCorrect = document.querySelector ("#taskDescriptionAreaIconCorrect") as HTMLInputElement | null;
-    const taskDescriptionAreaIconWrong = document.querySelector ("#taskDescriptionAreaIconWrong") as HTMLInputElement | null;
-    const selectTypeIconCorrect = document.querySelector ("#selectTypeIconCorrect") as HTMLInputElement | null;
-    const selectTypeIconWrong = document.querySelector ("#selectTypeIconWrong") as HTMLInputElement | null;
-    
+    const taskTitleIconCorrect = document.querySelector("#taskTitleIconCorrect") as HTMLInputElement | null;
+    const taskTitleIconWrong = document.querySelector("#taskTitleIconWrong") as HTMLInputElement | null;
+    const taskDateIniIconCorrect = document.querySelector("#taskDateIniIconCorrect") as HTMLInputElement | null;
+    const taskDateIniIconWrong = document.querySelector("#taskDateIniIconWrong") as HTMLInputElement | null;
+    const taskDateEndIconCorrect = document.querySelector("#taskDateEndIconCorrect") as HTMLInputElement | null;
+    const taskDateEndIconWrong = document.querySelector("#taskDateEndIconWrong") as HTMLInputElement | null;
+    const selectReminderIconCorrect = document.querySelector("#selectReminderIconCorrect") as HTMLInputElement | null;
+    const selectReminderIconWrong = document.querySelector("#selectReminderIconWrong") as HTMLInputElement | null;
+    const taskDescriptionAreaIconCorrect = document.querySelector("#taskDescriptionAreaIconCorrect") as HTMLInputElement | null;
+    const taskDescriptionAreaIconWrong = document.querySelector("#taskDescriptionAreaIconWrong") as HTMLInputElement | null;
+    const selectTypeIconCorrect = document.querySelector("#selectTypeIconCorrect") as HTMLInputElement | null;
+    const selectTypeIconWrong = document.querySelector("#selectTypeIconWrong") as HTMLInputElement | null;
+
     if (taskTitleIconCorrect === null ||
         taskTitleIconWrong === null ||
         taskDateIniIconCorrect === null ||
@@ -175,9 +188,9 @@ export function classModalCleaner() {
         taskDescriptionAreaIconCorrect === null ||
         taskDescriptionAreaIconWrong === null ||
         selectTypeIconCorrect === null ||
-        selectTypeIconWrong === null ) {
-            return
-        }
+        selectTypeIconWrong === null) {
+        return
+    }
     const arrayModalIcons = [taskTitleIconCorrect, taskTitleIconWrong, taskDateIniIconCorrect, taskDateIniIconWrong, taskDateEndIconCorrect, taskDateEndIconWrong, selectReminderIconCorrect, selectReminderIconWrong, taskDescriptionAreaIconCorrect, taskDescriptionAreaIconWrong, selectTypeIconCorrect, selectTypeIconWrong];
     arrayModalIcons.forEach(input => {
         input.classList.remove("form__text--show");
@@ -189,16 +202,16 @@ export function classModalCleaner() {
 
 // FORM cleaner
 export function formCleaner() {
-    const taskTitleInput = document.querySelector ("#taskTitle") as HTMLInputElement | null;
-    const taskDateIniInput = document.querySelector ("#taskDateIniInput") as HTMLInputElement | null;
+    const taskTitleInput = document.querySelector("#taskTitle") as HTMLInputElement | null;
+    const taskDateIniInput = document.querySelector("#taskDateIniInput") as HTMLInputElement | null;
     const checkDateEnd = document.querySelector("#checkDateEnd") as HTMLInputElement | null;
     const checkReminder = document.querySelector("#checkReminder") as HTMLInputElement | null;
-    const taskDateEndInput = document.querySelector ("#taskDateEndInput") as HTMLInputElement | null;
-    const selectReminder = document.querySelector ("#reminderSelect") as HTMLSelectElement;
-    const taskDescriptionArea = document.querySelector ("#taskDescriptionArea") as HTMLTextAreaElement| null;
-    const selectType = document.querySelector ("#taskTypeSelect") as HTMLSelectElement;
+    const taskDateEndInput = document.querySelector("#taskDateEndInput") as HTMLInputElement | null;
+    const selectReminder = document.querySelector("#reminderSelect") as HTMLSelectElement;
+    const taskDescriptionArea = document.querySelector("#taskDescriptionArea") as HTMLTextAreaElement | null;
+    const selectType = document.querySelector("#taskTypeSelect") as HTMLSelectElement;
 
-    
+
     if (taskTitleInput === null ||
         taskDateIniInput === null ||
         checkDateEnd === null ||
@@ -207,21 +220,21 @@ export function formCleaner() {
         selectReminder === null ||
         taskDescriptionArea === null ||
         selectType === null) {
-            return
-        };
+        return
+    };
     const arrayModalComponents: ArrayModalComponents = [taskTitleInput, taskDateIniInput, taskDateEndInput, selectReminder, taskDescriptionArea, selectType];
     taskDateEndInput.min = "";
     taskDateEndInput.max = "";
-        arrayModalComponents.forEach(input => {
-            input.value = "";
-            if (input.dataset.must == "yes") {
-                input.dataset.conform = "noOk";
-            }else if (input.dataset.must == "no") {
-                input.dataset.conform = "ok";
-            }
-        });
-        selectReminder.value = "0"
-        selectType.value = "0";
+    arrayModalComponents.forEach(input => {
+        input.value = "";
+        if (input.dataset.must == "yes") {
+            input.dataset.conform = "noOk";
+        } else if (input.dataset.must == "no") {
+            input.dataset.conform = "ok";
+        }
+    });
+    selectReminder.value = "0"
+    selectType.value = "0";
     checkDateEnd.checked = false;
     checkReminder.checked = false;
 }
@@ -248,10 +261,10 @@ export function editTask(this: HTMLElement) {
     const taskId = this.getAttribute("taskId");
     if (taskId === null) return;
 
-    
+
     const modalInstance: any = new (window as any).bootstrap.Modal(containerModalTask);
     modalInstance.show();
-    
+
     const storage = localStorage.getItem("events");
     if (storage === null) return;
     const taskList: Task[] = JSON.parse(storage);
@@ -275,9 +288,9 @@ export function editTask(this: HTMLElement) {
         }
     });
 
-    const createBtn = document.querySelector ("#form-create-btn") as HTMLButtonElement | null;
-    const saveBtn = document.querySelector ("#form-save-btn") as HTMLButtonElement | null;
-    const deleteBtn = document.querySelector ("#form-delete-btn") as HTMLButtonElement | null;
+    const createBtn = document.querySelector("#form-create-btn") as HTMLButtonElement | null;
+    const saveBtn = document.querySelector("#form-save-btn") as HTMLButtonElement | null;
+    const deleteBtn = document.querySelector("#form-delete-btn") as HTMLButtonElement | null;
     if (createBtn === null || saveBtn === null || deleteBtn === null) return;
     createBtn.style.display = "none";
     saveBtn.style.display = "inline-block";
@@ -285,7 +298,7 @@ export function editTask(this: HTMLElement) {
     saveBtn.setAttribute("taskId", taskId);
     deleteBtn.style.display = "inline-block";
     deleteBtn.disabled = false;
-    deleteBtn.setAttribute ("taskId", taskId);
+    deleteBtn.setAttribute("taskId", taskId);
 
 }
 
@@ -304,9 +317,9 @@ export function modifyTask(this: HTMLElement) {
         reminderTime === null ||
         description === null ||
         typeSelect === null) {
-            return;
-        }
-       
+        return;
+    }
+
     const currentTaskStringId = this.getAttribute("taskId");
     if (currentTaskStringId === null) return;
     const currentTaskId = parseInt(currentTaskStringId);
@@ -314,51 +327,51 @@ export function modifyTask(this: HTMLElement) {
     if (storage === null) return;
     const taskList: Task[] = JSON.parse(storage);
 
-    
+
     taskList.forEach(task => {
         if (task.id === currentTaskId) {
-            
+
             task.title = title.value;
             task.initialDate = initialDate.value;
             task.endDate = finalDate.value;
             task.reminderTime = parseInt(reminderTime.value);
             task.taskDescription = description.value;
             task.taskType = typeSelect.value;
-            console.log (task);
+            console.log(task);
         }
     });
-    
+
     localStorage.setItem("events", JSON.stringify(taskList));
     checkTimeAlert();
     setWeekCalendar(new Date(initialDate.value));
     resetModalButtons();
     initialStateInputsToCreate();
     //METER LOS CLEAR DEL FORMULARIO;
-    resetModalButtons ();
+    resetModalButtons();
     classModalCleaner();
     formCleaner();
     searchProxTasks();
 }
 
-export function calculDate (date: Date): string {
-    
+export function calculDate(date: Date): string {
+
     const timeZone = date.getTimezoneOffset() * 60000;
-    const localDate = new Date (date.getTime() - timeZone);
-    
+    const localDate = new Date(date.getTime() - timeZone);
+
     return localDate.toISOString();
 }
 
-export function resetModalButtons () {
-    const btnCreate = document.querySelector ("#form-create-btn") as HTMLButtonElement | null;
-    const btnSave = document.querySelector ("#form-save-btn") as HTMLButtonElement | null;
-    const btnDelete = document.querySelector ("#form-delete-btn") as HTMLButtonElement | null;
+export function resetModalButtons() {
+    const btnCreate = document.querySelector("#form-create-btn") as HTMLButtonElement | null;
+    const btnSave = document.querySelector("#form-save-btn") as HTMLButtonElement | null;
+    const btnDelete = document.querySelector("#form-delete-btn") as HTMLButtonElement | null;
     if (btnCreate === null || btnSave === null || btnDelete === null) return;
     btnCreate.style.display = "inline-block";
     btnSave.style.display = "none";
     btnDelete.style.display = "none";
 }
 
-export function initialStateInputsToCreate () {
+export function initialStateInputsToCreate() {
     const title = document.querySelector("#taskTitle") as HTMLInputElement | null;
     const initialDate = document.querySelector("#taskDateIniInput") as HTMLInputElement | null;
     const finalDate = document.querySelector("#taskDateEndInput") as HTMLInputElement | null;
@@ -371,21 +384,21 @@ export function initialStateInputsToCreate () {
         reminderTime === null ||
         description === null ||
         typeSelect === null) {
-            return;
-        }
-        finalDate.disabled = true;
-        reminderTime.disabled = true;
-        description.disabled = true;
-        typeSelect.disabled = true;
+        return;
+    }
+    finalDate.disabled = true;
+    reminderTime.disabled = true;
+    description.disabled = true;
+    typeSelect.disabled = true;
 
-        title.dataset.conform = "noOk";
-        initialDate.dataset.conform = "noOk";
-        finalDate.dataset.conform = "ok";
-        reminderTime.dataset.conform = "ok";
-        description.dataset.conform = "ok";
-        typeSelect.dataset.conform = "noOk";
+    title.dataset.conform = "noOk";
+    initialDate.dataset.conform = "noOk";
+    finalDate.dataset.conform = "ok";
+    reminderTime.dataset.conform = "ok";
+    description.dataset.conform = "ok";
+    typeSelect.dataset.conform = "noOk";
 }
-export function initialStateInputsToModify () {
+export function initialStateInputsToModify() {
     const title = document.querySelector("#taskTitle") as HTMLInputElement | null;
     const initialDate = document.querySelector("#taskDateIniInput") as HTMLInputElement | null;
     const finalDate = document.querySelector("#taskDateEndInput") as HTMLInputElement | null;
@@ -398,8 +411,8 @@ export function initialStateInputsToModify () {
         reminderTime === null ||
         description === null ||
         typeSelect === null) {
-            return;
-        }
+        return;
+    }
     title.disabled = false;
     initialDate.disabled = false;
     finalDate.disabled = false;
@@ -415,8 +428,8 @@ export function initialStateInputsToModify () {
     typeSelect.dataset.conform = "ok";
 }
 
-export function deleteTask (this: HTMLElement) {
-    console.log (this.getAttribute("taskId"))
+export function deleteTask(this: HTMLElement) {
+    console.log(this.getAttribute("taskId"))
     const currentTaskStringId = this.getAttribute("taskId");
     if (currentTaskStringId === null) return;
     const currentTaskId = parseInt(currentTaskStringId);
@@ -424,11 +437,11 @@ export function deleteTask (this: HTMLElement) {
     if (storage === null) return;
 
     const taskList: Task[] = JSON.parse(storage);
-    const newTaskList: Task[] = taskList.filter (task => task.id !== currentTaskId);
-    console.log (taskList);
-    console.log (newTaskList);
+    const newTaskList: Task[] = taskList.filter(task => task.id !== currentTaskId);
+    console.log(taskList);
+    console.log(newTaskList);
 
-    localStorage.setItem ("events", JSON.stringify(newTaskList));
+    localStorage.setItem("events", JSON.stringify(newTaskList));
 
 }
 

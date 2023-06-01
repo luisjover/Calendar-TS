@@ -33,7 +33,6 @@
 
 .week-btn:hover {
     background-color: rgb(208, 167, 225);
-    color: whitesmoke;
 
 }
 
@@ -97,4 +96,45 @@
 
 .day-container {
     margin-top: 5px;
+}
+
+
+@media (max-width: 1450px) {
+
+    .header-month {
+        padding-left: 8px !important;
+        padding-right: 8px !important;
+    }
+
+    .day-container {
+        font-size: 12px;
+    }
+
+    .logo {
+        margin-left: 15px;
+    }
+
+    .main-title {
+        margin-left: 0;
+    }
+}
+
+@media (max-width: 450px) {
+
+    .card {
+        display: none;
+    }
+
+    .logo {
+        display: none;
+    }
+
+    .main-title {
+        display: none;
+    }
+
+    .week-btn:hover {
+        background-color: transparent
+    }
+
 }

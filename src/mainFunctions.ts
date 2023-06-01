@@ -1,5 +1,5 @@
 import { Task } from "./types.js";
-import { changeWeek, setTodayWeekMonthly, prevFunction, nextFunction, showWeek, checkTimeAlert, cleanElement, editTask, resetModalButtons, calculDate } from "./supportFunctions.js";
+import { changeWeek, setTodayWeekMonthly, prevFunction, nextFunction, showWeek, checkTimeAlert, cleanElement, editTask, resetModalButtons, calculDate, searchProxTasks } from "./supportFunctions.js";
 import { timeLine } from "./timeLine.js";
 import { checkTaskContainerOverlap } from "./events.js";
 
@@ -148,8 +148,9 @@ export function setWeekCalendar(date: Date = new Date()) {
     emptySpace.classList.add("empty-space");
 
     const localTimeContainer = document.createElement("div");
+    localTimeContainer.id = "local-time-container";
     localTimeContainer.classList.add("local-time-container");
-    
+
 
     const btnModal = document.createElement("button");
     btnModal.type = "button";
@@ -202,6 +203,9 @@ export function setWeekCalendar(date: Date = new Date()) {
         firstWeekDay = new Date(today.getTime() - timeToFirstDay);
     }
 
+    const divForResponsive = document.createElement("div");
+    divForResponsive.classList.add("div-responsive-weekDays");
+    weekHeader?.appendChild(divForResponsive);
 
     for (let i = 0; i < 7; i++) {
         let currentWeekDay;
@@ -233,14 +237,15 @@ export function setWeekCalendar(date: Date = new Date()) {
             taskContainer?.removeAttribute("currentDay");
         }
 
-        weekHeader?.appendChild(dayContainer);
         dayContainer.appendChild(dayNumber);
+        divForResponsive.appendChild(dayContainer);
     }
 
     setEvents(firstWeekDay);
     timeLine();
     btnToday?.addEventListener("click", setTodayWeekMonthly);
     checkTaskContainerOverlap();
+    searchProxTasks();
 }
 
 

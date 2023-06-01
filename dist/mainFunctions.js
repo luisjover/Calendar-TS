@@ -1,5 +1,5 @@
 import { Task } from "./types.js";
-import { changeWeek, setTodayWeekMonthly, prevFunction, nextFunction, showWeek, checkTimeAlert, cleanElement, editTask, resetModalButtons, calculDate } from "./supportFunctions.js";
+import { changeWeek, setTodayWeekMonthly, prevFunction, nextFunction, showWeek, checkTimeAlert, cleanElement, editTask, resetModalButtons, calculDate, searchProxTasks } from "./supportFunctions.js";
 import { timeLine } from "./timeLine.js";
 import { checkTaskContainerOverlap } from "./events.js";
 export function showmonthlyCalendar(refIncomingDate = new Date()) {
@@ -109,6 +109,7 @@ export function setWeekCalendar(date = new Date()) {
     const emptySpace = document.createElement("div");
     emptySpace.classList.add("empty-space");
     const localTimeContainer = document.createElement("div");
+    localTimeContainer.id = "local-time-container";
     localTimeContainer.classList.add("local-time-container");
     const btnModal = document.createElement("button");
     btnModal.type = "button";
@@ -152,6 +153,9 @@ export function setWeekCalendar(date = new Date()) {
         let timeToFirstDay = (todayWeekDay - 1) * 24 * 60 * 60000;
         firstWeekDay = new Date(today.getTime() - timeToFirstDay);
     }
+    const divForResponsive = document.createElement("div");
+    divForResponsive.classList.add("div-responsive-weekDays");
+    weekHeader === null || weekHeader === void 0 ? void 0 : weekHeader.appendChild(divForResponsive);
     for (let i = 0; i < 7; i++) {
         let currentWeekDay;
         if (i == 0) {
@@ -179,13 +183,14 @@ export function setWeekCalendar(date = new Date()) {
             dayNumber.classList.remove("currentDay");
             taskContainer === null || taskContainer === void 0 ? void 0 : taskContainer.removeAttribute("currentDay");
         }
-        weekHeader === null || weekHeader === void 0 ? void 0 : weekHeader.appendChild(dayContainer);
         dayContainer.appendChild(dayNumber);
+        divForResponsive.appendChild(dayContainer);
     }
     setEvents(firstWeekDay);
     timeLine();
     btnToday === null || btnToday === void 0 ? void 0 : btnToday.addEventListener("click", setTodayWeekMonthly);
     checkTaskContainerOverlap();
+    searchProxTasks();
 }
 function setEvents(firstWeekDay) {
     const weekDaysList = document.querySelectorAll(".day-task-section");
