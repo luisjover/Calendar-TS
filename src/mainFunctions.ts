@@ -1,18 +1,18 @@
 import { Task } from "./types.js";
 import { changeWeek, setTodayWeekMonthly, prevFunction, nextFunction, showWeek, checkTimeAlert, cleanElement, editTask, resetModalButtons, calculDate, searchProxTasks, setLocalTime } from "./supportFunctions.js";
 import { timeLine } from "./timeLine.js";
-import { checkTaskContainerOverlap } from "./events.js";
+import { checkTaskContainerOverlap } from "./overlap.js";
+
 
 export function showmonthlyCalendar(refIncomingDate: Date = new Date()) {
 
     const asideCalendarMonth = document.querySelector("#sidebar") as HTMLElement | null;
     const calendarMonthContainer = document.createElement("div");
-    calendarMonthContainer.classList.add("container-month", "d-flex", "flex-column"); //añado clase d-flex a container-month para poder tener control de sus elementos hijos
+    calendarMonthContainer.classList.add("container-month", "d-flex", "flex-column");
 
     const headerCalendarContainer = document.createElement("div");
-    headerCalendarContainer.classList.add("header-month", "px-4", "d-flex", "justify-content-between"); //lo pongo todo en una línea
-    // headerCalendarContainer.style.flex;
-    // headerCalendarContainer.style.justifyContent = "space-between";
+    headerCalendarContainer.classList.add("header-month", "px-4", "d-flex", "justify-content-between");
+
 
     const btnPrevMonth = document.createElement("button");
     btnPrevMonth.classList.add("btn-prev");
@@ -28,23 +28,17 @@ export function showmonthlyCalendar(refIncomingDate: Date = new Date()) {
 
     const titleMonth = document.createElement("h4");
 
-    // const dayNamesWeek = document.createElement("div"); // No se utiliza
-    // const weekDaysCalendarContainer = document.createElement("div"); // No se utiliza
     const listDays = document.createElement("ol");
 
-
-    // let firstDayMonth = new Date(refIncomingDate.getTime() - ((refIncomingDate.getDate() - 1) * 24 * 60 * 60000));
     let firstDayMonth = new Date(refIncomingDate.getFullYear(), refIncomingDate.getMonth(), 1); //
     let currentDate = firstDayMonth;
 
 
-    // const refDay = firstDayMonth.getDate(); //No se utiliza
     const currentWeekDay = firstDayMonth.getDay();
     const currentMonth = firstDayMonth.getMonth();
-    // const refYear = firstDayMonth.getFullYear(); // No se utiliza
 
     if (asideCalendarMonth) {
-        // asideCalendarMonth.innerHTML = ''; // Se utiliza función genérica
+
         cleanElement(asideCalendarMonth);
     }
 
@@ -111,15 +105,10 @@ export function showmonthlyCalendar(refIncomingDate: Date = new Date()) {
 
         date.addEventListener("click", showWeek)
 
-
-
         headerCalendarContainer.appendChild(btnPrevMonth);
         headerCalendarContainer.appendChild(titleMonth);
         headerCalendarContainer.appendChild(btnNextMonth);
         calendarMonthContainer.appendChild(headerCalendarContainer);
-        // calendarMonthContainer.appendChild(dayNamesWeek); // No se utiliza
-        // weekDaysCalendarContainer.appendChild(listDays); // No se utiliza
-        // calendarMonthContainer.appendChild(weekDaysCalendarContainer); // No se utiliza
         calendarMonthContainer.appendChild(listDays);
         asideCalendarMonth?.appendChild(calendarMonthContainer);
 
@@ -129,30 +118,27 @@ export function showmonthlyCalendar(refIncomingDate: Date = new Date()) {
 }
 
 
-
 export function setWeekCalendar(date: Date = new Date()) {
     resetModalButtons();
 
-
+    //SCROLL CONTROL
     const weekContainer = document.querySelector("#week-container");
     weekContainer?.scrollTo({ top: 600, behavior: 'smooth' })
     // BUTTONS
     const btnPrevWeek = document.querySelector("#prev-week") as HTMLButtonElement | null;
     if (btnPrevWeek === null) return;
-    // btnPrevWeek.textContent = "<";
     btnPrevWeek.addEventListener("click", changeWeek)
     const btnNextWeek = document.querySelector("#next-week") as HTMLButtonElement | null;
     if (btnNextWeek === null) return;
-    // btnNextWeek.textContent = ">";
     btnNextWeek.addEventListener("click", changeWeek);
     const emptySpace = document.createElement("div");
     emptySpace.classList.add("empty-space");
-
+    //LOCAL TIME CONTAINER
     const localTimeContainer = document.createElement("div");
     localTimeContainer.id = "local-time-container";
     localTimeContainer.classList.add("local-time-container");
 
-
+    //MODA BUTTON
     const btnModal = document.createElement("button");
     btnModal.type = "button";
     btnModal.classList.add("btn", "btn-primary", "empty-space__btn");
@@ -188,7 +174,7 @@ export function setWeekCalendar(date: Date = new Date()) {
     const monthName = months[currentMonth];
     const currentMonthYear = document.createElement("h2");
     currentMonthYear.textContent = `${monthName} ${today?.getFullYear()}`;
-    // currentMonthYear.classList.add("currentMonthYear");
+    //CALL TO MONTH CALENDAR FUNCTION
     showmonthlyCalendar(today);
 
 
@@ -203,7 +189,7 @@ export function setWeekCalendar(date: Date = new Date()) {
         let timeToFirstDay = (todayWeekDay - 1) * 24 * 60 * 60000;
         firstWeekDay = new Date(today.getTime() - timeToFirstDay);
     }
-
+    //CREATE SPECIAL DIV FOR RESPONSIVE DESPLAY
     const divForResponsive = document.createElement("div");
     divForResponsive.classList.add("div-responsive-weekDays");
     weekHeader?.appendChild(divForResponsive);
@@ -249,98 +235,6 @@ export function setWeekCalendar(date: Date = new Date()) {
     searchProxTasks();
     setLocalTime();
 }
-
-
-
-
-
-function setEvents(firstWeekDay: Date) {
-    const weekDaysList = document.querySelectorAll(".day-task-section");
-    weekDaysList.forEach(section => section.replaceChildren());
-    let tasks;
-    const storage = localStorage.getItem("events");
-
-    if (storage === null) return;
-    tasks = JSON.parse(storage);
-
-
-    let currentDayFullDate = firstWeekDay.getTime();
-
-
-
-    let i = 0;
-    while (i < 7) {
-        const currentDayDate = new Date(currentDayFullDate).getDate();
-        const currentDayMonth = new Date(currentDayFullDate).getMonth();
-        const currentDayYear = new Date(currentDayFullDate).getFullYear();
-
-        tasks.forEach((task: Task) => {
-            const taskFullDate = new Date(task.initialDate);
-            const taskDate = taskFullDate.getDate();
-            const taskMonth = taskFullDate.getMonth();
-            const taskYear = taskFullDate.getFullYear();
-
-            if (currentDayDate === taskDate &&
-                currentDayMonth === taskMonth &&
-                currentDayYear === taskYear) {
-                printTasks(task);
-            }
-        })
-        currentDayFullDate = (currentDayFullDate + 24 * 60 * 60000);
-        i++;
-    }
-
-}
-
-
-
-function printTasks(task: Task) {
-
-    const initialDate = new Date(task.initialDate);
-    const weekDay = initialDate.getDay();
-    const initialHours = initialDate.getHours();
-    const initialAbsoluteMinutes = initialDate.getMinutes() / 60;
-    const decimalInitialTime = initialHours + initialAbsoluteMinutes;
-
-    const typeOfEvent = task.taskType;
-
-    const endDate = new Date(task.endDate);
-    const finallHours = endDate.getHours();
-    const finalAbsoluteMinutes = endDate.getMinutes() / 60;
-    const decimalFinalTime = finallHours + finalAbsoluteMinutes;
-    const durationTime = decimalFinalTime - decimalInitialTime;
-
-    const taskSection = document.querySelector(`#day-task-section-${weekDay}`);
-    const newTaskContainer = document.createElement("div");
-    newTaskContainer.addEventListener("click", editTask)
-    newTaskContainer.classList.add("task-container");
-    newTaskContainer.setAttribute("role", "button");
-    newTaskContainer.setAttribute("taskId", task.id.toString());
-    newTaskContainer.innerText = task.title;
-    newTaskContainer.style.top = `${decimalInitialTime * 6}rem`;
-    newTaskContainer.style.height = `${durationTime * 6}rem`;
-    newTaskContainer.style.width = "80%";
-
-    switch (typeOfEvent) {
-        case "task":
-            break;
-        case "event":
-            newTaskContainer.classList.add("task-green");
-            break;
-        case "meeting":
-            newTaskContainer.classList.add("task-blue");
-            break;
-        case "study":
-            newTaskContainer.classList.add("task-red");
-            break;
-        case "other":
-            newTaskContainer.classList.add("task-orange");
-            break;
-    }
-
-    taskSection?.appendChild(newTaskContainer);
-}
-
 
 
 export function createTask() {
@@ -409,3 +303,87 @@ export function createTask() {
 
 }
 
+
+
+function setEvents(firstWeekDay: Date) {
+    const weekDaysList = document.querySelectorAll(".day-task-section");
+    weekDaysList.forEach(section => section.replaceChildren());
+    let tasks;
+    const storage = localStorage.getItem("events");
+
+    if (storage === null) return;
+    tasks = JSON.parse(storage);
+
+    let currentDayFullDate = firstWeekDay.getTime();
+
+    let i = 0;
+    while (i < 7) {
+        const currentDayDate = new Date(currentDayFullDate).getDate();
+        const currentDayMonth = new Date(currentDayFullDate).getMonth();
+        const currentDayYear = new Date(currentDayFullDate).getFullYear();
+
+        tasks.forEach((task: Task) => {
+            const taskFullDate = new Date(task.initialDate);
+            const taskDate = taskFullDate.getDate();
+            const taskMonth = taskFullDate.getMonth();
+            const taskYear = taskFullDate.getFullYear();
+
+            if (currentDayDate === taskDate &&
+                currentDayMonth === taskMonth &&
+                currentDayYear === taskYear) {
+                printTasks(task);
+            }
+        })
+        currentDayFullDate = (currentDayFullDate + 24 * 60 * 60000);
+        i++;
+    }
+}
+
+
+
+function printTasks(task: Task) {
+
+    const initialDate = new Date(task.initialDate);
+    const weekDay = initialDate.getDay();
+    const initialHours = initialDate.getHours();
+    const initialAbsoluteMinutes = initialDate.getMinutes() / 60;
+    const decimalInitialTime = initialHours + initialAbsoluteMinutes;
+
+    const typeOfEvent = task.taskType;
+
+    const endDate = new Date(task.endDate);
+    const finallHours = endDate.getHours();
+    const finalAbsoluteMinutes = endDate.getMinutes() / 60;
+    const decimalFinalTime = finallHours + finalAbsoluteMinutes;
+    const durationTime = decimalFinalTime - decimalInitialTime;
+
+    const taskSection = document.querySelector(`#day-task-section-${weekDay}`);
+    const newTaskContainer = document.createElement("div");
+    newTaskContainer.addEventListener("click", editTask)
+    newTaskContainer.classList.add("task-container");
+    newTaskContainer.setAttribute("role", "button");
+    newTaskContainer.setAttribute("taskId", task.id.toString());
+    newTaskContainer.innerText = task.title;
+    newTaskContainer.style.top = `${decimalInitialTime * 6}rem`;
+    newTaskContainer.style.height = `${durationTime * 6}rem`;
+    newTaskContainer.style.width = "80%";
+
+    switch (typeOfEvent) {
+        case "task":
+            break;
+        case "event":
+            newTaskContainer.classList.add("task-green");
+            break;
+        case "meeting":
+            newTaskContainer.classList.add("task-blue");
+            break;
+        case "study":
+            newTaskContainer.classList.add("task-red");
+            break;
+        case "other":
+            newTaskContainer.classList.add("task-orange");
+            break;
+    }
+
+    taskSection?.appendChild(newTaskContainer);
+}

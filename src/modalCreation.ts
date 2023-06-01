@@ -1,6 +1,6 @@
 
-import { createTask, setWeekCalendar } from "./mainFunctions.js";
-import { classModalCleaner, classRemoverIcon, formCleaner, modifyTask, calculDate, initialStateInputsToCreate, resetModalButtons, searchProxTasks, deleteTask, checkTimeAlert } from "./supportFunctions.js";
+import { createTask, setWeekCalendar } from "./mainFunctions";
+import { classModalCleaner, classRemoverIcon, formCleaner, modifyTask, calculDate, initialStateInputsToCreate, resetModalButtons, searchProxTasks, deleteTask, checkTimeAlert } from "./supportFunctions";
 import { ArrayModalComponents } from "./types";
 
 
@@ -128,7 +128,7 @@ export function openModalCreateTask() {
     taskDateIniInput.type = "datetime-local";
     let minIni = new Date();
     let minIso = calculDate(minIni)
-    taskDateIniInput.min = minIso.slice (0, -8);
+    taskDateIniInput.min = minIso.slice(0, -8);
     taskDateIniInput.setAttribute("step", "360");
     taskDateIniInput.classList.add("form-control");
     taskDateIniInput.id = "taskDateIniInput";
@@ -380,7 +380,7 @@ export function openModalCreateTask() {
         if (checkDateEnd.checked == true) {
             let minIni = new Date(taskDateIniInput.value);
             let minIso = calculDate(minIni)
-            taskDateEndInput.min = minIso.slice (0, -8);
+            taskDateEndInput.min = minIso.slice(0, -8);
             taskDateEndInput.disabled = false;
         } else {
             taskDateEndInput.disabled = true;
@@ -455,7 +455,7 @@ export function openModalCreateTask() {
         if (taskDateIniInput.dataset.conform == "ok") {
             let minIni = new Date(taskDateIniInput.value);
             let minIso = calculDate(minIni)
-            taskDateEndInput.min = minIso.slice (0, -8);
+            taskDateEndInput.min = minIso.slice(0, -8);
             taskDateEndInput.max = `${taskDateEndInput.min.slice(0, -5)}23:59`;
             selectReminder.innerHTML = "";
             selectReminderOptions = [
@@ -572,28 +572,28 @@ export function openModalCreateTask() {
     btnCloseX.addEventListener("click", () => {
         classModalCleaner();
         formCleaner();
-        initialStateInputsToCreate ();
-        resetModalButtons ();
+        initialStateInputsToCreate();
+        resetModalButtons();
     });
     btnClose.addEventListener("click", () => {
         classModalCleaner();
         formCleaner();
-        initialStateInputsToCreate ();
-        resetModalButtons ();
+        initialStateInputsToCreate();
+        resetModalButtons();
     });
     btnCreate.addEventListener("click", () => {
-        createTask ();
+        createTask();
         formCleaner();
         classModalCleaner();
-        initialStateInputsToCreate ();
+        initialStateInputsToCreate();
         searchProxTasks();
         btnCreate.disabled = true;
     });
-    btnDelete.addEventListener ("click", deleteTask);
+    btnDelete.addEventListener("click", deleteTask);
     btnDelete.addEventListener("click", () => {
         formCleaner();
         classModalCleaner();
-        initialStateInputsToCreate ();
+        initialStateInputsToCreate();
         checkTimeAlert();
         setWeekCalendar();
         resetModalButtons();
@@ -629,43 +629,3 @@ export function openModalCreateTask() {
         }
     });
 }
-
-
-//Header
-const header = document.querySelector("#header") as HTMLElement;
-const title = document.createElement("h1");
-title.textContent = "Calendar";
-
-// const btnTask=document.createElement("button");
-// btnTask.setAttribute("class","btn-task")
-// btnTask.textContent="New Task";
-
-// header.appendChild(title);
-// header.appendChild(btnTask);
-
-// //Create days of the weeek
-// const main=document.querySelector("#main") as HTMLElement;
-// // sidebar
-// const sidebar=document.createElement("aside");
-// sidebar.setAttribute("class","sidebar");
-// sidebar.setAttribute("id","sidebar");
-// sidebar.textContent="Aqui va el calendario";
-// //Week info
-// const weekContainer=document.createElement("div");
-// weekContainer.setAttribute("class","week-container");
-// weekContainer.setAttribute("id","week-container");
-// //Hours of the day
-// const hoursContainer=document.createElement("div");
-// hoursContainer.setAttribute("class","hours-section");
-// weekContainer.appendChild(hoursContainer);
-// //Days of the week
-// let weekDays:string[]=["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
-// for(let i=0 ;i<weekDays.length;i++){
-//     const dayContainer=document.createElement("div");
-//     dayContainer.setAttribute("class",`day-section-${i+1}`);
-//     dayContainer.textContent=weekDays[i];
-//     weekContainer.appendChild(dayContainer);
-// }
-
-// main.appendChild(sidebar);
-// main.appendChild(weekContainer);

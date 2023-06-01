@@ -1,12 +1,14 @@
 import { setNewEventsStorage, searchProxTasks, setLocalTime } from "./supportFunctions.js";
 import { showmonthlyCalendar, setWeekCalendar } from "./mainFunctions.js";
-import { openModalCreateTask } from "./DOMmanagement.js";
+import { openModalCreateTask } from "./modalCreation.js";
+import { setDom } from "./initial.js";
 
 
 window.addEventListener("load", setMain);
 
 function setMain() {
 
+    //setDom();
     setWeekCalendar();
     showmonthlyCalendar();
     setNewEventsStorage()

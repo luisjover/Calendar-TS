@@ -58,8 +58,6 @@ export function showWeek(this: HTMLElement) {
 export function searchProxTasks() {
     const sidebar = document.querySelector("#sidebar");
 
-
-
     let events: any;
     const storage = localStorage.getItem("events");
     if (storage === null) return;
@@ -151,7 +149,6 @@ function printReminder(task: Task) {
         remindersContainer?.replaceChildren();
     }, 15000);
 }
-
 
 //FORM SUPPORT FUNCTIONS
 
@@ -403,6 +400,7 @@ export function initialStateInputsToCreate() {
     description.dataset.conform = "ok";
     typeSelect.dataset.conform = "noOk";
 }
+
 export function initialStateInputsToModify() {
     const title = document.querySelector("#taskTitle") as HTMLInputElement | null;
     const initialDate = document.querySelector("#taskDateIniInput") as HTMLInputElement | null;
@@ -449,4 +447,3 @@ export function deleteTask(this: HTMLElement) {
     localStorage.setItem("events", JSON.stringify(newTaskList));
 
 }
-

@@ -1,7 +1,7 @@
 import { Task } from "./types.js";
 import { changeWeek, setTodayWeekMonthly, prevFunction, nextFunction, showWeek, checkTimeAlert, cleanElement, editTask, resetModalButtons, calculDate, searchProxTasks, setLocalTime } from "./supportFunctions.js";
 import { timeLine } from "./timeLine.js";
-import { checkTaskContainerOverlap } from "./events.js";
+import { checkTaskContainerOverlap } from "./overlap.js";
 export function showmonthlyCalendar(refIncomingDate = new Date()) {
     const asideCalendarMonth = document.querySelector("#sidebar");
     const calendarMonthContainer = document.createElement("div");
@@ -193,6 +193,69 @@ export function setWeekCalendar(date = new Date()) {
     searchProxTasks();
     setLocalTime();
 }
+export function createTask() {
+    let events;
+    const storage = localStorage.getItem("events");
+    if (storage === null)
+        return;
+    events = JSON.parse(storage);
+    let taskId;
+    if (events.length > 0) {
+        let longEvents = events.length - 1;
+        taskId = events[longEvents].id + 1;
+    }
+    else
+        taskId = 0;
+    const taskTitleElement = document.querySelector("#taskTitle");
+    const initialDateElement = document.querySelector("#taskDateIniInput");
+    const checkFinalDateElement = document.querySelector("#checkDateEnd");
+    const finalDateElement = document.querySelector("#taskDateEndInput");
+    const reminderCheckElement = document.querySelector("#reminderCheck");
+    const reminderTimeSelectElement = document.querySelector("#reminderSelect");
+    const taskDescriptionElement = document.querySelector("#taskDescriptionArea");
+    const taskTypeSelectElement = document.querySelector("#taskTypeSelect");
+    if ((taskTitleElement === null || taskTitleElement === void 0 ? void 0 : taskTitleElement.value) === null || (taskTitleElement === null || taskTitleElement === void 0 ? void 0 : taskTitleElement.value) === undefined)
+        return;
+    const taskTitle = taskTitleElement === null || taskTitleElement === void 0 ? void 0 : taskTitleElement.value;
+    if ((initialDateElement === null || initialDateElement === void 0 ? void 0 : initialDateElement.value) === null || (initialDateElement === null || initialDateElement === void 0 ? void 0 : initialDateElement.value) === undefined)
+        return;
+    const initialDate = initialDateElement === null || initialDateElement === void 0 ? void 0 : initialDateElement.value;
+    if ((checkFinalDateElement === null || checkFinalDateElement === void 0 ? void 0 : checkFinalDateElement.value) === null || (checkFinalDateElement === null || checkFinalDateElement === void 0 ? void 0 : checkFinalDateElement.value) === undefined)
+        return;
+    const checkFinalDate = checkFinalDateElement === null || checkFinalDateElement === void 0 ? void 0 : checkFinalDateElement.value;
+    if ((finalDateElement === null || finalDateElement === void 0 ? void 0 : finalDateElement.value) === null || (finalDateElement === null || finalDateElement === void 0 ? void 0 : finalDateElement.value) === undefined)
+        return;
+    let finalDate = finalDateElement === null || finalDateElement === void 0 ? void 0 : finalDateElement.value;
+    if (finalDateElement.value == "") {
+        const initialDateInDate = new Date(initialDate);
+        const finalDateInTime = new Date(initialDate).getTime() + (60 * 60000);
+        const finalDateHelper1 = new Date(finalDateInTime);
+        if (initialDateInDate.getDate() !== finalDateHelper1.getDate()) {
+            finalDate = `${initialDateElement.value.slice(0, -5)}23:59`;
+        }
+        else {
+            const finalDateHelper2 = calculDate(finalDateHelper1);
+            finalDate = finalDateHelper2.slice(0, -8);
+        }
+    }
+    else {
+        finalDate = finalDateElement === null || finalDateElement === void 0 ? void 0 : finalDateElement.value;
+    }
+    if ((reminderTimeSelectElement === null || reminderTimeSelectElement === void 0 ? void 0 : reminderTimeSelectElement.value) === null || (reminderTimeSelectElement === null || reminderTimeSelectElement === void 0 ? void 0 : reminderTimeSelectElement.value) === undefined)
+        return;
+    const reminderTimeSelect = new Date(initialDate).getTime() - parseInt(reminderTimeSelectElement === null || reminderTimeSelectElement === void 0 ? void 0 : reminderTimeSelectElement.value) * 60 * 1000;
+    if ((taskDescriptionElement === null || taskDescriptionElement === void 0 ? void 0 : taskDescriptionElement.value) === null || (taskDescriptionElement === null || taskDescriptionElement === void 0 ? void 0 : taskDescriptionElement.value) === undefined)
+        return;
+    const taskDescription = taskDescriptionElement === null || taskDescriptionElement === void 0 ? void 0 : taskDescriptionElement.value;
+    if ((taskTypeSelectElement === null || taskTypeSelectElement === void 0 ? void 0 : taskTypeSelectElement.value) === null || (taskTypeSelectElement === null || taskTypeSelectElement === void 0 ? void 0 : taskTypeSelectElement.value) === undefined)
+        return;
+    const taskType = taskTypeSelectElement === null || taskTypeSelectElement === void 0 ? void 0 : taskTypeSelectElement.value;
+    const objeto = new Task(taskId, taskTitle, initialDate, finalDate, reminderTimeSelect, taskDescription, taskType);
+    events === null || events === void 0 ? void 0 : events.push(objeto);
+    localStorage.setItem("events", JSON.stringify(events));
+    checkTimeAlert();
+    setWeekCalendar(new Date(initialDate));
+}
 function setEvents(firstWeekDay) {
     const weekDaysList = document.querySelectorAll(".day-task-section");
     weekDaysList.forEach(section => section.replaceChildren());
@@ -261,68 +324,5 @@ function printTasks(task) {
             break;
     }
     taskSection === null || taskSection === void 0 ? void 0 : taskSection.appendChild(newTaskContainer);
-}
-export function createTask() {
-    let events;
-    const storage = localStorage.getItem("events");
-    if (storage === null)
-        return;
-    events = JSON.parse(storage);
-    let taskId;
-    if (events.length > 0) {
-        let longEvents = events.length - 1;
-        taskId = events[longEvents].id + 1;
-    }
-    else
-        taskId = 0;
-    const taskTitleElement = document.querySelector("#taskTitle");
-    const initialDateElement = document.querySelector("#taskDateIniInput");
-    const checkFinalDateElement = document.querySelector("#checkDateEnd");
-    const finalDateElement = document.querySelector("#taskDateEndInput");
-    const reminderCheckElement = document.querySelector("#reminderCheck");
-    const reminderTimeSelectElement = document.querySelector("#reminderSelect");
-    const taskDescriptionElement = document.querySelector("#taskDescriptionArea");
-    const taskTypeSelectElement = document.querySelector("#taskTypeSelect");
-    if ((taskTitleElement === null || taskTitleElement === void 0 ? void 0 : taskTitleElement.value) === null || (taskTitleElement === null || taskTitleElement === void 0 ? void 0 : taskTitleElement.value) === undefined)
-        return;
-    const taskTitle = taskTitleElement === null || taskTitleElement === void 0 ? void 0 : taskTitleElement.value;
-    if ((initialDateElement === null || initialDateElement === void 0 ? void 0 : initialDateElement.value) === null || (initialDateElement === null || initialDateElement === void 0 ? void 0 : initialDateElement.value) === undefined)
-        return;
-    const initialDate = initialDateElement === null || initialDateElement === void 0 ? void 0 : initialDateElement.value;
-    if ((checkFinalDateElement === null || checkFinalDateElement === void 0 ? void 0 : checkFinalDateElement.value) === null || (checkFinalDateElement === null || checkFinalDateElement === void 0 ? void 0 : checkFinalDateElement.value) === undefined)
-        return;
-    const checkFinalDate = checkFinalDateElement === null || checkFinalDateElement === void 0 ? void 0 : checkFinalDateElement.value;
-    if ((finalDateElement === null || finalDateElement === void 0 ? void 0 : finalDateElement.value) === null || (finalDateElement === null || finalDateElement === void 0 ? void 0 : finalDateElement.value) === undefined)
-        return;
-    let finalDate = finalDateElement === null || finalDateElement === void 0 ? void 0 : finalDateElement.value;
-    if (finalDateElement.value == "") {
-        const initialDateInDate = new Date(initialDate);
-        const finalDateInTime = new Date(initialDate).getTime() + (60 * 60000);
-        const finalDateHelper1 = new Date(finalDateInTime);
-        if (initialDateInDate.getDate() !== finalDateHelper1.getDate()) {
-            finalDate = `${initialDateElement.value.slice(0, -5)}23:59`;
-        }
-        else {
-            const finalDateHelper2 = calculDate(finalDateHelper1);
-            finalDate = finalDateHelper2.slice(0, -8);
-        }
-    }
-    else {
-        finalDate = finalDateElement === null || finalDateElement === void 0 ? void 0 : finalDateElement.value;
-    }
-    if ((reminderTimeSelectElement === null || reminderTimeSelectElement === void 0 ? void 0 : reminderTimeSelectElement.value) === null || (reminderTimeSelectElement === null || reminderTimeSelectElement === void 0 ? void 0 : reminderTimeSelectElement.value) === undefined)
-        return;
-    const reminderTimeSelect = new Date(initialDate).getTime() - parseInt(reminderTimeSelectElement === null || reminderTimeSelectElement === void 0 ? void 0 : reminderTimeSelectElement.value) * 60 * 1000;
-    if ((taskDescriptionElement === null || taskDescriptionElement === void 0 ? void 0 : taskDescriptionElement.value) === null || (taskDescriptionElement === null || taskDescriptionElement === void 0 ? void 0 : taskDescriptionElement.value) === undefined)
-        return;
-    const taskDescription = taskDescriptionElement === null || taskDescriptionElement === void 0 ? void 0 : taskDescriptionElement.value;
-    if ((taskTypeSelectElement === null || taskTypeSelectElement === void 0 ? void 0 : taskTypeSelectElement.value) === null || (taskTypeSelectElement === null || taskTypeSelectElement === void 0 ? void 0 : taskTypeSelectElement.value) === undefined)
-        return;
-    const taskType = taskTypeSelectElement === null || taskTypeSelectElement === void 0 ? void 0 : taskTypeSelectElement.value;
-    const objeto = new Task(taskId, taskTitle, initialDate, finalDate, reminderTimeSelect, taskDescription, taskType);
-    events === null || events === void 0 ? void 0 : events.push(objeto);
-    localStorage.setItem("events", JSON.stringify(events));
-    checkTimeAlert();
-    setWeekCalendar(new Date(initialDate));
 }
 //# sourceMappingURL=mainFunctions.js.map
