@@ -46,15 +46,17 @@ export function showWeek() {
 }
 export function searchProxTasks() {
     const sidebar = document.querySelector("#sidebar");
-    sidebar === null || sidebar === void 0 ? void 0 : sidebar.replaceChildren();
-    showmonthlyCalendar();
     let events;
     const storage = localStorage.getItem("events");
     if (storage === null)
         return;
     events = JSON.parse(storage);
     const nearEvents = events.sort((x, y) => new Date(x.initialDate).getTime() - new Date(y.initialDate).getTime());
+    const toDelete = document.querySelector("#history-container");
+    if (toDelete !== null)
+        sidebar === null || sidebar === void 0 ? void 0 : sidebar.removeChild(toDelete);
     const taskGeneralAsideContainer = document.createElement("div");
+    taskGeneralAsideContainer.id = "history-container";
     taskGeneralAsideContainer.classList.add("taskAsideContainer");
     let counter;
     if (nearEvents.length > 8)

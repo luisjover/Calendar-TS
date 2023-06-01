@@ -1,5 +1,5 @@
 import { Task } from "./types.js";
-import { changeWeek, setTodayWeekMonthly, prevFunction, nextFunction, showWeek, checkTimeAlert, cleanElement, editTask, resetModalButtons, calculDate, searchProxTasks } from "./supportFunctions.js";
+import { changeWeek, setTodayWeekMonthly, prevFunction, nextFunction, showWeek, checkTimeAlert, cleanElement, editTask, resetModalButtons, calculDate, searchProxTasks, setLocalTime } from "./supportFunctions.js";
 import { timeLine } from "./timeLine.js";
 import { checkTaskContainerOverlap } from "./events.js";
 export function showmonthlyCalendar(refIncomingDate = new Date()) {
@@ -191,6 +191,7 @@ export function setWeekCalendar(date = new Date()) {
     btnToday === null || btnToday === void 0 ? void 0 : btnToday.addEventListener("click", setTodayWeekMonthly);
     checkTaskContainerOverlap();
     searchProxTasks();
+    setLocalTime();
 }
 function setEvents(firstWeekDay) {
     const weekDaysList = document.querySelectorAll(".day-task-section");

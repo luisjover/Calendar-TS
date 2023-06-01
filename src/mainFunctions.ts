@@ -1,5 +1,5 @@
 import { Task } from "./types.js";
-import { changeWeek, setTodayWeekMonthly, prevFunction, nextFunction, showWeek, checkTimeAlert, cleanElement, editTask, resetModalButtons, calculDate, searchProxTasks } from "./supportFunctions.js";
+import { changeWeek, setTodayWeekMonthly, prevFunction, nextFunction, showWeek, checkTimeAlert, cleanElement, editTask, resetModalButtons, calculDate, searchProxTasks, setLocalTime } from "./supportFunctions.js";
 import { timeLine } from "./timeLine.js";
 import { checkTaskContainerOverlap } from "./events.js";
 
@@ -133,6 +133,7 @@ export function showmonthlyCalendar(refIncomingDate: Date = new Date()) {
 export function setWeekCalendar(date: Date = new Date()) {
     resetModalButtons();
 
+
     const weekContainer = document.querySelector("#week-container");
     weekContainer?.scrollTo({ top: 600, behavior: 'smooth' })
     // BUTTONS
@@ -246,6 +247,7 @@ export function setWeekCalendar(date: Date = new Date()) {
     btnToday?.addEventListener("click", setTodayWeekMonthly);
     checkTaskContainerOverlap();
     searchProxTasks();
+    setLocalTime();
 }
 
 
