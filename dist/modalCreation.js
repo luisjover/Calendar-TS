@@ -1,5 +1,5 @@
-import { createTask, setWeekCalendar } from "./mainFunctions";
-import { classModalCleaner, classRemoverIcon, formCleaner, modifyTask, calculDate, initialStateInputsToCreate, resetModalButtons, searchProxTasks, deleteTask, checkTimeAlert } from "./supportFunctions";
+import { createTask, setWeekCalendar } from "./mainFunctions.js";
+import { classModalCleaner, classRemoverIcon, formCleaner, modifyTask, calculDate, initialStateInputsToCreate, resetModalButtons, searchProxTasks, deleteTask, checkTimeAlert } from "./supportFunctions.js";
 export function openModalCreateTask() {
     const containerModalTask = document.createElement("div");
     const modalDialog = document.createElement("div");
