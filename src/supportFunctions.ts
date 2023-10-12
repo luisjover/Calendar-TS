@@ -243,7 +243,8 @@ export function formCleaner() {
 
 export function editTask(this: HTMLElement) {
 
-    const containerModalTask = document.querySelector("#containerModalTask");
+    const modalTitle = document.querySelector(".modal-title") as HTMLHeadingElement | null;
+    const containerModalTask = document.querySelector("#containerModalTask") as HTMLElement | null;
     const title = document.querySelector("#taskTitle") as HTMLInputElement | null;
     const initialDate = document.querySelector("#taskDateIniInput") as HTMLInputElement | null;
     const finalDate = document.querySelector("#taskDateEndInput") as HTMLInputElement | null;
@@ -251,7 +252,8 @@ export function editTask(this: HTMLElement) {
     const description = document.querySelector("#taskDescriptionArea") as HTMLTextAreaElement | null;
     const typeSelect = document.querySelector("#taskTypeSelect") as HTMLSelectElement | null;
 
-    if (title === null ||
+    if (modalTitle === null ||
+        title === null ||
         initialDate === null ||
         finalDate === null ||
         reminderTime === null ||
@@ -259,6 +261,8 @@ export function editTask(this: HTMLElement) {
         typeSelect === null) {
         return;
     }
+
+    modalTitle.innerText = "Update Event"
 
     const taskId = this.getAttribute("taskId");
     if (taskId === null) return;
@@ -348,8 +352,6 @@ export function modifyTask(this: HTMLElement) {
     setWeekCalendar(new Date(initialDate.value));
     resetModalButtons();
     initialStateInputsToCreate();
-    //METER LOS CLEAR DEL FORMULARIO;
-    resetModalButtons();
     classModalCleaner();
     formCleaner();
     searchProxTasks();
@@ -364,13 +366,15 @@ export function calculDate(date: Date): string {
 }
 
 export function resetModalButtons() {
+    const modalTitle = document.querySelector(".modal-title") as HTMLHeadingElement | null;
     const btnCreate = document.querySelector("#form-create-btn") as HTMLButtonElement | null;
     const btnSave = document.querySelector("#form-save-btn") as HTMLButtonElement | null;
     const btnDelete = document.querySelector("#form-delete-btn") as HTMLButtonElement | null;
-    if (btnCreate === null || btnSave === null || btnDelete === null) return;
+    if (btnCreate === null || btnSave === null || btnDelete === null || modalTitle === null) return;
     btnCreate.style.display = "inline-block";
     btnSave.style.display = "none";
     btnDelete.style.display = "none";
+    modalTitle.innerText = "Save Event"
 }
 
 export function initialStateInputsToCreate() {

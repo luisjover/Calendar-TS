@@ -207,6 +207,7 @@ export function formCleaner() {
     checkReminder.checked = false;
 }
 export function editTask() {
+    const modalTitle = document.querySelector(".modal-title");
     const containerModalTask = document.querySelector("#containerModalTask");
     const title = document.querySelector("#taskTitle");
     const initialDate = document.querySelector("#taskDateIniInput");
@@ -214,7 +215,8 @@ export function editTask() {
     const reminderTime = document.querySelector("#reminderSelect");
     const description = document.querySelector("#taskDescriptionArea");
     const typeSelect = document.querySelector("#taskTypeSelect");
-    if (title === null ||
+    if (modalTitle === null ||
+        title === null ||
         initialDate === null ||
         finalDate === null ||
         reminderTime === null ||
@@ -222,6 +224,7 @@ export function editTask() {
         typeSelect === null) {
         return;
     }
+    modalTitle.innerText = "Update Event";
     const taskId = this.getAttribute("taskId");
     if (taskId === null)
         return;
@@ -303,7 +306,6 @@ export function modifyTask() {
     setWeekCalendar(new Date(initialDate.value));
     resetModalButtons();
     initialStateInputsToCreate();
-    resetModalButtons();
     classModalCleaner();
     formCleaner();
     searchProxTasks();
@@ -314,14 +316,16 @@ export function calculDate(date) {
     return localDate.toISOString();
 }
 export function resetModalButtons() {
+    const modalTitle = document.querySelector(".modal-title");
     const btnCreate = document.querySelector("#form-create-btn");
     const btnSave = document.querySelector("#form-save-btn");
     const btnDelete = document.querySelector("#form-delete-btn");
-    if (btnCreate === null || btnSave === null || btnDelete === null)
+    if (btnCreate === null || btnSave === null || btnDelete === null || modalTitle === null)
         return;
     btnCreate.style.display = "inline-block";
     btnSave.style.display = "none";
     btnDelete.style.display = "none";
+    modalTitle.innerText = "Save Event";
 }
 export function initialStateInputsToCreate() {
     const title = document.querySelector("#taskTitle");

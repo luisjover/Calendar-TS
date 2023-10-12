@@ -1,7 +1,7 @@
 
 import { createTask, setWeekCalendar } from "./mainFunctions.js";
 import { classModalCleaner, classRemoverIcon, formCleaner, modifyTask, calculDate, initialStateInputsToCreate, resetModalButtons, searchProxTasks, deleteTask, checkTimeAlert } from "./supportFunctions.js";
-import { ArrayModalComponents } from "./types";
+
 
 
 export function openModalCreateTask() {
@@ -83,8 +83,8 @@ export function openModalCreateTask() {
     modalHeader.id = "modalHeader";
     // formTitle
     modalTitle.classList.add("modal-title");
-    modalTitle.id = "modalTitle";//verification.igual no se utiliza
-    modalTitle.textContent = "Define event";//verification.Igual mejor otro contenido
+    modalTitle.id = "modalTitle";
+    modalTitle.textContent = "Save Event";
     // btnClose
     btnCloseX.type = "button";
     btnCloseX.classList.add("btn-close");
@@ -514,7 +514,7 @@ export function openModalCreateTask() {
         }
     });
     taskDateEndInput.addEventListener("input", () => {
-        if (new Date(taskDateEndInput.value) < new Date(taskDateIniInput.value)) { //Se podría eliminar. Está pillado con min en el input del formulario.
+        if (new Date(taskDateEndInput.value) < new Date(taskDateIniInput.value)) {
             taskDateEndInput.dataset.conform = "noOk";
             classRemoverIcon(taskDateEndIconCorrect, taskDateEndIconWrong);
             taskDateEndIconWrong.classList.add("form__choose--show");

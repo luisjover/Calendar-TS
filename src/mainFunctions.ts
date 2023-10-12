@@ -145,6 +145,7 @@ export function setWeekCalendar(date: Date = new Date()) {
     btnModal.setAttribute("data-bs-toggle", "modal");
     btnModal.setAttribute("data-bs-target", "#containerModalTask");
     btnModal.textContent = "Create task";
+    btnModal.addEventListener("click", resetModalButtons);
     const btnToday = document.createElement("button");
     btnToday.classList.add("btn", "btn-primary", "empty-space__btn");
     btnToday.id = "btnToday";

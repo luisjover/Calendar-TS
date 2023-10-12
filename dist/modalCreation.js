@@ -62,7 +62,7 @@ export function openModalCreateTask() {
     modalHeader.id = "modalHeader";
     modalTitle.classList.add("modal-title");
     modalTitle.id = "modalTitle";
-    modalTitle.textContent = "Define event";
+    modalTitle.textContent = "Save Event";
     btnCloseX.type = "button";
     btnCloseX.classList.add("btn-close");
     btnCloseX.setAttribute("data-bs-dismiss", "modal");
